@@ -4,6 +4,7 @@ import os
 import re
 import csv
 from typing import List, Tuple
+from abc import ABC, abstractmethod
 
 # Global variable for the directory path
 WIRENUMS_DIR = "data"
@@ -25,13 +26,94 @@ def is_valid_file_name(file_name) -> bool:
     return not any(char in file_name for char in invalid_characters)
 
 
-class WireManager:
-    def __init__(self, csv_file_name, output_dir) -> None:
+class WireManager(ABC):
+    def __init__(self, csv_file_name, output_dir):
         self.csv_file_name = csv_file_name
         self.output_dir = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), output_dir
         )
         self.wires = []
+
+    def is_duplicate_or_reverse(self, wire) -> bool:
+        reverse_wire = (wire[1], wire[0])
+        return wire in self.wires or reverse_wire in self.wires
+
+    @abstractmethod
+    def save_to_csv(self) -> None:
+        pass
+
+    @abstractmethod
+    def load_from_csv(self) -> None:
+        pass
+
+
+class GUIWireManager(WireManager):
+    def __init__(self, csv_file_name, output_dir):
+        super().__init__(csv_file_name, output_dir)
+
+    def add_wire(
+        self,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        dest_component: str,
+        dest_terminal_block: str,
+        dest_terminal: str,
+    ):
+        source_wire = f"{source_component}-{source_terminal_block}-{source_terminal}"
+        destination_wire = f"{dest_component}-{dest_terminal_block}-{dest_terminal}"
+        wire = (source_wire, destination_wire)
+        if not self.is_duplicate_or_reverse(wire):
+            self.wires.append(wire)
+        else:
+            print("Attempted to add duplicate or reverse wire.")
+
+    def save_to_csv(self) -> None:
+        file_name = f"{self.csv_file_name}.csv"
+        file_path = os.path.join(self.output_dir, file_name)
+
+        try:
+            os.makedirs(self.output_dir, exist_ok=True)
+
+            with open(file_path, "w", newline="") as csvfile:
+                csv_writer = csv.writer(csvfile)
+                for wire in self.wires:
+                    csv_writer.writerow(wire)
+            print(f"CSV file saved as {file_name}")
+        except FileNotFoundError:
+            print(f"Error: Directory '{self.output_dir}' not found.")
+        except PermissionError:
+            print(f"Error: Permission denied to write to '{file_path}'.")
+        except Exception as e:
+            print(f"Error saving CSV file: {e}")
+
+    def load_from_csv(self, selected_file: str) -> None:
+        file_path = os.path.join(self.output_dir, selected_file)
+        with open(file_path, "r", newline="") as csvfile:
+            csv_reader = csv.reader(csvfile)
+            for row in csv_reader:
+                self.wires.append(tuple(row))
+            print(
+                f"Loaded {len(self.wires)} existing wire connections from {file_path}"
+            )
+
+
+class ConsoleWireManager(WireManager):
+    def __init__(self, csv_file_name, output_dir) -> None:
+        super().__init__(csv_file_name, output_dir)
+
+    def add_wire(
+        self,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        destination_component: str,
+        destination_terminal_block: str,
+        destination_terminal: str,
+    ):
+        source_wire = f"{source_component}-{source_terminal_block}-{source_terminal}"
+        destination_wire = f"{destination_component}-{destination_terminal_block}-{destination_terminal}"
+        self.wires.append((source_wire, destination_wire))
 
     def is_duplicate_or_reverse(self, wire) -> bool:
         reverse_wire = (wire[1], wire[0])
