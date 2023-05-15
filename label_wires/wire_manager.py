@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import datetime
+import logging
 import os
 import re
 import csv
@@ -8,6 +9,9 @@ from abc import ABC, abstractmethod
 
 # Global variable for the directory path
 WIRENUMS_DIR = "data"
+
+# Basic configuration for the logging system
+logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 
 def is_valid_input(input_string) -> bool:
@@ -68,9 +72,11 @@ class GUIWireManager(WireManager):
         else:
             print("Attempted to add duplicate or reverse wire.")
 
+    def set_csv_file_name(self, csv_file_name):
+        self.csv_file_name = csv_file_name
+
     def save_to_csv(self) -> None:
-        file_name = f"{self.csv_file_name}.csv"
-        file_path = os.path.join(self.output_dir, file_name)
+        file_path = self.csv_file_name
 
         try:
             os.makedirs(self.output_dir, exist_ok=True)
@@ -79,7 +85,7 @@ class GUIWireManager(WireManager):
                 csv_writer = csv.writer(csvfile)
                 for wire in self.wires:
                     csv_writer.writerow(wire)
-            print(f"CSV file saved as {file_name}")
+            print(f"CSV file saved as {file_path}")
         except FileNotFoundError:
             print(f"Error: Directory '{self.output_dir}' not found.")
         except PermissionError:
@@ -88,7 +94,7 @@ class GUIWireManager(WireManager):
             print(f"Error saving CSV file: {e}")
 
     def load_from_csv(self, selected_file: str) -> None:
-        file_path = os.path.join(self.output_dir, selected_file)
+        file_path = selected_file
         with open(file_path, "r", newline="") as csvfile:
             csv_reader = csv.reader(csvfile)
             for row in csv_reader:

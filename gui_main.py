@@ -1,17 +1,19 @@
 #!/usr/bin/env python3
 # Workers of the world, Unite!
+import os
 import tkinter as tk
-from tkinter import filedialog, scrolledtext
+import tkinter.messagebox
+from tkinter import filedialog, scrolledtext, simpledialog
 from label_wires.wire_manager import GUIWireManager, WIRENUMS_DIR, is_valid_file_name
 
 
 class WireApp(tk.Tk):
-    def __init__(self):
+    def __init__(self, file_name: str):
         super().__init__()
 
         self.title("Wire Manager")
 
-        self.csv_file_name = tk.StringVar()
+        self.csv_file_name = tk.StringVar(value=file_name)
         self.filter_by = tk.StringVar()
         self.filter_value = tk.StringVar()
         self.wire_manager = GUIWireManager(self.csv_file_name.get(), WIRENUMS_DIR)
@@ -19,10 +21,13 @@ class WireApp(tk.Tk):
         self.source_component = tk.StringVar()
         self.source_terminal_block = tk.StringVar()
         self.source_terminal = tk.StringVar()
+        self.destination_increment_toggle = tk.BooleanVar()
 
         self.destination_component = tk.StringVar()
         self.destination_terminal_block = tk.StringVar()
         self.destination_terminal = tk.StringVar()
+        self.source_increment_toggle = tk.BooleanVar()
+        self.counter = 0
 
         self.label1 = tk.Label(self)
         self.label1.grid(row=0, column=0, padx=10, pady=10)
@@ -30,70 +35,84 @@ class WireApp(tk.Tk):
         self.create_widgets()
 
     def create_widgets(self):
-        # Saving the File
+        # Define labels
         self.label1 = tk.Label(self, textvariable=self.csv_file_name)
-        self.label1.grid(row=1, column=1, padx=10, pady=10)
+        self.component_label = tk.Label(self, text="Component")
+        self.terminal_block_label = tk.Label(self, text="Terminal Block")
+        self.terminal_label = tk.Label(self, text="Terminal")
+        self.file_name_field_label = tk.Label(self, text="Saving as:")
 
-        self.entry1 = tk.Entry(self, textvariable=self.csv_file_name)
-        self.entry1.grid(row=1, column=1, padx=10, pady=10)
-        self.entry1.bind("<Return>", lambda event: self.save_file())
-
-        # self.browse_button = tk.Button(self, text="Browse", command=self.browse)
-        # self.browse_button.grid(row=1, column=2, padx=10, pady=10)
-
-        self.save_button = tk.Button(self, text="Save File", command=self.save_file)
-        self.save_button.grid(row=1, column=2, columnspan=2, padx=10, pady=10)
-
-        self.source_component = tk.StringVar()
+        # Define Entry fields
+        self.file_name_field = tk.Entry(self, textvariable=self.csv_file_name)
         self.source_component_entry = tk.Entry(self, textvariable=self.source_component)
-        self.source_component_entry.grid(row=5, column=2, padx=10, pady=10)
-
-        self.source_terminal_block = tk.StringVar()
         self.source_terminal_block_entry = tk.Entry(
             self, textvariable=self.source_terminal_block
         )
-        self.source_terminal_block_entry.grid(row=5, column=3, padx=10, pady=10)
-
-        self.source_terminal = tk.StringVar()
         self.source_terminal_entry = tk.Entry(self, textvariable=self.source_terminal)
-        self.source_terminal_entry.grid(row=5, column=4, padx=10, pady=10)
 
-        self.destination_component = tk.StringVar()
         self.destination_component_entry = tk.Entry(
             self, textvariable=self.destination_component
         )
-        self.destination_component_entry.grid(row=6, column=2, padx=10, pady=10)
-
-        self.destination_terminal_block = tk.StringVar()
         self.destination_terminal_block_entry = tk.Entry(
             self, textvariable=self.destination_terminal_block
         )
-        self.destination_terminal_block_entry.grid(row=6, column=3, padx=10, pady=10)
-
-        self.destination_terminal = tk.StringVar()
         self.destination_terminal_entry = tk.Entry(
             self, textvariable=self.destination_terminal
         )
-        self.destination_terminal_entry.grid(row=6, column=4, padx=10, pady=10)
-        self.destination_terminal_entry.bind("<Return>", lambda event: self.add_wire())
 
-        self.add_wire_button = tk.Button(self, text="Add Wire", command=self.add_wire)
-        self.add_wire_button.grid(row=7, column=2, padx=10, pady=10)
-
+        # Define text area for wire numbers
         self.wire_list = scrolledtext.ScrolledText(self, width=30, height=15)
-        self.wire_list.grid(row=1, column=0, rowspan=6, padx=10, pady=10)
 
+        # Define buttons
+        self.save_button = tk.Button(self, text="Save File", command=self.save_file)
+        self.add_wire_button = tk.Button(self, text="Add Wire", command=self.add_wire)
         self.save_button = tk.Button(
             self,
-            text=f"Save File as {self.csv_file_name}",
+            text=f"Save File",
             command=self.wire_manager.save_to_csv,
         )
+
+        # Define bindings
+        self.destination_terminal_entry.bind("<Return>", lambda event: self.add_wire())
+        self.file_name_field.bind("<Return>", lambda event: self.save_file())
+
+        # Define Checkbuttons
+        self.source_increment_checkbutton = tk.Checkbutton(
+            self, text="Increment", variable=self.source_increment_toggle
+        )
+        self.destination_increment_checkbutton = tk.Checkbutton(
+            self, text="Increment", variable=self.destination_increment_toggle
+        )
+
+        # Arrange widgets in grid (left to right, top to bottom)
+        self.wire_list.grid(row=1, column=0, rowspan=6, padx=10, pady=10)
+        self.file_name_field_label.grid(row=1, column=1, padx=10, pady=10)
+        self.file_name_field.grid(row=1, column=2, padx=10, pady=10)
+
+        self.component_label.grid(row=3, column=2, padx=10, pady=10)
+        self.terminal_block_label.grid(row=3, column=3, padx=10, pady=10)
+        self.terminal_label.grid(row=3, column=4, padx=10, pady=10)
+
+        self.source_increment_checkbutton.grid(row=5, column=1, padx=10, pady=10)
+        self.source_component_entry.grid(row=5, column=2, padx=10, pady=10)
+        self.source_terminal_block_entry.grid(row=5, column=3, padx=10, pady=10)
+        self.source_terminal_entry.grid(row=5, column=4, padx=10, pady=10)
+
+        self.destination_increment_checkbutton.grid(row=6, column=1, padx=10, pady=10)
+        self.destination_component_entry.grid(row=6, column=2, padx=10, pady=10)
+        self.destination_terminal_block_entry.grid(row=6, column=3, padx=10, pady=10)
+        self.destination_terminal_entry.grid(row=6, column=4, padx=10, pady=10)
+
+        self.add_wire_button.grid(row=7, column=2, padx=10, pady=10)
         self.save_button.grid(row=7, column=4, padx=10, pady=10)
 
-    def browse(self):
-        file_path = filedialog.askopenfilename(filetypes=[("CSV files", "*.csv")])
-        if file_path:
-            self.csv_file_name.set(file_path)
+    def increment(self, input_box: tk.Entry):
+        self.counter += 1
+
+        current_value = int(input_box.get())
+        new_value = current_value + 1
+        input_box.delete(0, tk.END)
+        input_box.insert(0, str(new_value))
 
     def add_wire(self):
         source_component = self.source_component.get()
@@ -118,25 +137,65 @@ class WireApp(tk.Tk):
         self.wire_list.insert(
             tk.END,
             f"{source_component}-{source_terminal_block}-{source_terminal} "
-            f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n",
+            f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper(),
         )
+
+        if self.source_increment_toggle.get():
+            # Call increment method for the source and destination terminal
+            self.increment(self.source_terminal_entry)
+        if self.destination_increment_toggle.get():
+            self.increment(self.destination_terminal_entry)
 
     def run_program(self):
         csv_file_name = self.csv_file_name.get()
 
         if is_valid_file_name(csv_file_name):
-            wire_manager = GUIWireManager(csv_file_name, WIRENUMS_DIR)
-            wire_manager.load_from_csv()
+            self.wire_manager.set_csv_file_name(csv_file_name)
+            self.wire_manager.load_from_csv(csv_file_name)
 
     def save_file(self) -> None:
         csv_file_name = self.csv_file_name.get()
-        self.wire_manager = GUIWireManager(csv_file_name, WIRENUMS_DIR)
+        self.wire_manager.set_csv_file_name(csv_file_name)
         self.wire_manager.save_to_csv()
 
-        # update the label with the saved file name
         self.label1.config(text=f"Saved CSV file name: {csv_file_name}")
+
+    def load_wires(self):
+        csv_file_name = self.csv_file_name.get()
+        self.wire_manager.set_csv_file_name(csv_file_name)
+        file_path = os.path.join(WIRENUMS_DIR, f"{self.csv_file_name}.csv")
+        try:
+            self.wire_manager.load_from_csv(file_path)
+            with open(f"{self.csv_file_name.get()}.csv", "r") as file:
+                self.wire_list.insert(tk.END, file.read())
+        except FileNotFoundError:
+            tkinter.messagebox.showerror(
+                title="File Not Found",
+                message=f"No file named {self.csv_file_name.get()}.csv was found",
+            )
+            self.csv_file_name.set("")  # Clear the StringVar for the file name
+
+
+def start_app():
+    file_name = ""
+    while not file_name:
+        file_name = simpledialog.askstring(
+            "Wire Manager", "Please enter the name of the file (without extension)"
+        )
+        if not file_name:
+            tkinter.messagebox.showwarning(
+                title="Invalid Input",
+                message="Please provide a valid file name.",
+            )
+        else:
+            file_name = os.path.abspath(file_name + ".csv")
+
+    app = WireApp(file_name)
+
+    app.csv_file_name.set(file_name)
+
+    app.mainloop()
 
 
 if __name__ == "__main__":
-    app = WireApp()
-    app.mainloop()
+    start_app()
