@@ -13,22 +13,27 @@ class WireApp(tk.Tk):
 
         self.title("Wire Manager")
 
-        self.csv_file_name = tk.StringVar(value=file_name)
-        self.filter_by = tk.StringVar()
-        self.filter_value = tk.StringVar()
-        self.wire_manager = GUIWireManager(self.csv_file_name.get(), WIRENUMS_DIR)
+        # csv file name
+        self.data_dir = os.path.join(
+            os.path.dirname(os.path.realpath(__file__)), "label_wires", "data"
+        )
+        abs_file_path = os.path.join(self.data_dir, file_name + ".csv")
+        self.csv_file_name = tk.StringVar(value=abs_file_path)
 
+        self.wire_manager = GUIWireManager(self.csv_file_name.get(), WIRENUMS_DIR)
+        # Sources
+        self.source_increment_toggle = tk.BooleanVar()
         self.source_component = tk.StringVar()
         self.source_terminal_block = tk.StringVar()
         self.source_terminal = tk.StringVar()
-        self.destination_increment_toggle = tk.BooleanVar()
 
+        # Destinations
+        self.destination_increment_toggle = tk.BooleanVar()
         self.destination_component = tk.StringVar()
         self.destination_terminal_block = tk.StringVar()
         self.destination_terminal = tk.StringVar()
-        self.source_increment_toggle = tk.BooleanVar()
-        self.counter = 0
 
+        self.counter = 0
         self.label1 = tk.Label(self)
         self.label1.grid(row=0, column=0, padx=10, pady=10)
 
@@ -68,7 +73,7 @@ class WireApp(tk.Tk):
         self.add_wire_button = tk.Button(self, text="Add Wire", command=self.add_wire)
         self.save_button = tk.Button(
             self,
-            text=f"Save File",
+            text="Save File",
             command=self.wire_manager.save_to_csv,
         )
 
@@ -148,7 +153,6 @@ class WireApp(tk.Tk):
 
     def run_program(self):
         csv_file_name = self.csv_file_name.get()
-
         if is_valid_file_name(csv_file_name):
             self.wire_manager.set_csv_file_name(csv_file_name)
             self.wire_manager.load_from_csv(csv_file_name)
@@ -156,7 +160,16 @@ class WireApp(tk.Tk):
     def save_file(self) -> None:
         csv_file_name = self.csv_file_name.get()
         self.wire_manager.set_csv_file_name(csv_file_name)
-        self.wire_manager.save_to_csv()
+        try:
+            self.wire_manager.load_from_csv(csv_file_name)
+            with open(csv_file_name, "r") as file:
+                self.wire_list.insert(tk.END, file.read())
+        except FileNotFoundError:
+            tkinter.messagebox.showerror(
+                title="File Not Found.",
+                message=f"No file named {csv_file_name} was found.",
+            )
+            self.csv_file_name.set("")
 
         self.label1.config(text=f"Saved CSV file name: {csv_file_name}")
 
@@ -188,7 +201,10 @@ def start_app():
                 message="Please provide a valid file name.",
             )
         else:
-            file_name = os.path.abspath(file_name + ".csv")
+            data_dir = os.path.join(
+                os.path.dirname(os.path.realpath(__file__)), "label_wires", "data"
+            )
+            file_name = os.path.join(data_dir, file_name)
 
     app = WireApp(file_name)
 
