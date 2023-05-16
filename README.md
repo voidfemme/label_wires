@@ -1,5 +1,6 @@
 # Wire Labeling Tool
 This program is a wire labeling tool that allows users to input wire connections and store them in a CSV file. It provides filtering options to view specific wire connections based on user-defined criteria. The tool can also load previous wire connections from existing CSV files for further modifications.
+
 ## Installation
 1. Clone this repository or download the zip file containing the project.
 2. Navigate to the project directory in your terminal or command prompt.
@@ -11,12 +12,15 @@ This program is a wire labeling tool that allows users to input wire connections
 4. Enter the wire connection information in the following format: `Component`, `Terminal Block`, `Terminal`, and `Destination`. Leave fields empty to skip or type `quit` to stop inputting connections.
 4. Use the filtering options to view specific wire connections by entering the filter criteria and value.
 6. The program will save the wire connections to the specified CSV file.
+
 ## Features
+- Compatible with both Windows and Linux. Untested for Apple Mac
 - Gather wire connection input with validation for each field
 - Load existing wire connections from CSV files
 - Save wire connections to CSV files
 - Filter wire connections based on specified criteria
 - Detect duplicate or reverse duplicate connections
+
 ## Functions
 - `is_valid_input(input_string: str) -> bool`: Checks if the input is alphanumeric.
 - `is_valid_destination(destination: str) -> bool`: Validates the destination input based on a regex pattern.
