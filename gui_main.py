@@ -92,7 +92,7 @@ class WireApp(tk.Tk):
         # Arrange widgets in grid (left to right, top to bottom)
         self.wire_list.grid(row=1, column=0, rowspan=6, padx=10, pady=10)
         self.file_name_field_label.grid(row=1, column=1, padx=10, pady=10)
-        self.file_name_field.grid(row=1, column=2, padx=10, pady=10)
+        self.file_name_field.grid(row=1, column=2, columnspan=3, sticky="ew", padx=10, pady=10)
 
         self.component_label.grid(row=3, column=2, padx=10, pady=10)
         self.terminal_block_label.grid(row=3, column=3, padx=10, pady=10)
@@ -144,6 +144,7 @@ class WireApp(tk.Tk):
             f"{source_component}-{source_terminal_block}-{source_terminal} "
             f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper(),
         )
+        self.wire_list.see(tk.END)
 
         if self.source_increment_toggle.get():
             # Call increment method for the source and destination terminal
