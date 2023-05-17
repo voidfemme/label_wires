@@ -50,6 +50,8 @@ class WireApp(tk.Tk):
         self.terminal_block_label = tk.Label(self, text="Terminal Block")
         self.terminal_label = tk.Label(self, text="Terminal")
         self.file_name_field_label = tk.Label(self, text="Saving as:")
+        self.source_label = tk.Label(self, text="Source ->")
+        self.destination_label = tk.Label(self, text="Destination ->")
 
         # Define Entry fields
         self.file_name_field = tk.Entry(self, textvariable=self.csv_file_name)
@@ -111,18 +113,21 @@ class WireApp(tk.Tk):
         self.terminal_block_label.grid(row=3, column=3, padx=10, pady=10)
         self.terminal_label.grid(row=3, column=4, padx=10, pady=10)
 
-        self.source_increment_checkbutton.grid(row=5, column=1, padx=10, pady=10)
+        self.save_button.grid(row=7, column=0, padx=10, pady=10)
+
+        self.source_label.grid(row=5, column=1, padx=10, pady=10)
         self.source_component_entry.grid(row=5, column=2, padx=10, pady=10)
         self.source_terminal_block_entry.grid(row=5, column=3, padx=10, pady=10)
         self.source_terminal_entry.grid(row=5, column=4, padx=10, pady=10)
+        self.source_increment_checkbutton.grid(row=5, column=5, padx=10, pady=10)
 
-        self.destination_increment_checkbutton.grid(row=6, column=1, padx=10, pady=10)
+        self.destination_label.grid(row=6, column=1, padx=10, pady=10)
         self.destination_component_entry.grid(row=6, column=2, padx=10, pady=10)
         self.destination_terminal_block_entry.grid(row=6, column=3, padx=10, pady=10)
         self.destination_terminal_entry.grid(row=6, column=4, padx=10, pady=10)
+        self.destination_increment_checkbutton.grid(row=6, column=5, padx=10, pady=10)
 
         self.add_wire_button.grid(row=7, column=2, padx=10, pady=10)
-        self.save_button.grid(row=7, column=4, padx=10, pady=10)
 
     def increment(self, input_box: tk.Entry):
         self.counter += 1

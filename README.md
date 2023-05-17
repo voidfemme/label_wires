@@ -46,7 +46,8 @@ The `main.py` script contains the main function that initializes a `WireManager`
 
 ## To Do:
 
-- Fix `.strip("-")` issue so that it removes preceding and trailing "-"
 - Fix `int(input())` section where it increments the number to support non-numeric entries without erroring
-- Make the wire manager its own minimal text editor?
+- Make the wire manager its own minimal text editor
 - Create an installer for Windows
+- Add "undo" button
+- Cable mode and non-destination mode tabs
