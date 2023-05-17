@@ -126,7 +126,9 @@ class WireApp(tk.Tk):
 
     def increment(self, input_box: tk.Entry):
         self.counter += 1
-        current_value = int(input_box.get())  # Fix this line so that it accepts non-integers too
+        current_value = int(
+            input_box.get()
+        )  # Fix this line so that it accepts non-integers too
         new_value = current_value + 1
         input_box.delete(0, tk.END)
         input_box.insert(0, str(new_value))
@@ -190,15 +192,22 @@ class WireApp(tk.Tk):
         self.label1.config(text=f"Saved CSV file name: {abs_file_path}")
 
     def load_wires(self):
-        abs_file_path = self.csv_file_name.get()
-        self.wire_manager.set_csv_file_name(abs_file_path)
-        try:
-            self.wire_manager.load_from_csv(abs_file_path)
-            with open(abs_file_path, "r") as file:
-                self.wire_list.insert(tk.END, file.read())
-        except FileNotFoundError:
-            tkinter.messagebox.showerror(
-                title="File Not Found",
-                message=f"No file named {abs_file_path} was found",
-            )
-            self.csv_file_name.set("")  # Clear the StringVar for the file name
+        csv_file_name = self.csv_file_name.get()
+        self.wire_manager.set_csv_file_name(csv_file_name)
+        file_path = self.csv_file_name.get()
+
+        # Check if file exists
+        if not os.path.isfile(file_path):
+            # Create an empty file if it doesn't exist
+            open(file_path, "a").close()
+        else:
+            try:
+                self.wire_manager.load_from_csv(file_path)
+                with open(csv_file_name, "r") as file:
+                    self.wire_list.insert(tk.END, file.read())
+            except FileNotFoundError:
+                tkinter.messagebox.showerror(
+                    title="File Not Found",
+                    message=f"No file named {csv_file_name} was found",
+                )
+                self.csv_file_name.set("")
