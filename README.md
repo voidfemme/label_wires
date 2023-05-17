@@ -49,3 +49,4 @@ The `main.py` script contains the main function that initializes a `WireManager`
 - Fix `.strip("-")` issue so that it removes preceding and trailing "-"
 - Fix `int(input())` section where it increments the number to support non-numeric entries without erroring
 - Make the wire manager its own minimal text editor?
+- Create an installer for Windows
