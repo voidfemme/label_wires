@@ -126,7 +126,7 @@ class WireApp(tk.Tk):
 
     def increment(self, input_box: tk.Entry):
         self.counter += 1
-        current_value = int(input_box.get())
+        current_value = int(input_box.get())  # Fix this line so that it accepts non-integers too
         new_value = current_value + 1
         input_box.delete(0, tk.END)
         input_box.insert(0, str(new_value))
