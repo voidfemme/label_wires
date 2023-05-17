@@ -42,6 +42,30 @@ class WireManager(ABC):
         reverse_wire = (wire[1], wire[0])
         return wire in self.wires or reverse_wire in self.wires
 
+    def add_wire(
+        self,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        dest_component: str,
+        dest_terminal_block: str,
+        dest_terminal: str,
+    ):
+        source_wire = (
+            f"{source_component}-{source_terminal_block}-{source_terminal}".strip(
+                "-"
+            ).upper()
+        )
+        destination_wire = (
+            f"{dest_component}-{dest_terminal_block}-{dest_terminal}".strip("-").upper()
+        )
+        wire = (source_wire, destination_wire)
+        print(f"Adding wire: {wire}")
+        if not self.is_duplicate_or_reverse(wire):
+            self.wires.append(wire)
+        else:
+            print("Attempted to add duplicate or reverse wire.")
+
     @abstractmethod
     def save_to_csv(self) -> None:
         pass
@@ -54,23 +78,6 @@ class WireManager(ABC):
 class GUIWireManager(WireManager):
     def __init__(self, csv_file_name, output_dir):
         super().__init__(csv_file_name, output_dir)
-
-    def add_wire(
-        self,
-        source_component: str,
-        source_terminal_block: str,
-        source_terminal: str,
-        dest_component: str,
-        dest_terminal_block: str,
-        dest_terminal: str,
-    ):
-        source_wire = f"{source_component}-{source_terminal_block}-{source_terminal}"
-        destination_wire = f"{dest_component}-{dest_terminal_block}-{dest_terminal}"
-        wire = (source_wire, destination_wire)
-        if not self.is_duplicate_or_reverse(wire):
-            self.wires.append(wire)
-        else:
-            print("Attempted to add duplicate or reverse wire.")
 
     def set_csv_file_name(self, csv_file_name):
         self.csv_file_name = csv_file_name
@@ -107,19 +114,6 @@ class GUIWireManager(WireManager):
 class ConsoleWireManager(WireManager):
     def __init__(self, csv_file_name, output_dir) -> None:
         super().__init__(csv_file_name, output_dir)
-
-    def add_wire(
-        self,
-        source_component: str,
-        source_terminal_block: str,
-        source_terminal: str,
-        destination_component: str,
-        destination_terminal_block: str,
-        destination_terminal: str,
-    ):
-        source_wire = f"{source_component}-{source_terminal_block}-{source_terminal}"
-        destination_wire = f"{destination_component}-{destination_terminal_block}-{destination_terminal}"
-        self.wires.append((source_wire, destination_wire))
 
     def is_duplicate_or_reverse(self, wire) -> bool:
         reverse_wire = (wire[1], wire[0])

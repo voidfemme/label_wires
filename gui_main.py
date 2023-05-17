@@ -1,28 +1,37 @@
 #!/usr/bin/env python3
 # Workers of the world, Unite!
 import os
-import tkinter as tk
+import sys
 import tkinter.messagebox
-from tkinter import scrolledtext, simpledialog
+from tkinter import filedialog
 from src.wire_app import WireApp
+from src.dialog import CustomDialog
 
 
 def start_app():
     file_name = ""
     while not file_name:
-        file_name = simpledialog.askstring(
-            "Wire Manager", "Please enter the name of the file (without extension)"
-        )
+        dialog = CustomDialog(None)
+        file_name = dialog.result
+
+        if file_name is None:
+            sys.exit()
+
         if not file_name:
             tkinter.messagebox.showwarning(
                 title="Invalid Input",
                 message="Please provide a valid file name.",
             )
         else:
-            data_dir = os.path.join(
-                os.path.dirname(os.path.realpath(__file__)), "label_wires", "data"
-            )
-            file_name = os.path.join(data_dir, file_name)
+            # if selected from the file dialog, the file_name already contains the full path
+            # else append the relative path
+            if not os.path.isabs(file_name):
+                data_dir = os.path.join(
+                    os.path.dirname(os.path.realpath(__file__)), "src", "data"
+                )
+                print(f"Data dir: {data_dir}")
+                file_name = os.path.join(data_dir, file_name + ".csv")
+                print(f"File name: {file_name}")
 
     app = WireApp(file_name)
 

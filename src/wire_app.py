@@ -15,12 +15,15 @@ class WireApp(tk.Tk):
 
         # csv file name
         self.data_dir = os.path.join(
-            os.path.dirname(os.path.realpath(__file__)), "label_wires", "data"
+            os.path.dirname(os.path.realpath(__file__)), "src", "data"
         )
-        abs_file_path = os.path.join(self.data_dir, file_name + ".csv")
+        print(f"WireApp.data_dir: {self.data_dir}")
+        abs_file_path = os.path.join(self.data_dir, file_name)
+        print(f"WireApp abs_file_path: {abs_file_path}")
         self.csv_file_name = tk.StringVar(value=abs_file_path)
 
         self.wire_manager = GUIWireManager(self.csv_file_name.get(), WIRENUMS_DIR)
+
         # Sources
         self.source_increment_toggle = tk.BooleanVar()
         self.source_component = tk.StringVar()
@@ -38,6 +41,7 @@ class WireApp(tk.Tk):
         self.label1.grid(row=0, column=0, padx=10, pady=10)
 
         self.create_widgets()
+        self.load_wires()
 
     def create_widgets(self):
         # Define labels
@@ -78,6 +82,13 @@ class WireApp(tk.Tk):
         )
 
         # Define bindings
+        self.source_component_entry.bind("<Return>", lambda event: self.add_wire())
+        self.source_terminal_block_entry.bind("<Return>", lambda event: self.add_wire())
+        self.source_terminal_entry.bind("<Return>", lambda event: self.add_wire())
+        self.destination_component_entry.bind("<Return>", lambda event: self.add_wire())
+        self.destination_terminal_block_entry.bind(
+            "<Return>", lambda event: self.add_wire()
+        )
         self.destination_terminal_entry.bind("<Return>", lambda event: self.add_wire())
         self.file_name_field.bind("<Return>", lambda event: self.save_file())
 
@@ -92,7 +103,9 @@ class WireApp(tk.Tk):
         # Arrange widgets in grid (left to right, top to bottom)
         self.wire_list.grid(row=1, column=0, rowspan=6, padx=10, pady=10)
         self.file_name_field_label.grid(row=1, column=1, padx=10, pady=10)
-        self.file_name_field.grid(row=1, column=2, columnspan=3, sticky="ew", padx=10, pady=10)
+        self.file_name_field.grid(
+            row=1, column=2, columnspan=3, sticky="ew", padx=10, pady=10
+        )
 
         self.component_label.grid(row=3, column=2, padx=10, pady=10)
         self.terminal_block_label.grid(row=3, column=3, padx=10, pady=10)
@@ -113,7 +126,6 @@ class WireApp(tk.Tk):
 
     def increment(self, input_box: tk.Entry):
         self.counter += 1
-
         current_value = int(input_box.get())
         new_value = current_value + 1
         input_box.delete(0, tk.END)
@@ -141,8 +153,12 @@ class WireApp(tk.Tk):
 
         self.wire_list.insert(
             tk.END,
-            f"{source_component}-{source_terminal_block}-{source_terminal} "
-            f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper(),
+            f"{source_component}-{source_terminal_block}-{source_terminal}".upper().strip(
+                "-"
+            )
+            + f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper().strip(
+                "-"
+            ),
         )
         self.wire_list.see(tk.END)
 
@@ -159,34 +175,30 @@ class WireApp(tk.Tk):
             self.wire_manager.load_from_csv(csv_file_name)
 
     def save_file(self) -> None:
-        csv_file_name = self.csv_file_name.get()
-        self.wire_manager.set_csv_file_name(csv_file_name)
+        abs_file_path = self.csv_file_name.get()
+        self.wire_manager.set_csv_file_name(abs_file_path)
         try:
-            self.wire_manager.load_from_csv(csv_file_name)
-            with open(csv_file_name, "r") as file:
+            self.wire_manager.save_to_csv(abs_file_path)
+            with open(abs_file_path, "r") as file:
                 self.wire_list.insert(tk.END, file.read())
         except FileNotFoundError:
             tkinter.messagebox.showerror(
                 title="File Not Found.",
-                message=f"No file named {csv_file_name} was found.",
+                message=f"No file named {abs_file_path} was found.",
             )
             self.csv_file_name.set("")
-
-        self.label1.config(text=f"Saved CSV file name: {csv_file_name}")
+        self.label1.config(text=f"Saved CSV file name: {abs_file_path}")
 
     def load_wires(self):
-        csv_file_name = self.csv_file_name.get()
-        self.wire_manager.set_csv_file_name(csv_file_name)
-        file_path = os.path.join(WIRENUMS_DIR, f"{self.csv_file_name}.csv")
+        abs_file_path = self.csv_file_name.get()
+        self.wire_manager.set_csv_file_name(abs_file_path)
         try:
-            self.wire_manager.load_from_csv(file_path)
-            with open(f"{self.csv_file_name.get()}.csv", "r") as file:
+            self.wire_manager.load_from_csv(abs_file_path)
+            with open(abs_file_path, "r") as file:
                 self.wire_list.insert(tk.END, file.read())
         except FileNotFoundError:
             tkinter.messagebox.showerror(
                 title="File Not Found",
-                message=f"No file named {self.csv_file_name.get()}.csv was found",
+                message=f"No file named {abs_file_path} was found",
             )
             self.csv_file_name.set("")  # Clear the StringVar for the file name
-
-
