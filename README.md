@@ -26,20 +26,6 @@ This program is a wire labeling tool that allows users to input wire connections
 - Filter wire connections based on specified criteria
 - Detect duplicate or reverse duplicate connections
 
-## Functions
-
-- `is_valid_input(input_string: str) -> bool`: Checks if the input is alphanumeric.
-- `is_valid_destination(destination: str) -> bool`: Validates the destination input based on a regex pattern.
-- `is_valid_file_name(file_name: str) -> bool`: Checks for invalid characters in the file name.
-- `WireManager` class:
-  - `__init__(self, csv_file_name: str, output_dir: str)`: Initializes the WireManager with the given CSV file name and output directory.
-  - `is_duplicate_or_reverse(self, wire: Tuple[str, str]) -> bool`: Checks if the given wire is a duplicate or reverse duplicate in the list of wires.
-  - `print_wires(self) -> None`: Prints the list of wires.
-  - `gather_input(self) -> None`: Gathers wire connection input from the user.
-  - `save_to_csv(self) -> None`: Saves the wire connections to a CSV file.
-  - `load_from_csv(self) -> None`: Loads existing wire connections from a CSV file.
-  - `filter_wires(self, filter_by: str, filter_value: str) -> List[Tuple[str, str]]`: Filters wires based on the given criteria and value.
-
 ## main.py
 
 The `main.py` script contains the main function that initializes a `WireManager` instance, loads any existing CSV files, gathers wire connection input, filters wires, and saves the connections to a CSV file.
