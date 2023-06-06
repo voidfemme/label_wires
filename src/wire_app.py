@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 # Workers of the world, Unite!
+
+import csv
+import io
 import os
 import tkinter as tk
 import tkinter.messagebox
@@ -52,6 +55,7 @@ class WireApp(tk.Tk):
         self.file_name_field_label = tk.Label(self, text="Saving as:")
         self.source_label = tk.Label(self, text="Source ->")
         self.destination_label = tk.Label(self, text="Destination ->")
+        self.status_label = tk.Label(self, text="")
 
         # Define Entry fields
         self.file_name_field = tk.Entry(self, textvariable=self.csv_file_name)
@@ -71,17 +75,17 @@ class WireApp(tk.Tk):
             self, textvariable=self.destination_terminal
         )
 
-        # Define text area for wire numbers
-        self.wire_list = scrolledtext.ScrolledText(self, width=30, height=15)
+        # Define Checkbuttons
+        self.source_increment_checkbutton = tk.Checkbutton(
+            self, text="Increment", variable=self.source_increment_toggle
+        )
+        self.destination_increment_checkbutton = tk.Checkbutton(
+            self, text="Increment", variable=self.destination_increment_toggle
+        )
 
         # Define buttons
         self.save_button = tk.Button(self, text="Save File", command=self.save_file)
         self.add_wire_button = tk.Button(self, text="Add Wire", command=self.add_wire)
-        self.save_button = tk.Button(
-            self,
-            text="Save File",
-            command=self.wire_manager.save_to_csv,
-        )
 
         # Define bindings
         self.source_component_entry.bind("<Return>", lambda event: self.add_wire())
@@ -94,13 +98,8 @@ class WireApp(tk.Tk):
         self.destination_terminal_entry.bind("<Return>", lambda event: self.add_wire())
         self.file_name_field.bind("<Return>", lambda event: self.save_file())
 
-        # Define Checkbuttons
-        self.source_increment_checkbutton = tk.Checkbutton(
-            self, text="Increment", variable=self.source_increment_toggle
-        )
-        self.destination_increment_checkbutton = tk.Checkbutton(
-            self, text="Increment", variable=self.destination_increment_toggle
-        )
+        # Define text area for wire numbers
+        self.wire_list = scrolledtext.ScrolledText(self, width=30, height=15)
 
         # Arrange widgets in grid (left to right, top to bottom)
         self.wire_list.grid(row=1, column=0, rowspan=6, padx=10, pady=10)
@@ -128,15 +127,36 @@ class WireApp(tk.Tk):
         self.destination_increment_checkbutton.grid(row=6, column=5, padx=10, pady=10)
 
         self.add_wire_button.grid(row=7, column=2, padx=10, pady=10)
+        self.status_label.grid(
+            row=8, column=0, columnspan=5, sticky="w", padx=10, pady=10
+        )
+
+    def get_text_from_scrolledtext(self):
+        return self.wire_list.get("1.0", "end-1c")
+
+    def validate_csv_content(self, content):
+        # Create a file-like object from the string for csv.reader
+        csv_file_like_object = io.StringIO(content)
+
+        reader = csv.reader(csv_file_like_object)
+        for row in reader:
+            if len(row) != 2:
+                # Return the row number (plus 1 because csv.reader starts from 0)
+                # where the validation failed
+                return reader.line_num, row
+        # If all rows are valid, return None
+        return None
 
     def increment(self, input_box: tk.Entry):
         self.counter += 1
-        current_value = int(
-            input_box.get()
-        )  # Fix this line so that it accepts non-integers too
-        new_value = current_value + 1
-        input_box.delete(0, tk.END)
-        input_box.insert(0, str(new_value))
+        current_value = input_box.get()
+        try:
+            current_value = int(current_value)
+            new_value = current_value + 1
+            input_box.delete(0, tk.END)
+            input_box.insert(0, str(new_value))
+        except ValueError:
+            pass
 
     def add_wire(self):
         source_component = self.source_component.get()
@@ -160,12 +180,12 @@ class WireApp(tk.Tk):
 
         self.wire_list.insert(
             tk.END,
-            f"{source_component}-{source_terminal_block}-{source_terminal}".upper().strip(
-                "-"
-            )
-            + f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper().strip(
-                "-"
-            ),
+            f"{source_component}-{source_terminal_block}-{source_terminal}".upper()
+            .strip("-")
+            .replace("--", "-")
+            + f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper()
+            .strip("-")
+            .replace("--", "-"),
         )
         self.wire_list.see(tk.END)
 
@@ -183,17 +203,33 @@ class WireApp(tk.Tk):
 
     def save_file(self) -> None:
         abs_file_path = self.csv_file_name.get()
+        content = self.get_text_from_scrolledtext()
+
+        invalid_row = self.validate_csv_content(content)
+        if invalid_row is not None:
+            invalid_row_num, invalid_row_content = invalid_row
+            tkinter.messagebox.showerror(
+                title="Invalid CSV content",
+                message=f"The CSV content you entered is invalid. "
+                f"Each line should have exactly 2 columns, separated by a comma. "
+                f"Please check line {invalid_row_num}: {invalid_row_content}",
+            )
+            return
+
         self.wire_manager.set_csv_file_name(abs_file_path)
+
         try:
-            self.wire_manager.save_to_csv(abs_file_path)
-            with open(abs_file_path, "r") as file:
-                self.wire_list.insert(tk.END, file.read())
+            with open(abs_file_path, "w") as file:
+                file.write(content)
+            self.status_label.config(text=f"Successfully saved to {abs_file_path}")
         except FileNotFoundError:
             tkinter.messagebox.showerror(
                 title="File Not Found.",
                 message=f"No file named {abs_file_path} was found.",
             )
             self.csv_file_name.set("")
+            self.status_label.config(text="")
+
         self.label1.config(text=f"Saved CSV file name: {abs_file_path}")
 
     def load_wires(self):

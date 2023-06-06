@@ -3,7 +3,6 @@
 import os
 import sys
 import tkinter.messagebox
-from tkinter import filedialog
 from src.wire_app import WireApp
 from src.dialog import CustomDialog
 

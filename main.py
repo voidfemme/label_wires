@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # Workers of the world, Unite!
-from label_wires.wire_manager import WireManager, WIRENUMS_DIR, is_valid_file_name
+from src.wire_manager import WireManager, WIRENUMS_DIR, is_valid_file_name
 
 
 def main():
