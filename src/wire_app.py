@@ -8,6 +8,7 @@ import tkinter as tk
 import tkinter.messagebox
 from tkinter import scrolledtext
 from src.wire_manager import GUIWireManager, WIRENUMS_DIR, is_valid_file_name
+from src.settings_window import SettingsWindow
 
 
 class WireApp(tk.Tk):
@@ -27,6 +28,10 @@ class WireApp(tk.Tk):
 
         self.wire_manager = GUIWireManager(self.csv_file_name.get(), WIRENUMS_DIR)
 
+        # Cable mode
+        self.cable_mode_toggle = tk.BooleanVar()
+        self.lock_destination_toggle = tk.BooleanVar()
+
         # Sources
         self.source_increment_toggle = tk.BooleanVar()
         self.source_component = tk.StringVar()
@@ -45,6 +50,12 @@ class WireApp(tk.Tk):
 
         self.create_widgets()
         self.load_wires()
+
+    def capitalize_scrolledtext(self):
+        content = self.wire_list.get("1.0", "end-1c")
+        capitalized_content = content.upper()
+        self.wire_list.delete("1.0", tk.END)
+        self.wire_list.insert("1.0", capitalized_content)
 
     def create_widgets(self):
         # Define labels
@@ -82,10 +93,19 @@ class WireApp(tk.Tk):
         self.destination_increment_checkbutton = tk.Checkbutton(
             self, text="Increment", variable=self.destination_increment_toggle
         )
+        self.cable_mode_checkbutton = tk.Checkbutton(
+            self, text="Cable Mode", variable=self.cable_mode_toggle
+        )
+        self.lock_destination_checkbutton = tk.Checkbutton(
+            self, text="Lock Destination", variable=self.lock_destination_toggle
+        )
 
         # Define buttons
         self.save_button = tk.Button(self, text="Save File", command=self.save_file)
         self.add_wire_button = tk.Button(self, text="Add Wire", command=self.add_wire)
+        self.settings_button = tk.Button(
+            self, text="Settings", command=self.open_settings_window
+        )
 
         # Define bindings
         self.source_component_entry.bind("<Return>", lambda event: self.add_wire())
@@ -126,10 +146,16 @@ class WireApp(tk.Tk):
         self.destination_terminal_entry.grid(row=6, column=4, padx=10, pady=10)
         self.destination_increment_checkbutton.grid(row=6, column=5, padx=10, pady=10)
 
+        self.cable_mode_checkbutton.grid(row=7, column=1, padx=10, pady=10)
         self.add_wire_button.grid(row=7, column=2, padx=10, pady=10)
+        self.lock_destination_checkbutton.grid(row=7, column=3, padx=10, pady=10)
         self.status_label.grid(
             row=8, column=0, columnspan=5, sticky="w", padx=10, pady=10
         )
+        self.settings_button.grid(row=7, column=5, padx=10, pady=10)
+
+    def open_settings_window(self):
+        self.settings_window = SettingsWindow(self)
 
     def get_text_from_scrolledtext(self):
         return self.wire_list.get("1.0", "end-1c")
@@ -163,6 +189,12 @@ class WireApp(tk.Tk):
         source_terminal_block = self.source_terminal_block.get()
         source_terminal = self.source_terminal.get()
 
+        if self.lock_destination_toggle.get():
+            # Set destination fields to match source fields
+            self.destination_component.set(source_component)
+            self.destination_terminal_block.set(source_terminal_block)
+            self.destination_terminal.set(source_terminal)
+
         destination_component = self.destination_component.get()
         destination_terminal_block = self.destination_terminal_block.get()
         destination_terminal = self.destination_terminal.get()
@@ -178,15 +210,30 @@ class WireApp(tk.Tk):
 
         self.wire_manager.save_to_csv()  # Autosave after adding a wire
 
-        self.wire_list.insert(
-            tk.END,
-            f"{source_component}-{source_terminal_block}-{source_terminal}".upper()
-            .strip("-")
-            .replace("--", "-")
-            + f", {destination_component}-{destination_terminal_block}-{destination_terminal}\n".upper()
-            .strip("-")
-            .replace("--", "-"),
-        )
+        if self.cable_mode_toggle.get():
+            # Format the wire labels for cable mode
+            wire_label = (
+                f"{source_component}-{source_terminal_block} [{source_terminal}]".upper()
+                .replace("--", "-")
+                .strip("-")
+            )
+            destination_label = (
+                f"{destination_component}-{destination_terminal_block} [{destination_terminal}]".upper()
+                .replace("--", "-")
+                .strip("-")
+            )
+        else:
+            wire_label = (
+                f"{source_component}-{source_terminal_block}-{source_terminal}".upper()
+                .replace("--", "-")
+                .strip("-")
+            )
+            destination_label = (
+                f"{destination_component}-{destination_terminal_block}-{destination_terminal}".upper()
+                .replace("--", "-")
+                .strip("-")
+            )
+        self.wire_list.insert(tk.END, f"{wire_label},{destination_label}\n")
         self.wire_list.see(tk.END)
 
         if self.source_increment_toggle.get():
@@ -202,8 +249,13 @@ class WireApp(tk.Tk):
             self.wire_manager.load_from_csv(csv_file_name)
 
     def save_file(self) -> None:
+        self.capitalize_scrolledtext()
         abs_file_path = self.csv_file_name.get()
         content = self.get_text_from_scrolledtext()
+
+        # Update the content of scrolledtext widget to be uppercase
+        self.wire_list.delete("1.0", tk.END)
+        self.wire_list.insert("1.0", content)
 
         invalid_row = self.validate_csv_content(content)
         if invalid_row is not None:
@@ -222,6 +274,8 @@ class WireApp(tk.Tk):
             with open(abs_file_path, "w") as file:
                 file.write(content)
             self.status_label.config(text=f"Successfully saved to {abs_file_path}")
+            # After 5000 ms (5 seconds), reset the status_label text
+            self.after(5000, lambda: self.status_label.config(text=""))
         except FileNotFoundError:
             tkinter.messagebox.showerror(
                 title="File Not Found.",
