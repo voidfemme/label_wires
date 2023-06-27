@@ -1,10 +1,8 @@
 # Workers of the world, Unite!
-import csv
 import json
 import os
 import tkinter as tk
 from tkinter import ttk
-from src.wire import Wire
 from src.wire_manager import is_valid_file_name
 from src.settings_window import SettingsWindow
 
@@ -103,7 +101,6 @@ class WireApp(tk.Tk):
         self.delete_button = tk.Button(
             self, text="Delete Wire", command=self.delete_wire
         )
-        self.export_button = tk.Button(self, text="Export", command=self.export_to_csv)
 
         # Define bindings
         self.source_component_entry.bind("<Return>", lambda event: self.add_wire())
@@ -117,6 +114,7 @@ class WireApp(tk.Tk):
         self.file_name_field.bind("<Return>", lambda event: self.save_file())
 
         # Define text area for wire numbers
+        # self.wire_list = tk.Listbox(self, selectmode=tk.EXTENDED)
         self.tree_widget = self.create_tree_widget()
 
         # Arrange widgets in grid (left to right, top to bottom)
@@ -147,9 +145,7 @@ class WireApp(tk.Tk):
         self.settings_button.grid(row=7, column=5, padx=5, pady=5)
 
         self.delete_button.grid(row=7, column=0, padx=5, pady=5)
-
         self.save_button.grid(row=8, column=0, padx=5, pady=5)
-        self.export_button.grid(row=8, column=1, padx=5, pady=5)
 
         self.status_label.grid(
             row=9, column=0, columnspan=5, sticky="w", padx=5, pady=5
@@ -310,22 +306,23 @@ class WireApp(tk.Tk):
             self.tree_widget.insert("", "end", text=wire_str)
 
     def update_wire_list(self):
-        self.tree_widget.delete(
-            *self.tree_widget.get_children()
-        )  # clear the tree widget
+        # First, clear all existing items in the Treeview
+        for i in self.tree_widget.get_children():
+            self.tree_widget.delete(i)
 
-        for wire in self.wire_manager.wires:
-            wire_strs = self.get_wire_strings(wire)
-
-            # Add to the tree widget and get unique identifier
-            item_id = self.tree_widget.insert("", "end", values=(wire_strs))
-
-            # Add to the dictionaries
-            self.wires_dict[str(wire)] = wire
-            self.tree_item_to_wire[item_id] = wire
-
-    def get_wire_strings(self, wire):
-        return wire.source_str, wire.destination_str
+        # Then, add all the wires currently in the WireManager
+        for wire in self.wire_manager.get_wires():
+            source = f"{wire.source_component}-{wire.source_terminal_block}-{wire.source_terminal}".strip(
+                "-"
+            ).replace(
+                "--", "-"
+            )
+            destination = f"{wire.destination_component}-{wire.destination_terminal_block}-{wire.destination_terminal}".strip(
+                "-"
+            ).replace(
+                "--", "-"
+            )
+            self.tree_widget.insert("", "end", text="", values=(source, destination))
 
     def run_program(self):
         print("Running program")
@@ -338,34 +335,11 @@ class WireApp(tk.Tk):
         print("Invalid file name")
 
     def save_file(self) -> None:
-        success = self.wire_manager.save_to_file()
-
-        if success:
-            print("File saved successfully.")
-        else:
-            print("An error occurred while trying to save the file.")
+        pass
 
     def load_wires(self):
         self.wire_manager.load_from_file()
         self.update_wire_list()
 
     def export_to_csv(self) -> None:
-        csv_file_name = self.json_file_name.get().replace(".json", ".csv")
-        with open(csv_file_name, "w", newline="") as csvfile:
-            fieldnames = ["Source", "Destination"]
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-
-            writer.writeheader()
-            for wire in self.wire_manager.wires:
-                writer.writerow({
-                    "Source": wire.source_str,
-                    "Destination": wire.destination_str
-                    })
-        print("Exported to CSV successfully")
-
-    def display_status(self, message) -> None:
-        # Update the status label with the message
-        self.status_label["text"] = message
-
-        # Clear the status label after 5 seconds
-        self.after(5000, lambda: self.status_label.config(text=""))
+        pass

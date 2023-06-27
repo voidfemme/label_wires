@@ -1,11 +1,9 @@
-#!/usr/bin/env python3
-import datetime
+import json
 import logging
 import os
 import re
-import csv
-from typing import List, Tuple
 from abc import ABC, abstractmethod
+from src.wire import Wire
 
 # Global variable for the directory path
 WIRENUMS_DIR = "data"
@@ -31,225 +29,106 @@ def is_valid_file_name(file_name) -> bool:
 
 
 class WireManager(ABC):
-    def __init__(self, csv_file_name, output_dir):
-        self.csv_file_name = csv_file_name
+    def __init__(self, file_name, output_dir):
+        self.file_name = file_name
         self.output_dir = os.path.join(
             os.path.dirname(os.path.realpath(__file__)), output_dir
         )
         self.wires = []
 
-    def is_duplicate_or_reverse(self, wire) -> bool:
-        reverse_wire = (wire[1], wire[0])
-        return wire in self.wires or reverse_wire in self.wires
+    @abstractmethod
+    def save_to_file(self, content) -> bool:
+        pass
+
+
+class GUIWireManager(WireManager):
+    def __init__(self, file_name, output_dir):
+        super().__init__(file_name, output_dir)
+
+    def set_json_file_name(self, file_name):
+        self.file_name = file_name
+
+    def save_to_file(self) -> bool:
+        abs_file_path = self.file_name
+        try:
+            with open(abs_file_path, "w") as file:
+                json.dump([wire.to_dict() for wire in self.wires], file)
+            return True
+        except FileNotFoundError:
+            return False
+
+    def load_from_file(self) -> None:
+        file_path = os.path.join(self.output_dir, self.file_name)
+        print(file_path)
+
+        try:
+            with open(file_path, "r") as json_file:
+                wire_dicts = json.load(json_file)
+            self.wires = [
+                Wire(**wire_dict)
+                for wire_dict in wire_dicts
+                if not Wire(**wire_dict).is_empty()
+            ]
+            # Print each wire loaded
+            for wire in self.wires:
+                print(f"Loaded wire: {wire}")
+            print(f"JSON file loaded as {file_path}")
+        except FileNotFoundError:
+            print(f"Error: Directory '{self.output_dir}' not found")
+        except PermissionError:
+            print(f"Error: Permission denied to read from'{file_path}'")
+        except Exception as e:
+            print(f"Error loading JSON file: {e}")
+
+    def delete_wire(self, wire_to_delete):
+        if wire_to_delete in self.wires:
+            self.wires.remove(wire_to_delete)
+            self.save_to_file()
+        else:
+            print("Attempted to delete a wire that doesn't exist.")
+
+    def edit_wire(self, old_wire: Wire, new_wire: Wire):
+        if old_wire in self.wires:
+            # If new wire already exists or is the reverse of an existing wire, don't do the edit
+            if new_wire in self.wires:
+                print(
+                    "Attempted to edit wire into a duplicate or reverse duplicate wire."
+                )
+                return False
+            # Find the index of the old wire and replace it with the new one
+            index = self.wires.index(old_wire)
+            self.wires[index] = new_wire
+            # Save updated wires to file
+            self.save_to_file()
+            return True
+        else:
+            print("Attempted to edit a wire that doesn't exist.")
+            return False
 
     def add_wire(
         self,
         source_component: str,
         source_terminal_block: str,
         source_terminal: str,
-        dest_component: str,
-        dest_terminal_block: str,
-        dest_terminal: str,
+        destination_component: str,
+        destination_terminal_block: str,
+        destination_terminal: str,
     ):
-        source_wire = (
-            f"{source_component}-{source_terminal_block}-{source_terminal}".strip(
-                "-"
-            ).upper()
+        wire = Wire(
+            source_component,
+            source_terminal_block,
+            source_terminal,
+            destination_component,
+            destination_terminal_block,
+            destination_terminal,
         )
-        destination_wire = (
-            f"{dest_component}-{dest_terminal_block}-{dest_terminal}".strip("-").upper()
-        )
-        wire = (source_wire, destination_wire)
         print(f"Adding wire: {wire}")
-        if not self.is_duplicate_or_reverse(wire):
+        if wire not in self.wires:
             self.wires.append(wire)
+            # Converting wires to dict before saving to file
+            self.save_to_file()
         else:
             print("Attempted to add duplicate or reverse wire.")
 
-    @abstractmethod
-    def save_to_csv(self) -> None:
-        pass
-
-    @abstractmethod
-    def load_from_csv(self) -> None:
-        pass
-
-
-class GUIWireManager(WireManager):
-    def __init__(self, csv_file_name, output_dir):
-        super().__init__(csv_file_name, output_dir)
-
-    def set_csv_file_name(self, csv_file_name):
-        self.csv_file_name = csv_file_name
-
-    def save_to_csv(self) -> None:
-        file_path = self.csv_file_name
-
-        try:
-            os.makedirs(self.output_dir, exist_ok=True)
-
-            with open(file_path, "w", newline="") as csvfile:
-                csv_writer = csv.writer(csvfile)
-                for wire in self.wires:
-                    csv_writer.writerow(wire)
-            print(f"CSV file saved as {file_path}")
-        except FileNotFoundError:
-            print(f"Error: Directory '{self.output_dir}' not found.")
-        except PermissionError:
-            print(f"Error: Permission denied to write to '{file_path}'.")
-        except Exception as e:
-            print(f"Error saving CSV file: {e}")
-
-    def load_from_csv(self, selected_file: str) -> None:
-        file_path = selected_file
-        with open(file_path, "r", newline="") as csvfile:
-            csv_reader = csv.reader(csvfile)
-            for row in csv_reader:
-                self.wires.append(tuple(row))
-            print(
-                f"Loaded {len(self.wires)} existing wire connections from {file_path}"
-            )
-
-
-class ConsoleWireManager(WireManager):
-    def __init__(self, csv_file_name, output_dir) -> None:
-        super().__init__(csv_file_name, output_dir)
-
-    def is_duplicate_or_reverse(self, wire) -> bool:
-        reverse_wire = (wire[1], wire[0])
-        return wire in self.wires or reverse_wire in self.wires
-
-    def print_wires(self) -> None:
-        for i, wire in enumerate(self.wires):
-            print(f"{i + 1}. {wire}")
-
-    def gather_input(self) -> None:
-        print(
-            "Enter wire connection information. Leave fields empty to skip or skip component to quit."
-        )
-        while True:
-            component = input("Component: ").upper()
-            if component.lower() == "quit":
-                print("Quitting...")
-                break
-            elif component.lower() == "print":
-                self.print_wires()
-                continue
-
-            terminal_block = None
-            while terminal_block != "":
-                terminal_block = input(f"{component} + terminal block: ").upper()
-                if not terminal_block:
-                    print("Skipping...")
-                    break
-
-                if not is_valid_input(terminal_block):
-                    print("Invalid terminal block. Please try again.")
-                    continue
-
-                terminal = None
-                while terminal != "":
-                    terminal = input(
-                        f"{component}-{terminal_block} + terminal: "
-                    ).upper()
-                    if not terminal:
-                        print("Skipping...")
-                        break
-
-                    if not is_valid_input(terminal):
-                        print("Invalid terminal. Please try again.")
-                        continue
-
-                    destination = input(
-                        f"{component}-{terminal_block}-{terminal}, destination: "
-                    ).upper()
-
-                    if not is_valid_destination(destination):
-                        print("Invalid destination. Please try again.")
-                        continue
-
-                    wire = (f"{component}-{terminal_block}-{terminal}", destination)
-
-                    if not self.is_duplicate_or_reverse(wire):
-                        self.wires.append(wire)
-                        print(
-                            f"Added: {component}-{terminal_block}-{terminal}, {destination}"
-                        )
-                    else:
-                        print("Duplicate or reverse duplicate detected. Skipping...")
-
-    def save_to_csv(self) -> None:
-        timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-        file_name = f"{self.csv_file_name}_{timestamp}.csv"
-        file_path = os.path.join(self.output_dir, file_name)
-
-        try:
-            os.makedirs(self.output_dir, exist_ok=True)
-
-            with open(file_path, "w", newline="") as csvfile:
-                csv_writer = csv.writer(csvfile)
-                self.print_wires()
-                for wire in self.wires:
-                    csv_writer.writerow(wire)
-            print(f"CSV file saved as {file_name}")
-        except FileNotFoundError:
-            print(f"Error: Directory '{self.output_dir}' not found.")
-        except PermissionError:
-            print(f"Error: Permission denied to write to '{file_path}'.")
-        except Exception as e:
-            print(f"Error saving CSV file: {e}")
-
-    def load_from_csv(self) -> None:
-        if not os.path.exists(self.output_dir):
-            print(
-                f"No existing files found in {self.output_dir}. Starting a new session"
-            )
-
-        matching_files = [
-            file
-            for file in os.listdir(self.output_dir)
-            if file.startswith(f"{self.csv_file_name}_") and file.endswith(".csv")
-        ]
-
-        if not matching_files:
-            print("No existing CSV files found. Starting a new session")
-            return
-
-        matching_files.sort(reverse=True)
-        print("Matching CSV files:")
-        for i, file in enumerate(matching_files):
-            print(f"{i + 1}. {file}")
-
-        selected_file_index = int(input("Enter the number of the file to load: ")) - 1
-        if 0 <= selected_file_index < len(matching_files):
-            file_path = os.path.join(
-                self.output_dir, matching_files[selected_file_index]
-            )
-            with open(file_path, "r", newline="") as csvfile:
-                csv_reader = csv.reader(csvfile)
-                for row in csv_reader:
-                    self.wires.append(tuple(row))
-                print(
-                    f"Loaded {len(self.wires)} existing wire connections from {file_path}:"
-                )
-                for i, wire in enumerate(self.wires):
-                    print(f"{i + 1}. {wire}")
-        else:
-            print("No existing CSV file found. Starting a new session.")
-
-    def filter_wires(self, filter_by, filter_value) -> List[Tuple[str, str]]:
-        if filter_by not in ["component", "terminal_block", "terminal", "destination"]:
-            print(f"Invalid filter option: {filter_by}")
-            return []
-        index_map = {
-            "component": 0,
-            "terminal_block": 1,
-            "terminal": 2,
-            "destination": 3,
-        }
-        filtered_wires = [
-            wire
-            for wire in self.wires
-            if wire[0].split("-")[index_map[filter_by]].upper() == filter_value.upper()
-        ]
-        return filtered_wires
+    def get_wires(self):
+        return self.wires

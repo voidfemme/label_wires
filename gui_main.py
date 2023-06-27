@@ -5,6 +5,7 @@ import sys
 import tkinter.messagebox
 from src.wire_app import WireApp
 from src.dialog import CustomDialog
+from src.wire_manager import GUIWireManager
 
 
 def start_app():
@@ -29,12 +30,14 @@ def start_app():
                     os.path.dirname(os.path.realpath(__file__)), "src", "data"
                 )
                 print(f"Data dir: {data_dir}")
-                file_name = os.path.join(data_dir, file_name + ".csv")
+                file_name = os.path.join(data_dir, file_name + ".json")
                 print(f"File name: {file_name}")
 
-    app = WireApp(file_name)
+    wire_manager = GUIWireManager(file_name, "data")
+    app = WireApp(wire_manager, file_name)
+    app.wire_manager.load_from_file()
 
-    app.csv_file_name.set(file_name)
+    app.json_file_name.set(file_name)
 
     app.mainloop()
 
