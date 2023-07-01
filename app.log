@@ -927,3 +927,37 @@ INFO:src.connection_manager:Wire successfully added.
 INFO:src.connection_manager:Error: Directory '/home/rsp/programs/label_wires/roseorwhatever.cab' not found
 INFO:src.connection_manager:Adding cable: test-your [moms],w-a [p]
 INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Error: Directory 'C:\Users\Rose\Documents\Wire Labels\test.cab' not found
+INFO:src.connection_manager:Adding cable: jj-a [31],kk-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I002',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8E490>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8E490>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I002',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8E490>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8E490>]
+INFO:src.connection_manager:Adding cable: jj-a [31],kk-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: jj-a [32],kk-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [33],kk-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [34],kk-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I011',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8E010>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8E010>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I013',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8ECD0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8ECD0>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I011',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8E010>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8E010>]

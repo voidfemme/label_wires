@@ -1,10 +1,11 @@
 import csv
 import json
 import logging
-import os
 import re
 import string
+import os
 from abc import ABC, abstractmethod
+from pathlib import Path
 from typing import List, Tuple
 from src.connection import Connection, Cable, Wire
 from src.settings import settings
@@ -13,15 +14,23 @@ logger = logging.getLogger(__name__)
 
 
 def is_valid_file_path(path: str) -> bool:
-    dir_name = os.path.dirname(path) or "."
-    if os.name == "nt":
-        valid_path_chars = not bool(re.search(r'[<>:"|?*]|\.$|\s$', path))
+    file_path = Path(path)
+    dir_name = file_path.parent
+    file_name = file_path.name
+
+    if os.name == "nt":  # For Windows systems
+        valid_path_chars = not bool(re.search(r'[<>:"|?*]|\.$|\s$', file_name))
     else:  # For Unix/Linux based systems
         valid_path_chars = "\0" not in path
 
     # Check if path exists and if it has write Permissions
-    path_exists = os.path.exists(dir_name)
-    can_write = os.access(dir_name, os.W_OK)
+    path_exists = dir_name.exists()
+    can_write = dir_name.is_dir() and (dir_name.stat().st_mode & os.W_OK)
+
+    print(file_path)
+    print(f"Valid Path Chars: {valid_path_chars}")
+    print(f"Path Exists: {path_exists}")
+    print(f"Can Write: {can_write}")
 
     return valid_path_chars and path_exists and can_write
 
@@ -38,14 +47,13 @@ def is_valid_entry_string(input_string):
     # If it passes both checks, it's a valid string.
     return True
 
-
 class ConnectionManager(ABC):
     def __init__(self, file_path):
         self.file_path = file_path or settings.get_default_directory()
         if not is_valid_file_path(file_path):
             raise ValueError(f"Invalid file path: {file_path}")
         self.connections = []
-
+    
     def save_to_file(self) -> bool:
         try:
             with open(self.file_path, "w") as file:
@@ -120,9 +128,10 @@ class ConnectionManager(ABC):
         # object itself can alow external code to mutate the internal state of the class.
         return self.connections[:]
 
-    def export_to_csv(self, filename):
+    def export_to_csv(self, file):
+        filename = Path(file)
         # Check if the file exists
-        if os.path.exists(filename):
+        if filename.exists():
             raise FileExistsError(f"The file '{filename}' already exists.")
 
         with open(filename, "w", newline="") as f:

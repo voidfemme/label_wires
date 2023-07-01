@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
-import os
+from pathlib import Path
 import sys
 import webbrowser
 
@@ -138,26 +138,26 @@ class NewProjectDialog(tk.Toplevel):
             self.create_button["state"] = "disabled"
 
     def validate_and_create(self):
-        directory = self.directory.get()
+        directory = Path(self.directory.get())
         file_name = self.file_base_name.get()
-        file_path = os.path.join(directory, file_name)
+        file_path = directory / file_name
 
-        if os.path.exists(file_path):
+        if file_path.exists():
             messagebox.showerror("File Exists", "File already exists")
         else:
             self.apply()
 
     def open_existing_file(self):
-        file_path = self.open_existing_file_directory.get()
+        file_path = Path(self.open_existing_file_directory.get())
 
-        if not os.path.exists(file_path):
+        if not file_path.exists():
             messagebox.showerror("File Not Found", "The specified file does not exist.")
         else:
-            file_name = os.path.basename(file_path)
+            file_name = file_path.name
             mode = "wire" if file_path.endswith(".wir") else "cable"
             # If the file does not exist, store its path as the result and close the dialog
             self.result = {
-                "file_path": file_path,
+                "file_path": str(file_path),
                 "file_name": file_name,
                 "mode": mode,
             }
@@ -191,7 +191,7 @@ class NewProjectDialog(tk.Toplevel):
         sys.exit(0)
 
     def apply(self):
-        directory = self.directory.get()
+        directory = Path(self.directory.get())
         file_name = self.file_base_name.get()
         mode = self.file_mode.get()
 
@@ -201,13 +201,13 @@ class NewProjectDialog(tk.Toplevel):
             file_ext = ".cab"
         else:
             file_ext = ".json"
-        file_path = os.path.join(directory, file_name + file_ext)
+        file_path = directory / (file_name + file_ext)
 
-        if os.path.exists(file_path):
+        if file_path.exists():
             messagebox.showerror("File Exists", "File already exists.")
         else:
             self.result = {
-                "file_path": file_path,
+                "file_path": str(file_path),
                 "file_name": file_name,
                 "mode": mode,
             }
