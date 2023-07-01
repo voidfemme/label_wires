@@ -1,4 +1,5 @@
 import tkinter as tk
+from src.settings import settings
 
 
 class SettingsWindow(tk.Toplevel):
@@ -45,3 +46,7 @@ class SettingsWindow(tk.Toplevel):
         # Here you can define what happens when the user saves the settings
         # For example, you might want to save the default file save location somewhere
         pass
+
+    def change_default_directory(self):
+        new_path = "/new/path/to/default/directory"
+        settings.set_default_directory(new_path)

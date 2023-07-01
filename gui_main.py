@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
-# Workers of the world, Unite!
+# Love is love. Be yourself.
 import os
 import sys
+import tkinter as tk
 import tkinter.messagebox
 from src.wire_app import WireApp
-from src.dialog import CustomDialog
-from src.wire_manager import GUIWireManager
+from src.dialog import StartupDialog
+from src.wire_manager import WireManager, CableManager
 
 
 def start_app():
+    root = tk.Tk()
+    root.withdraw()
     file_name = ""
+    entry_mode = ""
     while not file_name:
-        dialog = CustomDialog(None)
-        file_name = dialog.result
+        dialog = StartupDialog(None)
+        if dialog.result is None:
+            sys.exit()
+        file_name = dialog.result.get("file_name")
+        print(f"file_name: {file_name}")
+        entry_mode = dialog.result.get("mode")
+        print(f"entry_mode: {entry_mode}")
 
         if file_name is None:
             sys.exit()
@@ -29,18 +38,32 @@ def start_app():
                 data_dir = os.path.join(
                     os.path.dirname(os.path.realpath(__file__)), "src", "data"
                 )
-                print(f"Data dir: {data_dir}")
-                file_name = os.path.join(data_dir, file_name + ".json")
-                print(f"File name: {file_name}")
+                file_name = os.path.join(data_dir, file_name)
+                if entry_mode == "wire":
+                    file_name += ".wir"
+                elif entry_mode == "cable":
+                    file_name += ".cab"
+                else:
+                    file_name += ".json"
 
-    wire_manager = GUIWireManager(file_name, "data")
-    app = WireApp(wire_manager, file_name)
-    app.wire_manager.load_from_file()
+            if not os.path.exists(file_name):
+                # Create file
+                with open(file_name, "w") as f:
+                    pass
+            if entry_mode == "wire":
+                connection_manager = WireManager(file_name, entry_mode)
+            elif entry_mode == "cable":
+                connection_manager = CableManager(file_name, entry_mode)
+            else:
+                raise ValueError(f"Invalid mode: {entry_mode}")
 
-    app.json_file_name.set(file_name)
+            app = WireApp(connection_manager, file_name, entry_mode)
+            app.wire_manager.load_from_file()
+            app.mainloop()
 
-    app.mainloop()
+    return root
 
 
 if __name__ == "__main__":
-    start_app()
+    root = start_app()
+    root.destroy()

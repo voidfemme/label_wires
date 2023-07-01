@@ -1,9 +1,8 @@
-#!/usr/bin/env python3
-# Workers of the world, Unite!
-import json
+# Love is love. Be yourself.
+from abc import ABC, abstractmethod
 
 
-class Wire:
+class Connection(ABC):
     def __init__(
         self,
         source_component,
@@ -19,21 +18,6 @@ class Wire:
         self.destination_component = destination_component
         self.destination_terminal_block = destination_terminal_block
         self.destination_terminal = destination_terminal
-        self.source_str = (
-            f"{self.source_component}-{self.source_terminal_block}-{source_terminal}"
-        )
-        self.destination_str = f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}"
-
-    def __str__(self) -> str:
-        return f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}".strip(
-            "-"
-        ).replace(
-            "--", "-"
-        ) + f", {self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}".strip(
-            "-"
-        ).replace(
-            "--", "-"
-        )
 
     def __eq__(self, other: "Wire") -> bool:
         if not isinstance(other, Wire):
@@ -78,4 +62,38 @@ class Wire:
                 "destination_terminal_block",
                 "destination_terminal",
             ]
+        )
+
+    @abstractmethod
+    def __str__(self):
+        pass
+
+    @abstractmethod
+    def to_tuple(self):
+        pass
+
+
+class Wire(Connection):
+    def __str__(self):
+        source = f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}"
+        destination = f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}"
+        return f"{source},{destination}"
+
+    def to_tuple(self):
+        return (
+            f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}",
+            f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}",
+        )
+
+
+class Cable(Connection):
+    def __str__(self):
+        source = f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]"
+        destination = f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]"
+        return f"{source},{destination}"
+
+    def to_tuple(self):
+        return (
+            f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]",
+            f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]",
         )

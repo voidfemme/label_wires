@@ -1,0 +1,929 @@
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding cable: jj-a- [2], kk-a- [2]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [2], kk-a- [2]
+INFO:src.connection_manager:Attempted to add duplicate cable.
+INFO:src.connection_manager:Adding cable: jj-a- [2], kk-a- [2]
+INFO:src.connection_manager:Attempted to add duplicate cable.
+INFO:src.connection_manager:Adding cable: jj-a- [2], kk-a- [2]
+INFO:src.connection_manager:Attempted to add duplicate cable.
+INFO:src.connection_manager:Adding cable: jj-a- [3], kk-a- [3]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [4], kk-a- [4]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [5], kk-a- [5]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [6], kk-a- [6]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [7], kk-a- [7]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a- [8], kk-a- [8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding cable: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: ee-343 [1a-1b],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I008',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f2b7ceda9d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f2b7ceda9d0>]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: ee-343 [1a-1b],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I004',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f8e68b1c890>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f8e68b1c890>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: ee-343 [1a-1b],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding cable: jj-a [1-8],p-tb [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: j-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: j-a [2],kk-a [w]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [2],- []
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: jj-a [2],- []
+INFO:src.connection_manager:Loaded wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Loaded wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Loaded wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I001',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf286bd0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf286bd0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028', 'I029')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028', 'I029', 'I02A')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028', 'I029', 'I02A', 'I02B')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>, <src.connection.Cable object at 0x7fe8bf287d10>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>, <src.connection.Cable object at 0x7fe8bf287d10>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028', 'I029', 'I02A', 'I02B', 'I02C')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>, <src.connection.Cable object at 0x7fe8bf287d10>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>, <src.connection.Cable object at 0x7fe8bf287d10>, <src.connection.Cable object at 0x7fe8bf287e50>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d90>, <src.connection.Cable object at 0x7fe8bf287dd0>, <src.connection.Cable object at 0x7fe8bf287e10>, <src.connection.Cable object at 0x7fe8bf287d10>, <src.connection.Cable object at 0x7fe8bf287e50>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I027',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d50>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d50>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I028',)
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:delete
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I02B',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287d10>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287d10>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:delete
+INFO:src.wire_app:delete
+INFO:src.wire_app:delete
+INFO:src.wire_app:delete
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I0C5',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287f10>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287f10>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I0E2',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287ed0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287ed0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I100',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287f90>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287f90>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I11C',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf287fd0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf287fd0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I145',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf2883d0>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I145', 'I146')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>, <src.connection.Cable object at 0x7fe8bf288410>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf2883d0>, <src.connection.Cable object at 0x7fe8bf288410>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I145', 'I146', 'I147')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>, <src.connection.Cable object at 0x7fe8bf288410>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2883d0>, <src.connection.Cable object at 0x7fe8bf288410>, <src.connection.Cable object at 0x7fe8bf288450>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf2883d0>, <src.connection.Cable object at 0x7fe8bf288410>, <src.connection.Cable object at 0x7fe8bf288450>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:delete
+INFO:src.wire_app:delete
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I142',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288310>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288310>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I15E',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288450>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288450>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a [2],rose-sylvia [proctor]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I174',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288390>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288390>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I173', 'I174')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288350>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288350>, <src.connection.Cable object at 0x7fe8bf288390>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288350>, <src.connection.Cable object at 0x7fe8bf288390>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I187',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288290>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288290>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I19B',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I199', 'I19B')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288210>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288210>, <src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288210>, <src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I197', 'I199', 'I19B')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288190>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288190>, <src.connection.Cable object at 0x7fe8bf288210>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288190>, <src.connection.Cable object at 0x7fe8bf288210>, <src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288190>, <src.connection.Cable object at 0x7fe8bf288210>, <src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:delete
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I19A',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288250>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288250>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Attempted to delete a wire that doesn't exist.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I19B',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf2882d0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I199',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7fe8bf288210>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7fe8bf288210>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Attempted to delete a wire that doesn't exist.
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding wire: jj-a-21,kk-a-2
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-21,kk-a-2
+INFO:src.connection_manager:Attempted to add duplicate or reverse wire.
+INFO:src.connection_manager:Adding wire: jj-a-22,kk-a-3
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-23,kk-a-4
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-24,kk-a-5
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-25,kk-a-6
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-26,kk-a-7
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-27,kk-a-8
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-28,kk-a-9
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-29,kk-a-10
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-30,kk-a-11
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I041',)
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I03F', 'I041')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d410>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I03D', 'I03F', 'I041')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cdd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I03B', 'I03D', 'I03F', 'I041')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c610>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c610>, <src.connection.Wire object at 0x7f710e99cdd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c610>, <src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c610>, <src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99c610>, <src.connection.Wire object at 0x7f710e99cdd0>, <src.connection.Wire object at 0x7f710e99d410>, <src.connection.Wire object at 0x7f710e99d310>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a-22,kk-a-3
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-24,kk-a-5
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-26,kk-a-7
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-28,kk-a-9
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I049',)
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I047', 'I049')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I047', 'I048', 'I049')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I046', 'I047', 'I048', 'I049')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cfd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I045', 'I046', 'I047', 'I048', 'I049')
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c790>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c790>, <src.connection.Wire object at 0x7f710e99cfd0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c790>, <src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c790>, <src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c790>, <src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99c790>, <src.connection.Wire object at 0x7f710e99cfd0>, <src.connection.Wire object at 0x7f710e99d810>, <src.connection.Wire object at 0x7f710e99e1d0>, <src.connection.Wire object at 0x7f710e99e610>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a-23,kk-a-4
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-25,kk-a-6
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-27,kk-a-8
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-29,kk-a-10
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a-30,kk-a-11
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I04A',)
+INFO:src.wire_app:selected_wires: [<src.connection.Wire object at 0x7f710e99c9d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Wire object at 0x7f710e99c9d0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a-21,kk-a-2
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Loaded wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Loaded wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Loaded wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],- []
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Loaded wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I00A',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I009', 'I00A')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a850>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I008', 'I009', 'I00A')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I007', 'I008', 'I009', 'I00A')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a7d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I006', 'I007', 'I008', 'I009', 'I00A')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a790>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a790>, <src.connection.Cable object at 0x7f536722a7d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a790>, <src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a790>, <src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a790>, <src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a790>, <src.connection.Cable object at 0x7f536722a7d0>, <src.connection.Cable object at 0x7f536722a810>, <src.connection.Cable object at 0x7f536722a850>, <src.connection.Cable object at 0x7f536722a750>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: j-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: j-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],- [] not found in wires_dict
+INFO:src.wire_app:Deleting wire: j-a [2],- []
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],- [] not found in wires_dict
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],kk-a [w] not found in wires_dict
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I019',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I017', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I019',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I013', 'I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I013', 'I014', 'I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I012', 'I013', 'I014', 'I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I011', 'I012', 'I013', 'I014', 'I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I010', 'I011', 'I012', 'I013', 'I014', 'I015', 'I016', 'I017', 'I018', 'I019')
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>]
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f536722a010>, <src.connection.Cable object at 0x7f536722a650>, <src.connection.Cable object at 0x7f536722a690>, <src.connection.Cable object at 0x7f536722a6d0>, <src.connection.Cable object at 0x7f536722a710>, <src.connection.Cable object at 0x7f536722a890>, <src.connection.Cable object at 0x7f536722a8d0>, <src.connection.Cable object at 0x7f536722a910>, <src.connection.Cable object at 0x7f536722a950>, <src.connection.Cable object at 0x7f536722a990>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: kk-a [1-8],jj-b [1-8]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: kk-a [1-8],jj-a [1-8]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-q [10],kk-a [4]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a [10],kk-a [1]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],kk-a [w] not found in wires_dict
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],kk-a [w] not found in wires_dict
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],kk-a [w] not found in wires_dict
+INFO:src.wire_app:Deleting wire: j-a [2],kk-a [w]
+INFO:src.connection_manager:Wire successfully deleted.
+WARNING:src.wire_app:Wire j-a [2],kk-a [w] not found in wires_dict
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [21],kk-a [10-88]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ('I002',)
+INFO:src.wire_app:selected_wires: [<src.connection.Cable object at 0x7f3ced5f23d0>]
+INFO:src.wire_app:self.selected_wires = [<src.connection.Cable object at 0x7f3ced5f23d0>]
+INFO:src.wire_app:delete
+INFO:src.wire_app:Deleting wire: jj-a [21],kk-a [10-88]
+INFO:src.connection_manager:Wire successfully deleted.
+INFO:src.wire_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.wire_app:selected_items: ()
+INFO:src.wire_app:self.selected_wires = []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Adding cable: jj-a [1],kk-a [2]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Loaded wire: jj-a [1],kk-a [2]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/src/data/testers.cab
+INFO:src.connection_manager:Error: Directory '/home/rsp/programs/label_wires/Calliesabitch.wir' not found
+INFO:src.connection_manager:Adding wire: m-tb-1,kk-a-1
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-2,kk-a-2
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-3,kk-a-3
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-4,kk-a-4
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-5,kk-a-5
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-6,kk-a-6
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-7,kk-a-7
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-8,kk-a-8
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-9,kk-a-9
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-10,kk-a-10
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-11,kk-a-11
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-12,kk-a-12
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-13,kk-a-13
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-14,kk-a-14
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-15,kk-a-15
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-16,kk-a-16
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-17,kk-a-17
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-18,kk-a-18
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-19,kk-a-19
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0D0',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0D0', 'I0D1')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195bf50>, <src.connection.Wire object at 0x7fcc41964690>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4195bf50>, <src.connection.Wire object at 0x7fcc41964690>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0D0',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0CE', 'I0D0')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195b2d0>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0CC', 'I0CE', 'I0D0')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195a690>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0CA', 'I0CC', 'I0CE', 'I0D0')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41959d90>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41959d90>, <src.connection.Wire object at 0x7fcc4195a690>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41959d90>, <src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41959d90>, <src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc41959d90>, <src.connection.Wire object at 0x7fcc4195a690>, <src.connection.Wire object at 0x7fcc4195b2d0>, <src.connection.Wire object at 0x7fcc4195bf50>]
+INFO:src.connection_app:delete
+INFO:src.connection_app:Deleting connection: m-tb-12,kk-a-12
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:Deleting connection: m-tb-14,kk-a-14
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:Deleting connection: m-tb-16,kk-a-16
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:Deleting connection: m-tb-18,kk-a-18
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0DB',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0D9', 'I0DB')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41958850>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41958850>, <src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc41958850>, <src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0D7', 'I0D9', 'I0DB')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194efd0>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194efd0>, <src.connection.Wire object at 0x7fcc41958850>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194efd0>, <src.connection.Wire object at 0x7fcc41958850>, <src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194efd0>, <src.connection.Wire object at 0x7fcc41958850>, <src.connection.Wire object at 0x7fcc41959290>]
+INFO:src.connection_app:delete
+INFO:src.connection_app:Deleting connection: m-tb-6,kk-a-6
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:Deleting connection: m-tb-8,kk-a-8
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:Deleting connection: m-tb-10,kk-a-10
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0E4',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f150>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f150>]
+INFO:src.connection_app:delete
+INFO:src.connection_app:Deleting connection: m-tb-4,kk-a-4
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0EE',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f4d0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f4d0>]
+INFO:src.connection_app:delete
+INFO:src.connection_app:Deleting connection: m-tb-2,kk-a-2
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0F8',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f210>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f210>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0FA',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f090>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f090>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0F9',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f710>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f710>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0FB',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc41958390>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc41958390>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0FD',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc419597d0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc419597d0>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I0FA',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7fcc4194f090>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7fcc4194f090>]
+INFO:src.connection_app:delete
+INFO:src.connection_app:Deleting connection: m-tb-5,kk-a-5
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding wire: m-tb-20,m-tb-20
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-21,m-tb-21
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: m-tb-22,m-tb-22
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Error: Directory '/home/rsp/programs/label_wires/roseorwhatever.cab' not found
+INFO:src.connection_manager:Adding cable: test-your [moms],w-a [p]
+INFO:src.connection_manager:Cable successfully added.
