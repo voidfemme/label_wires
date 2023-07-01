@@ -1,6 +1,6 @@
-# Wire Labeling Tool
+# WireLab - Fast and accurate wire Labeling
 
-This program is a wire labeling tool that allows users to input wire connections and store them in a CSV file. It provides filtering options to view specific wire connections based on user-defined criteria. The tool can also load previous wire connections from existing CSV files for further modifications.
+This program was created for generating csv files from user input data. It provides fields for a component, terminal block and terminal that can be edited independently to help increase the speed at which you can input a large number of labels at once. It stores files as `.cab` and `.wir` which are just json files. You can export a file to csv with an "export" button.
 
 ## Installation
 
@@ -10,30 +10,23 @@ This program is a wire labeling tool that allows users to input wire connections
 
 ## Usage
 
-1. Run the `main.py` script in your terminal or command prompt with the command `python main.py`.
-2. Enter the CSV file name when prompted. Make sure it doesn't contain any invalid characters.
-3. If any existing CSV files with matching names are found, select the file to load the existing wire connections.
-4. Enter the wire connection information in the following format: `Component`, `Terminal Block`, `Terminal`, and `Destination`. Leave fields empty to skip or type `quit` to stop inputting connections.
-5. Use the filtering options to view specific wire connections by entering the filter criteria and value.
-6. The program will save the wire connections to the specified CSV file.
 
 ## Features
 
 - Compatible with both Windows and Linux. Untested for Apple Mac
 - Gather wire connection input with validation for each field
-- Load existing wire connections from CSV files
-- Save wire connections to CSV files
-- Filter wire connections based on specified criteria
+- Export wire connections to CSV files
+- (Future) Filter wire connections based on specified criteria
 - Detect duplicate or reverse duplicate connections
-
-## main.py
-
-The `main.py` script contains the main function that initializes a `WireManager` instance, loads any existing CSV files, gathers wire connection input, filters wires, and saves the connections to a CSV file.
 
 ## To Do:
 
-- Fix `int(input())` section where it increments the number to support non-numeric entries without erroring
-- Make the wire manager its own minimal text editor
+- Finish this Readme
 - Create an installer for Windows
 - Add "undo" button
-- Cable mode and non-destination mode tabs
+- Custom csv delimiter field
+- Polish Layout
+- Implement Settings:
+    - Default Save Location
+    - Default Export Location
+    - Language
