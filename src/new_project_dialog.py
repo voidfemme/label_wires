@@ -34,7 +34,12 @@ class NewProjectDialog(tk.Toplevel):
         self.create_header_section()
         self.create_new_file_section()
         self.create_open_existing_file_section()
+        self.create_csv_delimiter_section()
         self.create_info_section()
+
+    def create_csv_delimiter_section(self):
+        self.custom_csv_delimiter_label = tk.Label(self, text=self.localizer.get("custom_csv_delimiter"))
+
 
     def create_header_section(self):
         # Section belongs at the top left

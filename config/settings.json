@@ -3,5 +3,6 @@
     "default_wire_file_directory": "",
     "default_csv_directory": "",
     "default_save_location": "",
-    "csv_save_location": ""
+    "csv_save_location": "",
+    "csv_custom_delimiter": "|"
 }

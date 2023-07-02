@@ -6,6 +6,7 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 
+from src.command import AddConnectionCommand, DeleteConnectionCommand
 from src.settings import Settings
 from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
@@ -27,6 +28,7 @@ class ConnectionApp(tk.Tk):
         self.language = language
         self.localizer = Localizer(self.language)
         self.title(self.localizer.get("application_title"))
+        self.undo_stack = []
 
         # Set the default window size
         self.geometry("1300x400")
@@ -157,6 +159,9 @@ class ConnectionApp(tk.Tk):
         self.delete_button = LocalizedButton(
             self, self.localizer, "delete_connection", command=self.delete_connection
         )
+        self.undo_button = LocalizedButton(
+            self, self.localizer, "undo", command=self.undo
+        )
         self.export_button = LocalizedButton(
             self, self.localizer, "export", command=self.export_to_csv
         )
@@ -207,6 +212,7 @@ class ConnectionApp(tk.Tk):
         self.destination_terminal_entry.grid(row=6, column=4, padx=5, pady=5)
         self.destination_increment_checkbutton.grid(row=6, column=5, padx=5, pady=5)
         self.add_connection_button.grid(row=7, column=2, padx=5, pady=5)
+        self.undo_button.grid(row=7, column=3, padx=5, pady=5)
         self.settings_button.grid(row=7, column=5, padx=5, pady=5)
 
         self.delete_button.grid(row=7, column=0, padx=5, pady=5)
@@ -223,7 +229,9 @@ class ConnectionApp(tk.Tk):
         columns = ("#1", "#2")
         columns_keys = ["source", "destination"]
         self.columns_keys_mapping = dict(zip(columns, columns_keys))
-        tree = LocalizedTreeView(self, self.localizer, self.columns_keys_mapping, show="headings")
+        tree = LocalizedTreeView(
+            self, self.localizer, self.columns_keys_mapping, show="headings"
+        )
 
         tree.bind("<<TreeviewSelect>>", self.update_selected_connections)
         tree.grid(row=0, column=0, sticky=tk.NSEW)
@@ -295,89 +303,58 @@ class ConnectionApp(tk.Tk):
         return False
 
     def add_connection(self):
-        source_component = self.source_component.get()
-        source_terminal_block = self.source_terminal_block.get()
-        source_terminal = self.source_terminal.get()
+        source = {
+            "component": self.source_component.get(),
+            "terminal_block": self.source_terminal_block.get(),
+            "terminal": self.source_terminal.get(),
+        }
 
         if self.lock_destination_toggle.get():
             # Set destination fields to match source fields
-            self.destination_component.set(source_component)
-            self.destination_terminal_block.set(source_terminal_block)
-            self.destination_terminal.set(source_terminal)
+            self.destination_component.set(source["component"])
+            self.destination_terminal_block.set(source["terminal_block"])
+            self.destination_terminal.set(source["terminal"])
 
-        destination_component = self.destination_component.get()
-        destination_terminal_block = self.destination_terminal_block.get()
-        destination_terminal = self.destination_terminal.get()
+        destination = {
+            "component": self.destination_component.get(),
+            "terminal_block": self.destination_terminal_block.get(),
+            "terminal": self.destination_terminal.get(),
+        }
 
         # Check if every field is empty
         if self.is_empty_label(
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
+            source["component"],
+            source["terminal_block"],
+            source["terminal"],
+            destination["component"],
+            destination["terminal_block"],
+            destination["terminal"],
         ):
             return
 
-        connection = self.connection_manager.add_connection(
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
-        )
-
-        source, destination = self.connection_manager.get_connection_tuple(connection)
-
-        # Add to tree widget and get unique identifier
-        item = self.tree_widget.insert("", "end", values=(source, destination))
-
-        # Add to the mapping dictionary
-        self.tree_item_to_connection[item] = connection
-
-        # Print a message to the UI
-        self.display_status(self.localizer.get("added_connection"))
-
-        # Update the listbox to reflect the new connection list
-        self.update_connection_list()
+        cmd = AddConnectionCommand(self, source, destination)
+        cmd.execute()
+        self.undo_stack.append(cmd)
 
         if self.source_increment_toggle.get():
             self.increment(self.source_terminal_entry)
         if self.destination_increment_toggle.get():
             self.increment(self.destination_terminal_entry)
 
+    def undo(self):
+        if self.undo_stack:
+            command = self.undo_stack.pop()
+            command.undo()
+
     def delete_connection(self):
-        logger.info("delete")
-        for item in self.tree_widget.selection():
-            try:
-                connection = self.tree_item_to_connection[item]
-            except KeyError:
-                logger.warning(f"Connection not found for item: {item}")
-                continue
-            logger.info(f"Deleting connection: {connection}")
-
-            # Attempt to delete the connection
-            try:
-                self.connection_manager.delete_connection(connection)
-            except Exception as e:
-                logger.warning(
-                    f"Could not delete {connection} from connection manager: {e}"
-                )
-                continue  # Skip this connection
-
-            # Attempt to delete from connections_dict
-            try:
-                del self.connections_dict[str(connection)]
-            except KeyError:
-                logger.warning(f"Connection {connection} not found in connections_dict")
-
-            # Attempt to delete from tree_item_to_connection
-            try:
-                del self.tree_item_to_connection[item]
-            except KeyError:
-                logger.warning(f"Item {item} not found in tree_item_to_connection")
+        command = DeleteConnectionCommand(
+            self.tree_widget,
+            self.tree_item_to_connection,
+            self.connections_dict,
+            self.connection_manager,
+        )
+        command.execute()
+        self.undo_stack.append(command)
 
         self.update_connection_list()
         self.selected_connections = []

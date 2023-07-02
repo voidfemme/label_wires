@@ -2,9 +2,9 @@
     {
         "source_component": "jj",
         "source_terminal_block": "a",
-        "source_terminal": "",
+        "source_terminal": "12",
         "destination_component": "kk",
         "destination_terminal_block": "a",
-        "destination_terminal": "2"
+        "destination_terminal": "23"
     }
 ]

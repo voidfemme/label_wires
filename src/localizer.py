@@ -34,6 +34,9 @@ class Localizer:
         with locale_path.open("r") as f:
             self.strings = json.load(f)
 
+        # print(f"Loaded strings for {self.locale}: {self.strings}")
+        # print(f"Loaded fallback_strings: {self.fallback_strings}")
+
     def get(self, key):
         if key not in self.strings:
             if self.fallback_to_english and key in self.fallback_strings:
@@ -42,3 +45,7 @@ class Localizer:
                 raise LocalizationKeyError(f'No localization for key "{key}"')
         return self.strings[key]
 
+    def set_locale(self, new_locale):
+        self.locale = new_locale
+        print(f"Setting locale to: {self.locale}")
+        self.load_locale()
