@@ -8,7 +8,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List, Tuple
 from src.connection import Connection, Cable, Wire
-from src.settings import settings
+from src.settings import Settings
 
 logger = logging.getLogger(__name__)
 
@@ -51,7 +51,8 @@ def is_valid_entry_string(input_string):
 
 class ConnectionManager(ABC):
     def __init__(self, file_path):
-        self.file_path = file_path or settings.get_default_directory()
+        self.settings = Settings()
+        self.file_path = file_path or self.settings.get("default_directory")
         if not is_valid_file_path(file_path):
             raise ValueError(f"Invalid file path: {file_path}")
         self.connections = []

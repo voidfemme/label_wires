@@ -2,15 +2,18 @@
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
 from pathlib import Path
-import sys
 import webbrowser
 from src.localizer import Localizer
+from src.settings import Settings
+from src.settings_window import SettingsWindow
 
 
 class NewProjectDialog(tk.Toplevel):
     def __init__(self, master=None, language="en"):
         super().__init__(master=master)
-        self.localizer = Localizer(language)
+        self.master = master
+        self.language = language
+        self.localizer = Localizer(self.language)
         self.title("New Project")
 
         # Initialize all the variables
@@ -58,7 +61,7 @@ class NewProjectDialog(tk.Toplevel):
 
         self.browse_directory_button = tk.Button(
             self,
-            text=self.localizer.get("browse_button"),
+            text=self.localizer.get("browse"),
             command=self.browse_directory,
         )
         self.create_button = tk.Button(
@@ -95,7 +98,7 @@ class NewProjectDialog(tk.Toplevel):
         )
         self.browse_for_existing_files_button = tk.Button(
             self,
-            text=self.localizer.get("browse_button"),
+            text=self.localizer.get("browse"),
             command=self.open_file_browse,
         )
         self.open_existing_file_button = tk.Button(
@@ -192,9 +195,10 @@ class NewProjectDialog(tk.Toplevel):
             self.destroy()
 
     def open_settings(self):
-        settings_window = tk.Toplevel(self)
-        settings_window.title(self.localizer.get("settings"))
-        # Add settings widgets here
+        self.settings = Settings()
+        self.settings_window = SettingsWindow(
+            self, self.settings, language=self.language
+        )
 
     def open_url(self, url):
         webbrowser.open_new(url)
@@ -219,7 +223,7 @@ class NewProjectDialog(tk.Toplevel):
         label2.bind("<Button-1>", lambda e: self.open_url(link))
 
     def quit_program(self):
-        sys.exit(0)
+        self.master.quit_program()
 
     def apply(self):
         directory = Path(self.directory.get())
@@ -253,12 +257,3 @@ class NewProjectDialog(tk.Toplevel):
             except Exception as e:
                 messagebox.showerror(self.localizer.get("error"), str(e))
         self.destroy()
-
-
-def main():
-    app = NewProjectDialog()
-    app.mainloop()
-
-
-if __name__ == "__main__":
-    main()

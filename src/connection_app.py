@@ -6,10 +6,17 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 
+from src.settings import Settings
 from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
 from src.connection_manager_factory import ConnectionManagerFactory
-from src.localizer import Localizer, LocaleNotFoundError, LocalizationKeyError
+from src.localizer import Localizer
+from src.localized_widgets import (
+    LocalizedLabel,
+    LocalizedButton,
+    LocalizedCheckButton,
+    LocalizedTreeView,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -17,14 +24,18 @@ logger = logging.getLogger(__name__)
 class ConnectionApp(tk.Tk):
     def __init__(self, language="en"):
         super().__init__()
-        self.localizer = Localizer(language)
+        self.language = language
+        self.localizer = Localizer(self.language)
         self.title(self.localizer.get("application_title"))
 
         # Set the default window size
-        self.geometry("800x600")
+        self.geometry("1300x400")
+
+        # Hide the main window
+        self.withdraw()
 
         # Call NewProjectDialog and wait until it's done
-        self.new_project_dialog = NewProjectDialog(self, language=language)
+        self.new_project_dialog = NewProjectDialog(self, language=self.language)
         self.wait_window(self.new_project_dialog)
         self.new_project_result = self.new_project_dialog.result
 
@@ -72,24 +83,33 @@ class ConnectionApp(tk.Tk):
         self.connection_frame = tk.Frame(self)
         self.create_widgets()
         self.load_connections()
+        self.deiconify()
 
     def create_widgets(self):
         # Define labels
         if self.file_name is None:
             self.file_name = self.localizer.get("untitled_labels")
         self.file_name_label = tk.Label(self, text=self.file_name)
-        self.component_label = tk.Label(self, text=self.localizer.get("component"))
-        self.terminal_block_label = tk.Label(
-            self, text=self.localizer.get("terminal_block")
+        self.component_label = LocalizedLabel(self, self.localizer, "component")
+        self.terminal_block_label = LocalizedLabel(
+            self, self.localizer, "terminal_block"
         )
-        self.terminal_label = tk.Label(self, text=self.localizer.get("terminal"))
-        self.file_name_field_label = tk.Label(
-            self, text=self.localizer.get("saving_as").format(filename=self.file_name)
-        )
-        self.source_label = tk.Label(self, text=self.localizer.get("field_one"))
-        self.destination_label = tk.Label(self, text=self.localizer.get("field_two"))
-        self.status_label = tk.Label(self, text="")
+        self.terminal_label = LocalizedLabel(self, self.localizer, "terminal")
+        self.file_name_field_label = LocalizedLabel(self, self.localizer, "saving_as")
+        self.source_label = LocalizedLabel(self, self.localizer, "field_one")
+        self.destination_label = LocalizedLabel(self, self.localizer, "field_two")
 
+        self.status_label = tk.Label(self, text="")
+        self.define_entry_fields()
+        self.define_checkbuttons()
+        self.define_buttons()
+        self.define_bindings()
+        # Define text area for connection numbers
+        self.tree_widget = self.create_tree_widget()
+        self.arrange_widgets_in_grid()
+        self.update_connection_list()
+
+    def define_entry_fields(self):
         # Define Entry fields
         self.source_component_entry = tk.Entry(self, textvariable=self.source_component)
         self.source_terminal_block_entry = tk.Entry(
@@ -107,42 +127,44 @@ class ConnectionApp(tk.Tk):
             self, textvariable=self.destination_terminal
         )
 
-        # Define Checkbuttons
-        self.source_increment_checkbutton = tk.Checkbutton(
-            self,
-            text=self.localizer.get("increment"),
-            variable=self.source_increment_toggle,
+    def define_checkbuttons(self):
+        self.source_increment_checkbutton = LocalizedCheckButton(
+            self, self.localizer, "increment", variable=self.source_increment_toggle
         )
-        self.destination_increment_checkbutton = tk.Checkbutton(
+        self.destination_increment_checkbutton = LocalizedCheckButton(
             self,
-            text=self.localizer.get("increment"),
+            self.localizer,
+            "increment",
             variable=self.destination_increment_toggle,
         )
-        self.lock_destination_checkbutton = tk.Checkbutton(
+        self.lock_destination_checkbutton = LocalizedCheckButton(
             self,
-            text=self.localizer.get("lock_destination"),
+            self.localizer,
+            "lock_destination",
             variable=self.lock_destination_toggle,
         )
 
-        # Define buttons
-        self.save_button = tk.Button(
-            self, text=self.localizer.get("save_file"), command=self.save_file
+    def define_buttons(self):
+        self.save_button = LocalizedButton(
+            self, self.localizer, "save_file", command=self.save_file
         )
-        self.add_connection_button = tk.Button(
-            self, text=self.localizer.get("add_connection"), command=self.add_connection
+        self.add_connection_button = LocalizedButton(
+            self, self.localizer, "add_connection", command=self.add_connection
         )
-        self.settings_button = tk.Button(
-            self, text=self.localizer.get("settings"), command=self.open_settings_window
+        self.settings_button = LocalizedButton(
+            self, self.localizer, "settings", command=self.open_settings_window
         )
-        self.delete_button = tk.Button(
-            self,
-            text=self.localizer.get("delete_connection"),
-            command=self.delete_connection,
+        self.delete_button = LocalizedButton(
+            self, self.localizer, "delete_connection", command=self.delete_connection
         )
-        self.export_button = tk.Button(
-            self, text=self.localizer.get("export"), command=self.export_to_csv
+        self.export_button = LocalizedButton(
+            self, self.localizer, "export", command=self.export_to_csv
+        )
+        self.quit_button = LocalizedButton(
+            self, self.localizer, "quit", command=self.quit_program
         )
 
+    def define_bindings(self):
         # Define bindings
         self.source_component_entry.bind(
             "<Return>", lambda event: self.add_connection()
@@ -161,9 +183,7 @@ class ConnectionApp(tk.Tk):
             "<Return>", lambda event: self.add_connection()
         )
 
-        # Define text area for connection numbers
-        self.tree_widget = self.create_tree_widget()
-
+    def arrange_widgets_in_grid(self):
         # Arrange widgets in grid (left to right, top to bottom)
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)
         self.file_name_field_label.grid(
@@ -197,15 +217,13 @@ class ConnectionApp(tk.Tk):
         self.status_label.grid(
             row=9, column=0, columnspan=5, sticky="w", padx=5, pady=5
         )
-        self.update_connection_list()
+        self.quit_button.grid(row=8, column=5, padx=5, pady=5)
 
     def create_tree_widget(self):
-        columns = ("Source", "Destination")
-        tree = ttk.Treeview(self, columns=columns, show="headings")
-
-        # Define headings
-        tree.heading("Source", text=self.localizer.get("source"))
-        tree.heading("Destination", text=self.localizer.get("destination"))
+        columns = ("#1", "#2")
+        columns_keys = ["source", "destination"]
+        self.columns_keys_mapping = dict(zip(columns, columns_keys))
+        tree = LocalizedTreeView(self, self.localizer, self.columns_keys_mapping, show="headings")
 
         tree.bind("<<TreeviewSelect>>", self.update_selected_connections)
         tree.grid(row=0, column=0, sticky=tk.NSEW)
@@ -236,7 +254,10 @@ class ConnectionApp(tk.Tk):
         logger.info(f"self.selected_connections = {self.selected_connections}")
 
     def open_settings_window(self):
-        self.settings_window = SettingsWindow(self)
+        self.settings = Settings()
+        self.settings_window = SettingsWindow(
+            self, self.settings, language=self.language
+        )
 
     def validate_json_content(self, content):
         try:
@@ -429,3 +450,7 @@ class ConnectionApp(tk.Tk):
 
         # Clear the status label after 5 seconds
         self.after(5000, lambda: self.status_label.config(text=""))
+
+    def quit_program(self):
+        self.destroy()
+        sys.exit(0)

@@ -1,20 +1,24 @@
+import json
+from pathlib import Path
+
+
 class Settings:
-    def __init__(self):
-        self.default_directory = ""
-        self.default_mode = "wire"
+    def __init__(self, file_path=Path("config/settings.json")):
+        self.file_path = file_path
+        self.settings = {}
+        if self.file_path.is_file():
+            self.load_settings()
 
-    def get_default_directory(self):
-        return self.default_directory
+    def load_settings(self):
+        with self.file_path.open("r") as f:
+            self.settings = json.load(f)
 
-    def set_default_directory(self, path):
-        self.default_directory = path
+    def save_settings(self):
+        with self.file_path.open("w") as f:
+            json.dump(self.settings, f, indent=4)
 
-    def get_default_mode(self):
-        return self.default_mode
+    def get(self, setting_key, default=None) -> str:
+        return self.settings.get(setting_key, default)
 
-    def set_default_mode(self, mode):
-        self.default_mode = mode
-
-
-# Create a global settings object that can be imported in other modules
-settings = Settings()
+    def set(self, setting_key, setting_value):
+        self.settings[setting_key] = setting_value

@@ -1,52 +1,83 @@
 import tkinter as tk
-from src.settings import settings
+from tkinter import filedialog, ttk
+from src.localizer import Localizer
 
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, master=None, **kwargs) -> None:
-        super().__init__(master, **kwargs)
-        self.title("Settings")
+    def __init__(self, master, settings, language="en", *args, **kwargs):
+        super().__init__(master, *args, **kwargs)
+        self.settings = settings
+        self.localizer = Localizer(language)
 
-        # Setting the default file save location
-        self.default_save_location = tk.StringVar()
+        self.title(self.localizer.get("settings"))
 
-        # Toggle upper case conversion
-        self.upper_case_conversion = tk.BooleanVar()
+        # Add setting controls here:
+        self.create_language_section()
+        self.create_default_save_section()
+        self.create_csv_save_location_section()
 
-        self.create_widgets()
-
-    def create_widgets(self):
-        # Define labels
-        self.save_location_label = tk.Label(self, text="Default File Save Location")
-        self.upper_case_conversion_label = tk.Label(self, text="All Caps Mode")
-
-        # Define Entry fields
-        self.save_location_field = tk.Entry(
-            self, textvariable=self.default_save_location
-        )
-
-        # Define Buttons
         self.save_button = tk.Button(
-            self, text="Save Settings", command=self.save_settings
+            self, text=self.localizer.get("save_settings"), command=self.save_settings
+        )
+        self.save_button.pack(side=tk.TOP, padx=5, pady=5)
+
+    def create_language_section(self):
+        self.languages = ["en", "ru", "fr", "es", "shakespeare"]
+        self.language_label = tk.Label(self, text=self.localizer.get("language"))
+        self.language_combobox = ttk.Combobox(self, values=self.languages)
+        self.language_combobox.current(
+            self.languages.index(self.settings.get("language", "en"))
         )
 
-        # Define Checkbuttons
-        self.upper_case_conversion_checkbutton = tk.Checkbutton(
-            self, text="Enable", variable=self.upper_case_conversion
+        self.language_label.pack(side=tk.TOP, padx=5, pady=5)
+        self.language_combobox.pack(side=tk.TOP, padx=5, pady=5)
+
+    def create_default_save_section(self):
+        self.default_save_location_label = tk.Label(
+            self, text=self.localizer.get("default_save_location")
+        )
+        self.default_save_location_entry = tk.Entry(self)
+        self.default_save_location_entry.insert(
+            0, self.settings.get("default_save_location", "")
+        )
+        self.default_save_location_browse_button = tk.Button(
+            self,
+            text=self.localizer.get("browse"),
+            command=lambda: self.browse_directory(self.default_save_location_entry),
         )
 
-        # Arrange widgets in grid
-        self.save_location_label.grid(row=0, column=0, padx=10, pady=10)
-        self.save_location_field.grid(row=0, column=1, padx=10, pady=10)
-        self.upper_case_conversion_label.grid(row=1, column=0, padx=10, pady=10)
-        self.upper_case_conversion_checkbutton.grid(row=1, column=1, padx=10, pady=10)
-        self.save_button.grid(row=1, column=0, columnspan=2, padx=10, pady=10)
+        self.default_save_location_label.pack(side=tk.TOP, padx=5, pady=5)
+        self.default_save_location_entry.pack(side=tk.TOP, padx=5, pady=5)
+        self.default_save_location_browse_button.pack(side=tk.TOP, padx=5, pady=5)
+
+    def create_csv_save_location_section(self):
+        self.csv_save_location_label = tk.Label(
+            self, text=self.localizer.get("csv_save_location")
+        )
+        self.csv_save_location_entry = tk.Entry(self)
+        self.csv_save_location_entry.insert(
+            0, self.settings.get("csv_save_location", "")
+        )
+        self.csv_save_location_browse_button = tk.Button(
+            self,
+            text=self.localizer.get("browse"),
+            command=lambda: self.browse_directory(self.csv_save_location_entry),
+        )
+
+        self.csv_save_location_label.pack(side=tk.TOP, padx=5, pady=5)
+        self.csv_save_location_entry.pack(side=tk.TOP, padx=5, pady=5)
+        self.csv_save_location_browse_button.pack(side=tk.TOP, padx=5, pady=5)
+
+    def browse_directory(self, entry_field):
+        directory = filedialog.askdirectory()
+        if directory:  # User didn't cancel the dialog
+            entry_field.delete(0, tk.END)
+            entry_field.insert(0, directory)
 
     def save_settings(self):
-        # Here you can define what happens when the user saves the settings
-        # For example, you might want to save the default file save location somewhere
-        pass
-
-    def change_default_directory(self):
-        new_path = "/new/path/to/default/directory"
-        settings.set_default_directory(new_path)
+        self.settings.set("language", self.language_combobox.get())
+        self.settings.set(
+            "default_save_location", self.default_save_location_entry.get()
+        )
+        self.settings.set("csv_save_location", self.csv_save_location_entry.get())
+        self.settings.save_settings()
