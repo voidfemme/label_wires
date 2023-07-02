@@ -1,0 +1,10 @@
+[
+    {
+        "source_component": "jj",
+        "source_terminal_block": "a",
+        "source_terminal": "",
+        "destination_component": "kk",
+        "destination_terminal_block": "a",
+        "destination_terminal": "2"
+    }
+]

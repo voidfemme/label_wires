@@ -965,3 +965,36 @@ INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 col
 INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
 INFO:src.connection_manager:Adding cable: jj-a [1],- []
 INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding wire: jj-a-,kk-a-2
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Loaded connection: jj-a [1],- []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab

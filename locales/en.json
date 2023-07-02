@@ -26,7 +26,7 @@
   "file_name_entry": "File Name",
   "save_in_directory": "Save in Directory:",
   "entry_mode": "Entry Mode:",
-  "browse_button": "Browse",
+  "browse": "Browse",
   "create_button": "Create",
   "open_existing_file_label": "Open an Existing File:",
   "open_button": "Open",
@@ -39,5 +39,9 @@
   "file_not_found_message": "The specified file does not exist.",
   "created_by_rose": "Created by Rose Proctor",
   "love_is_love": "Love is love. Be yourself.",
-  "bugs_issues_message": "For bugs and other issues, please visit"
+  "bugs_issues_message": "For bugs and other issues, please visit",
+  "language": "Language",
+  "save_settings": "Save Settings",
+  "csv_save_location": "CSV Save Location",
+  "default_save_location": "Default Save Location"
 }
