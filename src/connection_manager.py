@@ -27,12 +27,13 @@ def is_valid_file_path(path: str) -> bool:
     path_exists = dir_name.exists()
     can_write = dir_name.is_dir() and (dir_name.stat().st_mode & os.W_OK)
 
-    print(file_path)
-    print(f"Valid Path Chars: {valid_path_chars}")
-    print(f"Path Exists: {path_exists}")
-    print(f"Can Write: {can_write}")
+    if not path_exists:
+        raise FileNotFoundError(f"Path does not exist: {path}")
 
-    return valid_path_chars and path_exists and can_write
+    if not can_write:
+        raise PermissionError(f"No write permissions for path: {path}")
+
+    return valid_path_chars
 
 
 def is_valid_entry_string(input_string):
@@ -47,13 +48,14 @@ def is_valid_entry_string(input_string):
     # If it passes both checks, it's a valid string.
     return True
 
+
 class ConnectionManager(ABC):
     def __init__(self, file_path):
         self.file_path = file_path or settings.get_default_directory()
         if not is_valid_file_path(file_path):
             raise ValueError(f"Invalid file path: {file_path}")
         self.connections = []
-    
+
     def save_to_file(self) -> bool:
         try:
             with open(self.file_path, "w") as file:

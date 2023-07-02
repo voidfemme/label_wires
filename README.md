@@ -30,3 +30,4 @@ This program was created for generating csv files from user input data. It provi
     - Default Save Location
     - Default Export Location
     - Language
+- File path handling bugs

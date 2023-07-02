@@ -9,6 +9,7 @@ from tkinter import ttk, messagebox, filedialog
 from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
 from src.connection_manager_factory import ConnectionManagerFactory
+from src.localizer import Localizer, LocaleNotFoundError, LocalizationKeyError
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,8 @@ logger = logging.getLogger(__name__)
 class ConnectionApp(tk.Tk):
     def __init__(self):
         super().__init__()
-        self.title("Connection Manager")
+        self.localizer = Localizer("en")
+        self.title(self.localizer.get("application_title"))
 
         # Set the default window size
         self.geometry("800x600")
@@ -41,13 +43,15 @@ class ConnectionApp(tk.Tk):
 
         # Initialize the ConnectionManager
         if self.entry_mode and self.file_path:
-            self.connection_manager = ConnectionManagerFactory.create_connection_manager(
-                self.entry_mode, self.file_path
+            self.connection_manager = (
+                ConnectionManagerFactory.create_connection_manager(
+                    self.entry_mode, self.file_path
+                )
             )
         else:
             messagebox.showerror(
-                "Error",
-                "Failed to initialize the Connection Manager. Please check your input",
+                self.localizer.get("error"),
+                self.localizer.get("error_connection_manager_init"),
             )
             sys.exit(0)
 
@@ -72,14 +76,18 @@ class ConnectionApp(tk.Tk):
     def create_widgets(self):
         # Define labels
         if self.file_name is None:
-            self.file_name = "untitled connection labels"
+            self.file_name = self.localizer.get("untitled_labels")
         self.file_name_label = tk.Label(self, text=self.file_name)
-        self.component_label = tk.Label(self, text="Component")
-        self.terminal_block_label = tk.Label(self, text="Terminal Block")
-        self.terminal_label = tk.Label(self, text="Terminal")
-        self.file_name_field_label = tk.Label(self, text=f"Saving as: {self.file_name}")
-        self.source_label = tk.Label(self, text="Field 1:")
-        self.destination_label = tk.Label(self, text="Field 2:")
+        self.component_label = tk.Label(self, text=self.localizer.get("component"))
+        self.terminal_block_label = tk.Label(
+            self, text=self.localizer.get("terminal_block")
+        )
+        self.terminal_label = tk.Label(self, text=self.localizer.get("terminal"))
+        self.file_name_field_label = tk.Label(
+            self, text=self.localizer.get("saving_as").format(filename=self.file_name)
+        )
+        self.source_label = tk.Label(self, text=self.localizer.get("field_one"))
+        self.destination_label = tk.Label(self, text=self.localizer.get("field_two"))
         self.status_label = tk.Label(self, text="")
 
         # Define Entry fields
@@ -101,35 +109,57 @@ class ConnectionApp(tk.Tk):
 
         # Define Checkbuttons
         self.source_increment_checkbutton = tk.Checkbutton(
-            self, text="Increment", variable=self.source_increment_toggle
+            self,
+            text=self.localizer.get("increment"),
+            variable=self.source_increment_toggle,
         )
         self.destination_increment_checkbutton = tk.Checkbutton(
-            self, text="Increment", variable=self.destination_increment_toggle
+            self,
+            text=self.localizer.get("increment"),
+            variable=self.destination_increment_toggle,
         )
         self.lock_destination_checkbutton = tk.Checkbutton(
-            self, text="Lock Destination", variable=self.lock_destination_toggle
+            self,
+            text=self.localizer.get("lock_destination"),
+            variable=self.lock_destination_toggle,
         )
 
         # Define buttons
-        self.save_button = tk.Button(self, text="Save File", command=self.save_file)
-        self.add_connection_button = tk.Button(self, text="Add Connection", command=self.add_connection)
+        self.save_button = tk.Button(
+            self, text=self.localizer.get("save_file"), command=self.save_file
+        )
+        self.add_connection_button = tk.Button(
+            self, text=self.localizer.get("add_connection"), command=self.add_connection
+        )
         self.settings_button = tk.Button(
-            self, text="Settings", command=self.open_settings_window
+            self, text=self.localizer.get("settings"), command=self.open_settings_window
         )
         self.delete_button = tk.Button(
-            self, text="Delete Connection", command=self.delete_connection
+            self,
+            text=self.localizer.get("delete_connection"),
+            command=self.delete_connection,
         )
-        self.export_button = tk.Button(self, text="Export", command=self.export_to_csv)
+        self.export_button = tk.Button(
+            self, text=self.localizer.get("export"), command=self.export_to_csv
+        )
 
         # Define bindings
-        self.source_component_entry.bind("<Return>", lambda event: self.add_connection())
-        self.source_terminal_block_entry.bind("<Return>", lambda event: self.add_connection())
+        self.source_component_entry.bind(
+            "<Return>", lambda event: self.add_connection()
+        )
+        self.source_terminal_block_entry.bind(
+            "<Return>", lambda event: self.add_connection()
+        )
         self.source_terminal_entry.bind("<Return>", lambda event: self.add_connection())
-        self.destination_component_entry.bind("<Return>", lambda event: self.add_connection())
+        self.destination_component_entry.bind(
+            "<Return>", lambda event: self.add_connection()
+        )
         self.destination_terminal_block_entry.bind(
             "<Return>", lambda event: self.add_connection()
         )
-        self.destination_terminal_entry.bind("<Return>", lambda event: self.add_connection())
+        self.destination_terminal_entry.bind(
+            "<Return>", lambda event: self.add_connection()
+        )
 
         # Define text area for connection numbers
         self.tree_widget = self.create_tree_widget()
@@ -174,8 +204,8 @@ class ConnectionApp(tk.Tk):
         tree = ttk.Treeview(self, columns=columns, show="headings")
 
         # Define headings
-        tree.heading("Source", text="Source")
-        tree.heading("Destination", text="Destination")
+        tree.heading("Source", text=self.localizer.get("source"))
+        tree.heading("Destination", text=self.localizer.get("Destination"))
 
         tree.bind("<<TreeviewSelect>>", self.update_selected_connections)
         tree.grid(row=0, column=0, sticky=tk.NSEW)
@@ -221,9 +251,7 @@ class ConnectionApp(tk.Tk):
             input_box.delete(0, tk.END)
             input_box.insert(0, str(value + 1))
         except ValueError:
-            self.display_status(
-                "Warning: Terminal value not numeric. Connection added without incrementing."
-            )
+            self.display_status(self.localizer.get("increment_error"))
 
     def is_empty_label(
         self,
@@ -289,7 +317,7 @@ class ConnectionApp(tk.Tk):
         self.tree_item_to_connection[item] = connection
 
         # Print a message to the UI
-        self.display_status(f"Added connection: {source}, {destination}")
+        self.display_status(self.localizer.get("added_connection"))
 
         # Update the listbox to reflect the new connection list
         self.update_connection_list()
@@ -313,7 +341,9 @@ class ConnectionApp(tk.Tk):
             try:
                 self.connection_manager.delete_connection(connection)
             except Exception as e:
-                logger.warning(f"Could not delete {connection} from connection manager: {e}")
+                logger.warning(
+                    f"Could not delete {connection} from connection manager: {e}"
+                )
                 continue  # Skip this connection
 
             # Attempt to delete from connections_dict
@@ -334,7 +364,9 @@ class ConnectionApp(tk.Tk):
     def populate_connections(self):
         self.connection_manager.load_from_file()
         for connection in self.connection_manager.get_connections():
-            source, destination = self.connection_manager.get_connection_tuple(connection)
+            source, destination = self.connection_manager.get_connection_tuple(
+                connection
+            )
             self.tree_widget.insert("", "end", values=(source, destination))
 
     def update_connection_list(self):
@@ -343,7 +375,9 @@ class ConnectionApp(tk.Tk):
         )  # clear the tree widget
 
         for connection in self.connection_manager.connections:
-            source, destination = self.connection_manager.get_connection_tuple(connection)
+            source, destination = self.connection_manager.get_connection_tuple(
+                connection
+            )
             # Add to the tree widget and get unique identifier
             item_id = self.tree_widget.insert("", "end", values=(source, destination))
 
@@ -357,8 +391,10 @@ class ConnectionApp(tk.Tk):
                 self.file_path = "untitled"
             if self.entry_mode is None:
                 self.entry_mode = "connection"
-            self.connection_manager = ConnectionManagerFactory.create_connection_manager(
-                self.entry_mode, self.file_path
+            self.connection_manager = (
+                ConnectionManagerFactory.create_connection_manager(
+                    self.entry_mode, self.file_path
+                )
             )
         except ValueError as e:
             logger.info(f"Error: {e}")
@@ -368,9 +404,9 @@ class ConnectionApp(tk.Tk):
         success = self.connection_manager.save_to_file()
 
         if success:
-            self.display_status("File saved successfully.")
+            self.display_status(self.localizer.get("success_file_added"))
         else:
-            self.display_status("An error occurred while trying to save the file.")
+            self.display_status(self.localizer.get("error_file_added"))
 
     def load_connections(self):
         self.connection_manager.load_from_file()
@@ -383,7 +419,7 @@ class ConnectionApp(tk.Tk):
         if filename:  # if a filename was entered in the dialog
             try:
                 self.connection_manager.export_to_csv(filename)
-                self.display_status(f"Exported to {filename}")
+                self.display_status(self.localizer.get("exported_file"))
             except FileExistsError as e:
                 self.display_status(str(e))
 

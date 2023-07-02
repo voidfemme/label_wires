@@ -4,11 +4,13 @@ from tkinter import filedialog, ttk, messagebox
 from pathlib import Path
 import sys
 import webbrowser
+from src.localizer import Localizer
 
 
 class NewProjectDialog(tk.Toplevel):
     def __init__(self, master=None):
         super().__init__(master=master)
+        self.localizer = Localizer("en")
         self.title("New Project")
 
         # Initialize all the variables
@@ -33,16 +35,20 @@ class NewProjectDialog(tk.Toplevel):
 
     def create_header_section(self):
         # Section belongs at the top left
-        title_label = tk.Label(self, text="Destination Labeler 9000")
+        title_label = tk.Label(self, text=self.localizer.get("application_title"))
         self.grid_columnconfigure(0, weight=1)
         title_label.grid(row=0, column=0, sticky="ew")
 
     def create_new_file_section(self):
         # Section belongs in the top left
         # Define the elements
-        self.file_name_field_label = tk.Label(self, text="File Name:")
-        self.save_directory_label = tk.Label(self, text="Save in Directory:")
-        self.entry_mode_label = tk.Label(self, text="Entry Mode:")
+        self.file_name_field_label = tk.Label(
+            self, text=self.localizer.get("file_name_entry")
+        )
+        self.save_directory_label = tk.Label(
+            self, text=self.localizer.get("save_in_directory")
+        )
+        self.entry_mode_label = tk.Label(self, text=self.localizer.get("entry_mode"))
 
         self.file_name_field_entry = tk.Entry(self, textvariable=self.file_base_name)
         self.save_directory_entry = tk.Entry(self, textvariable=self.directory)
@@ -51,10 +57,14 @@ class NewProjectDialog(tk.Toplevel):
         )
 
         self.browse_directory_button = tk.Button(
-            self, text="Browse", command=self.browse_directory
+            self,
+            text=self.localizer.get("browse_button"),
+            command=self.browse_directory,
         )
         self.create_button = tk.Button(
-            self, text="Create", command=self.validate_and_create
+            self,
+            text=self.localizer.get("create_button"),
+            command=self.validate_and_create,
         )
 
         # Add the widgets to the grid
@@ -77,15 +87,21 @@ class NewProjectDialog(tk.Toplevel):
         # Section in the bottom left
         # Define the elements
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
-        self.open_existing_file_label = tk.Label(self, text="Open an Existing File:")
+        self.open_existing_file_label = tk.Label(
+            self, text=self.localizer.get("open_existing_file_label")
+        )
         self.open_existing_file_entry = tk.Entry(
             self, textvariable=self.open_existing_file_directory
         )
         self.browse_for_existing_files_button = tk.Button(
-            self, text="Browse", command=self.open_file_browse
+            self,
+            text=self.localizer.get("browse_button"),
+            command=self.open_file_browse,
         )
         self.open_existing_file_button = tk.Button(
-            self, text="Open", command=self.open_existing_file
+            self,
+            text=self.localizer.get("open_button"),
+            command=self.open_existing_file,
         )
 
         # Add the widgets to the grid
@@ -103,11 +119,15 @@ class NewProjectDialog(tk.Toplevel):
         # For settings and "about this app" information
         # Define the elements
         self.vertical_rule = ttk.Separator(self, orient="vertical")
-        self.quit_button = tk.Button(self, text="Quit", command=self.quit_program)
-        self.settings_button = tk.Button(
-            self, text="Settings", command=self.open_settings
+        self.quit_button = tk.Button(
+            self, text=self.localizer.get("quit"), command=self.quit_program
         )
-        self.about_button = tk.Button(self, text="About", command=self.open_about_popup)
+        self.settings_button = tk.Button(
+            self, text=self.localizer.get("settings"), command=self.open_settings
+        )
+        self.about_button = tk.Button(
+            self, text=self.localizer.get("about"), command=self.open_about_popup
+        )
 
         # Add the widgets to the grid
         self.vertical_rule.grid(row=0, column=4, rowspan=9, sticky="ns", padx=10)
@@ -121,7 +141,9 @@ class NewProjectDialog(tk.Toplevel):
             ("wire files", "*.wir"),
             ("all files", "*.*"),
         )
-        filepath = filedialog.askopenfilename(title="Open File", filetypes=filetypes)
+        filepath = filedialog.askopenfilename(
+            title=self.localizer.get("open_file"), filetypes=filetypes
+        )
 
         if filepath:  # If the user didn't cancel the dialog
             self.open_existing_file_directory.set(filepath)
@@ -143,7 +165,10 @@ class NewProjectDialog(tk.Toplevel):
         file_path = directory / file_name
 
         if file_path.exists():
-            messagebox.showerror("File Exists", "File already exists")
+            messagebox.showerror(
+                self.localizer.get("file_exists"),
+                self.localizer.get("file_already_exists"),
+            )
         else:
             self.apply()
 
@@ -151,10 +176,13 @@ class NewProjectDialog(tk.Toplevel):
         file_path = Path(self.open_existing_file_directory.get())
 
         if not file_path.exists():
-            messagebox.showerror("File Not Found", "The specified file does not exist.")
+            messagebox.showerror(
+                self.localizer.get("file_not_found"),
+                self.localizer.get("file_not_found_message"),
+            )
         else:
             file_name = file_path.name
-            mode = "wire" if file_path.endswith(".wir") else "cable"
+            mode = "wire" if str(file_path).endswith(".wir") else "cable"
             # If the file does not exist, store its path as the result and close the dialog
             self.result = {
                 "file_path": str(file_path),
@@ -165,7 +193,7 @@ class NewProjectDialog(tk.Toplevel):
 
     def open_settings(self):
         settings_window = tk.Toplevel(self)
-        settings_window.title("Settings")
+        settings_window.title(self.localizer.get("settings"))
         # Add settings widgets here
 
     def open_url(self, url):
@@ -173,12 +201,15 @@ class NewProjectDialog(tk.Toplevel):
 
     def open_about_popup(self):
         about_win = tk.Toplevel(self)
-        about_win.title("About")
+        about_win.title(self.localizer.get("about"))
         about_text = (
-            "Destination Labeler 9000\n"
-            "Created by Rose Proctor\n"
-            "Love is love. Be yourself.\n"
-            "For bugs and other issues, please visit "
+            self.localizer.get("application_title")
+            + "\n"
+            + self.localizer.get("created_by_rose")
+            + "\n"
+            + self.localizer.get("love_is_love")
+            + "\n"
+            + self.localizer.get("bugs_issues_message")
         )
         link = "https://github.com/voidfemme/label_wires"
         label1 = tk.Label(about_win, text=about_text, justify=tk.LEFT)
@@ -204,13 +235,23 @@ class NewProjectDialog(tk.Toplevel):
         file_path = directory / (file_name + file_ext)
 
         if file_path.exists():
-            messagebox.showerror("File Exists", "File already exists.")
+            messagebox.showerror(
+                self.localizer.get("file_exists"),
+                self.localizer.get("file_exists_message"),
+            )
         else:
-            self.result = {
-                "file_path": str(file_path),
-                "file_name": file_name,
-                "mode": mode,
-            }
+            # Create the new project file
+            try:
+                with open(file_path, "w") as f:
+                    pass
+
+                self.result = {
+                    "file_path": str(file_path),
+                    "file_name": file_name,
+                    "mode": mode,
+                }
+            except Exception as e:
+                messagebox.showerror(self.localizer.get("error"), str(e))
         self.destroy()
 
 
