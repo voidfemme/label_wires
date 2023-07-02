@@ -961,3 +961,7 @@ INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
 INFO:src.connection_app:selected_items: ('I011',)
 INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x000001904EB8E010>]
 INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x000001904EB8E010>]
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding cable: jj-a [1],- []
+INFO:src.connection_manager:Cable successfully added.

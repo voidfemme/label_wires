@@ -25,7 +25,7 @@ def is_valid_file_path(path: str) -> bool:
 
     # Check if path exists and if it has write Permissions
     path_exists = dir_name.exists()
-    can_write = dir_name.is_dir() and (dir_name.stat().st_mode & os.W_OK)
+    can_write = os.access(dir_name, os.W_OK)
 
     if not path_exists:
         raise FileNotFoundError(f"Path does not exist: {path}")

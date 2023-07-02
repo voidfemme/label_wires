@@ -15,16 +15,16 @@ logger = logging.getLogger(__name__)
 
 
 class ConnectionApp(tk.Tk):
-    def __init__(self):
+    def __init__(self, language="en"):
         super().__init__()
-        self.localizer = Localizer("en")
+        self.localizer = Localizer(language)
         self.title(self.localizer.get("application_title"))
 
         # Set the default window size
         self.geometry("800x600")
 
         # Call NewProjectDialog and wait until it's done
-        self.new_project_dialog = NewProjectDialog(self)
+        self.new_project_dialog = NewProjectDialog(self, language=language)
         self.wait_window(self.new_project_dialog)
         self.new_project_result = self.new_project_dialog.result
 
@@ -205,7 +205,7 @@ class ConnectionApp(tk.Tk):
 
         # Define headings
         tree.heading("Source", text=self.localizer.get("source"))
-        tree.heading("Destination", text=self.localizer.get("Destination"))
+        tree.heading("Destination", text=self.localizer.get("destination"))
 
         tree.bind("<<TreeviewSelect>>", self.update_selected_connections)
         tree.grid(row=0, column=0, sticky=tk.NSEW)

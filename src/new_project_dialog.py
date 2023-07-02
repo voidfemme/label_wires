@@ -8,9 +8,9 @@ from src.localizer import Localizer
 
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, master=None):
+    def __init__(self, master=None, language="en"):
         super().__init__(master=master)
-        self.localizer = Localizer("en")
+        self.localizer = Localizer(language)
         self.title("New Project")
 
         # Initialize all the variables
