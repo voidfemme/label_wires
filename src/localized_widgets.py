@@ -5,12 +5,20 @@ from tkinter import ttk
 class LocalizedLabel(tk.Label):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, **kwargs):
-        super().__init__(master, text=localizer.get(l10n_key), **kwargs)
+    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs):
         self.localizer = localizer
         self.l10n_key = l10n_key
+        self.format_args = format_args or {}
+        super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
         print(f"Initialized {self.__class__.__name__} with key {self.l10n_key}")
+
+    def get_localized_text(self):
+        return self.localizer.get(self.l10n_key).format(**self.format_args)
+
+    def update_format_args(self, new_format_args):
+        self.format_args.update(new_format_args)
+        self.update()
 
     def update(self):
         new_text = self.localizer.get(self.l10n_key)
@@ -34,11 +42,19 @@ class LocalizedLabel(tk.Label):
 class LocalizedButton(tk.Button):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, **kwargs):
-        super().__init__(master, text=localizer.get(l10n_key), **kwargs)
+    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs):
         self.localizer = localizer
         self.l10n_key = l10n_key
+        self.format_args = format_args or {}
+        super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
+
+    def get_localized_text(self):
+        return self.localizer.get(self.l10n_key).format(**self.format_args)
+
+    def update_format_args(self, new_format_args):
+        self.format_args.update(new_format_args)
+        self.update()
 
     def update(self):
         new_text = self.localizer.get(self.l10n_key)
@@ -60,11 +76,19 @@ class LocalizedButton(tk.Button):
 class LocalizedCheckButton(tk.Checkbutton):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, **kwargs):
-        super().__init__(master, text=localizer.get(l10n_key), **kwargs)
+    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs):
         self.localizer = localizer
         self.l10n_key = l10n_key
+        self.format_args = format_args or {}
+        super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
+
+    def get_localized_text(self):
+        return self.localizer.get(self.l10n_key).format(**self.format_args)
+
+    def update_format_args(self, new_format_args):
+        self.format_args.update(new_format_args)
+        self.update()
 
     def update(self):
         new_text = self.localizer.get(self.l10n_key)

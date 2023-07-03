@@ -97,7 +97,9 @@ class ConnectionApp(tk.Tk):
             self, self.localizer, "terminal_block"
         )
         self.terminal_label = LocalizedLabel(self, self.localizer, "terminal")
-        self.file_name_field_label = LocalizedLabel(self, self.localizer, "saving_as")
+        self.file_name_field_label = LocalizedLabel(
+            self, self.localizer, "saving_as", format_args={"filename": self.file_name}
+        )
         self.source_label = LocalizedLabel(self, self.localizer, "field_one")
         self.destination_label = LocalizedLabel(self, self.localizer, "field_two")
 
