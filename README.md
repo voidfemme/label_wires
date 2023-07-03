@@ -1,27 +1,36 @@
 # Destination Wire Label Generator
 
-Generates and maintains a list of wires and export them to CSV.
+The Destination Wire Label Generator is a tool designed to generate and maintain a list of wires. It features a user-friendly GUI for easy management and exportation of these lists into CSV format
 
 ## Description
-Provides a convenient GUI for managing and generating a list of wires. The user can export them to CSV while allowing you to input termination addresses in the format:
+
+This application allows users to define and manage wire connections through a GUI. Each wire connection is defined by three source fields and three destination fields, namely: 'component', 'terminal block' and 'terminal'. The GUI provides separate fields for these input parameters, allowing the user to edit each field independently.
+
+Once the user fills in these fields, the program stores the data in JSON format. During the export process, the application converts this data into a structured CSV format. The CSV output for each wire will follow this format:
+
 `{component}-{terminal block}-{terminal}, {component}-{terminal block}-{terminal}`
-Or in the cable format variant
+
+Or in the cable format variant:
+
 `{component}-{terminal block} [{terminal}], {component}-{terminal block} [{terminal}]`
 
-Where the left side of the comma represents the source and the right side, the destination.
-The program aims to provide an easy-to-use interface that is efficient.
+In this format, the portion before the comma represents the source while the portion after the comma represents the destination.
 
 ## Getting Started
 
 ### Prerequisites
-Must have Python 3 to install.
-(Coming soon: installation script/Windows installation wizard)
+
+- This software requires Python 3 for installation
+
+Note: An installation script/Windows installation wizard is currently under development and will be available soon
 
 ## Features
 
-- Tree view widget to display and interact with connections
-- Localization support
-- Settings window to adjust language, default save locations, and CSV delimiter
-- Increment functionality for terminal number input fields
-- JSON content validation
+- _Interactive GUI_: Offers six input fields for defining the source and destination parameters of each wire.
+- _Data Management_: Handles wire data efficiently by storing user input in JSON format.
+- _CSV Output_: converts wire data into a structured CSV format for export
+- _Localization support_: English, Russian, Spanish, French, Shakespearean English
+- _Settings window_: Enables adjustment of language, default save locations, and CSV delimiter
+- _Increment functionality_: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
+- _JSON content validation_: Ensures the integrity of the content within the application.
 - Export data to CSV files
