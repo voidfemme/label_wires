@@ -1067,3 +1067,229 @@ INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/d
 INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
 INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
 INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Adding cable: kk-a [1],jj-a [2]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Attempted to delete a connection that doesn't exist.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I002',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7f205238da50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7f205238da50>]
+INFO:src.connection_manager:Loaded connection: kk-a [1],jj-a [2]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I001',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7f2f8f81dd50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7f2f8f81dd50>]
+INFO:src.command:Deleting connection: kk-a [1],jj-a [2]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Adding cable: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Attempted to delete a connection that doesn't exist.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I002',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7f10a5ca9ed0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7f10a5ca9ed0>]
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I001',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7f69b09299d0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7f69b09299d0>]
+INFO:src.command:Deleting connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Attempted to delete a connection that doesn't exist.
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Loaded connection: jj-a [k],a-bv [c]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_manager:Adding cable: a-b [1],j-v [2]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [2],j-v [3]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [3],j-v [4]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [5],j-v [6]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [6],j-v [7]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [7],j-v [8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [8],j-v [9]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I03D',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I03B', 'I03D')
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c0e10>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I039', 'I03B', 'I03D')
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c0390>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I037', 'I039', 'I03B', 'I03D')
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3bbad0>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3bbad0>, <src.connection.Cable object at 0x7fde8e3c0390>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3bbad0>, <src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3bbad0>, <src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3bbad0>, <src.connection.Cable object at 0x7fde8e3c0390>, <src.connection.Cable object at 0x7fde8e3c0e10>, <src.connection.Cable object at 0x7fde8e3c1750>]
+INFO:src.command:Deleting connection: a-b [1],j-v [2]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.command:Deleting connection: a-b [3],j-v [4]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.command:Deleting connection: a-b [5],j-v [6]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.command:Deleting connection: a-b [7],j-v [8]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [7],j-v [8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Attempted to delete a connection that doesn't exist.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I045',)
+INFO:src.connection_app:self.selected_connections = []
+WARNING:src.command:Connection not found for item: I045
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I053',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3a9c90>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3a9c90>]
+INFO:src.command:Deleting connection: a-b [7],j-v [8]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [7],j-v [8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I05A',)
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I058',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fde8e3c1210>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fde8e3c1210>]
+INFO:src.command:Deleting connection: a-b [6],j-v [7]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [6],j-v [7]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Loaded connection: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Loaded connection: a-b [2],j-v [3]
+INFO:src.connection_manager:Loaded connection: a-b [4],j-v [5]
+INFO:src.connection_manager:Loaded connection: a-b [8],j-v [9]
+INFO:src.connection_manager:Loaded connection: a-b [7],j-v [8]
+INFO:src.connection_manager:Loaded connection: a-b [6],j-v [7]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I006',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7faf89371f90>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7faf89371f90>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I004',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7faf89371ed0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7faf89371ed0>]
+INFO:src.command:Deleting connection: a-b [4],j-v [5]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Loaded connection: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Loaded connection: a-b [2],j-v [3]
+INFO:src.connection_manager:Loaded connection: a-b [8],j-v [9]
+INFO:src.connection_manager:Loaded connection: a-b [7],j-v [8]
+INFO:src.connection_manager:Loaded connection: a-b [6],j-v [7]
+INFO:src.connection_manager:Loaded connection: a-b [4],j-v [5]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I007',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fbc7bb01fd0>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fbc7bb01fd0>]
+INFO:src.command:Deleting connection: a-b [4],j-v [5]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Loaded connection: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Loaded connection: a-b [2],j-v [3]
+INFO:src.connection_manager:Loaded connection: a-b [8],j-v [9]
+INFO:src.connection_manager:Loaded connection: a-b [7],j-v [8]
+INFO:src.connection_manager:Loaded connection: a-b [6],j-v [7]
+INFO:src.connection_manager:Loaded connection: a-b [4],j-v [5]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I005',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7f9aae4d5d10>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7f9aae4d5d10>]
+INFO:src.command:Deleting connection: a-b [7],j-v [8]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: a-b [7],j-v [8]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Loaded connection: jj-tb1 [1-5],l-k [1-8]
+INFO:src.connection_manager:Loaded connection: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Loaded connection: a-b [2],j-v [3]
+INFO:src.connection_manager:Loaded connection: a-b [8],j-v [9]
+INFO:src.connection_manager:Loaded connection: a-b [6],j-v [7]
+INFO:src.connection_manager:Loaded connection: a-b [4],j-v [5]
+INFO:src.connection_manager:Loaded connection: a-b [7],j-v [8]
+INFO:src.connection_manager:JSON file loaded as /home/rsp/programs/label_wires/data/test.cab
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I006',)
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I004', 'I006')
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342190>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342190>, <src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fb73c342190>, <src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I002', 'I004', 'I006')
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342110>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342110>, <src.connection.Cable object at 0x7fb73c342190>]
+INFO:src.connection_app:selected_connections: [<src.connection.Cable object at 0x7fb73c342110>, <src.connection.Cable object at 0x7fb73c342190>, <src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Cable object at 0x7fb73c342110>, <src.connection.Cable object at 0x7fb73c342190>, <src.connection.Cable object at 0x7fb73c342250>]
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_manager:connection successfully deleted.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ()
+INFO:src.connection_app:self.selected_connections = []
+INFO:src.connection_manager:Adding cable: jj-a [k],a-bv [c]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [8],j-v [9]
+INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
+INFO:src.connection_manager:Cable successfully added.

@@ -349,12 +349,7 @@ class ConnectionApp(tk.Tk):
             command.undo()
 
     def delete_connection(self):
-        command = DeleteConnectionCommand(
-            self.tree_widget,
-            self.tree_item_to_connection,
-            self.connections_dict,
-            self.connection_manager,
-        )
+        command = DeleteConnectionCommand(self)
         command.execute()
         self.undo_stack.append(command)
 
