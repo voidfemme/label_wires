@@ -26,24 +26,24 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 ## Features
 
-- _Interactive GUI_: Offers six input fields for defining the source and destination parameters of each wire.
-- _Data Management_: Handles wire data efficiently by storing user input in JSON format.
-- _CSV Output_: converts wire data into a structured CSV format for export
-- _Localization support_: English, Russian, Spanish, French, Shakespearean English
-- _Settings window_: Enables adjustment of language, default save locations, and CSV delimiter
-- _Increment functionality_: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
-- _JSON content validation_: Ensures the integrity of the content within the application.
+- **Interactive GUI**: Offers six input fields for defining the source and destination parameters of each wire.
+- **Data Management**: Handles wire data efficiently by storing user input in JSON format.
+- **CSV Output**: converts wire data into a structured CSV format for export
+- **Localization support**: English, Russian, Spanish(to be checked for errors), French (to be checked for errors), Shakespearean English
+- **Settings window**: Enables adjustment of language, default save locations, and CSV delimiter
+- **Increment functionality**: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
+- **JSON content validation**: Ensures the integrity of the content within the application.
 - Export data to CSV files
 
 ## Screenshots
-*New Project Dialog Window*
+**New Project Dialog Window**
 
 ![New Project Dialog Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/NewProjectDialogScreen.png)
 
-*Main Application Window*
+**Main Application Window**
 
 ![Main Application Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/MainApplicationWindow.png)
 
-*Settings Menu*
+**Settings Menu**
 
 ![Settings Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/SettingsWindow.png)
