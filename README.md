@@ -37,10 +37,13 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 ## Screenshots
 *New Project Dialog Window*
+
 ![New Project Dialog Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/NewProjectDialogScreen.png)
 
 *Main Application Window*
+
 ![Main Application Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/MainApplicationWindow.png)
 
 *Settings Menu*
+
 ![Settings Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/SettingsWindow.png)
