@@ -22,6 +22,7 @@ class SettingsWindow(tk.Toplevel):
         self.create_language_section()
         self.create_default_save_section()
         self.create_csv_save_location_section()
+        # self.create_caps_lock_section()
 
         self.save_button = LocalizedButton(
             self, self.localizer, "save", command=self.save_settings
@@ -67,9 +68,11 @@ class SettingsWindow(tk.Toplevel):
 
     def create_csv_save_location_section(self):
         self.create_csv_save_separator = ttk.Separator(self, orient="horizontal")
+        self.csv_delimiter_separator = ttk.Separator(self, orient="horizontal")
         self.csv_save_location_label = LocalizedLabel(
             self, self.localizer, "csv_save_location"
         )
+        self.csv_delimiter_label = LocalizedLabel(self, self.localizer, "default_csv_delimiter")
         self.csv_save_location_entry = tk.Entry(self)
         self.csv_save_location_entry.insert(
             0, self.settings.get("csv_save_location", "")
@@ -80,11 +83,18 @@ class SettingsWindow(tk.Toplevel):
             "browse",
             command=lambda: self.browse_directory(self.csv_save_location_entry),
         )
+        self.csv_delimiter_entry = tk.Entry(self)
+        self.csv_delimiter_entry.insert(
+            0, self.settings.get("default_csv_delimiter", "")
+        )
 
         self.csv_save_location_label.pack(side=tk.TOP, padx=5, pady=5)
         self.csv_save_location_entry.pack(side=tk.TOP, padx=5, pady=5)
         self.csv_save_location_browse_button.pack(side=tk.TOP, padx=5, pady=5)
         self.create_csv_save_separator.pack(side=tk.TOP, pady=5)
+        self.csv_delimiter_label.pack(side=tk.TOP, padx=5, pady=5)
+        self.csv_delimiter_entry.pack(side=tk.TOP, padx=5, pady=5)
+        self.csv_delimiter_separator.pack(side=tk.TOP, pady=5)
 
     def browse_directory(self, entry_field):
         directory = filedialog.askdirectory()
