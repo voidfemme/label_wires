@@ -104,6 +104,7 @@ class SettingsWindow(tk.Toplevel):
 
     def save_settings(self):
         new_locale = self.language_combobox.get()
+        self.localizer.set_locale(new_locale)
         self.settings.set("language", new_locale)
         self.settings.set(
             "default_save_location", self.default_save_location_entry.get()

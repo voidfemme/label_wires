@@ -57,6 +57,7 @@ class LocalizedButton(tk.Button):
         self.update()
 
     def update(self):
+        # self.update_format_args(self.format_args)
         new_text = self.localizer.get(self.l10n_key)
         print(f"Updating {type(self).__name__} with key {self.l10n_key}")
         print(f"new_text: {new_text}")
@@ -91,6 +92,7 @@ class LocalizedCheckButton(tk.Checkbutton):
         self.update()
 
     def update(self):
+        # self.update_format_args(self.format_args)
         new_text = self.localizer.get(self.l10n_key)
         print(f"Updating {type(self).__name__} with key {self.l10n_key}")
         print(f"new_text: {new_text}")

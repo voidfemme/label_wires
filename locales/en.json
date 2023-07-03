@@ -26,6 +26,7 @@
   "file_name_entry": "File Name",
   "save_in_directory": "Save in Directory:",
   "entry_mode": "Entry Mode:",
+  "entry_mode_values": ["cable", "wire"],
   "browse": "Browse",
   "create_button": "Create",
   "open_existing_file_label": "Open an Existing File:",

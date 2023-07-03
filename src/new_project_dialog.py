@@ -6,6 +6,7 @@ import webbrowser
 from src.localizer import Localizer
 from src.settings import Settings
 from src.settings_window import SettingsWindow
+from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCombobox
 
 
 class NewProjectDialog(tk.Toplevel):
@@ -38,42 +39,38 @@ class NewProjectDialog(tk.Toplevel):
         self.create_info_section()
 
     def create_csv_delimiter_section(self):
-        self.custom_csv_delimiter_label = tk.Label(
-            self, text=self.localizer.get("default_csv_delimiter")
+        self.custom_csv_delimiter_label = LocalizedButton(
+            self, self.localizer, "default_csv_delimiter"
         )
 
     def create_header_section(self):
         # Section belongs at the top left
-        title_label = tk.Label(self, text=self.localizer.get("application_title"))
+        title_label = LocalizedLabel(self, self.localizer, "application_title")
         self.grid_columnconfigure(0, weight=1)
         title_label.grid(row=0, column=0, sticky="ew")
 
     def create_new_file_section(self):
         # Section belongs in the top left
         # Define the elements
-        self.file_name_field_label = tk.Label(
-            self, text=self.localizer.get("file_name_entry")
+        self.file_name_field_label = LocalizedLabel(
+            self, self.localizer, "file_name_entry"
         )
-        self.save_directory_label = tk.Label(
-            self, text=self.localizer.get("save_in_directory")
+        self.save_directory_label = LocalizedLabel(
+            self, self.localizer, "save_in_directory"
         )
-        self.entry_mode_label = tk.Label(self, text=self.localizer.get("entry_mode"))
+        self.entry_mode_label = LocalizedLabel(self, self.localizer, "entry_mode")
 
         self.file_name_field_entry = tk.Entry(self, textvariable=self.file_base_name)
         self.save_directory_entry = tk.Entry(self, textvariable=self.directory)
-        self.entry_mode_entry = ttk.Combobox(
-            self, textvariable=self.file_mode, values=("cable", "wire")
+        self.entry_mode_entry = LocalizedCombobox(
+            self, self.localizer, "entry_mode_values"
         )
 
-        self.browse_directory_button = tk.Button(
-            self,
-            text=self.localizer.get("browse"),
-            command=self.browse_directory,
+        self.browse_directory_button = LocalizedButton(
+            self, self.localizer, "browse", command=self.browse_directory
         )
-        self.create_button = tk.Button(
-            self,
-            text=self.localizer.get("create_button"),
-            command=self.validate_and_create,
+        self.create_button = LocalizedButton(
+            self, self.localizer, "create_button", command=self.validate_and_create
         )
 
         # Add the widgets to the grid
@@ -96,21 +93,17 @@ class NewProjectDialog(tk.Toplevel):
         # Section in the bottom left
         # Define the elements
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
-        self.open_existing_file_label = tk.Label(
-            self, text=self.localizer.get("open_existing_file_label")
+        self.open_existing_file_label = LocalizedLabel(
+            self, self.localizer, "open_existing_file_label"
         )
         self.open_existing_file_entry = tk.Entry(
             self, textvariable=self.open_existing_file_directory
         )
-        self.browse_for_existing_files_button = tk.Button(
-            self,
-            text=self.localizer.get("browse"),
-            command=self.open_file_browse,
+        self.browse_for_existing_files_button = LocalizedButton(
+            self, self.localizer, "browse", command=self.open_file_browse
         )
-        self.open_existing_file_button = tk.Button(
-            self,
-            text=self.localizer.get("open_button"),
-            command=self.open_existing_file,
+        self.open_existing_file_button = LocalizedButton(
+            self, self.localizer, "open_button", command=self.open_existing_file
         )
 
         # Add the widgets to the grid
@@ -128,14 +121,14 @@ class NewProjectDialog(tk.Toplevel):
         # For settings and "about this app" information
         # Define the elements
         self.vertical_rule = ttk.Separator(self, orient="vertical")
-        self.quit_button = tk.Button(
-            self, text=self.localizer.get("quit"), command=self.quit_program
+        self.quit_button = LocalizedButton(
+            self, self.localizer, "quit", command=self.quit_program
         )
-        self.settings_button = tk.Button(
-            self, text=self.localizer.get("settings"), command=self.open_settings
+        self.settings_button = LocalizedButton(
+            self, self.localizer, "settings", command=self.open_settings
         )
-        self.about_button = tk.Button(
-            self, text=self.localizer.get("about"), command=self.open_about_popup
+        self.about_button = LocalizedButton(
+            self, self.localizer, "about", command=self.open_about_popup
         )
 
         # Add the widgets to the grid

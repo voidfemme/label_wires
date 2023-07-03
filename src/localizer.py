@@ -10,20 +10,34 @@ class LocalizationKeyError(Exception):
     pass
 
 
-class Localizer:
-    def __init__(self, locale, fallback_to_english=True):
+class SingletonMeta(type):
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        if args not in cls._instances:
+            instance = super().__call__(*args, **kwargs)
+            cls._instances[args] = instance
+        return cls._instances[args]
+
+
+class Localizer(metaclass=SingletonMeta):
+    def __init__(self, locale, default_english=True):
         self.locale = locale
-        self.fallback_to_english = fallback_to_english
+        self.default_english = default_english
         self.strings = {}
         self.fallback_strings = {}
         self.load_locale()
 
     def load_locale(self):
-        if self.fallback_to_english:
+        print("------------------------------")
+        print(f"Loading locale: {self.locale}")
+        if self.default_english:
             # Load the fallback locale first
             fallback_locale_path = Path("locales") / "en.json"
             if not fallback_locale_path.exists():
-                raise LocaleNotFoundError("No locale file found for fallback locale 'en'")
+                raise LocaleNotFoundError(
+                    "No locale file found for fallback locale 'en'"
+                )
             with fallback_locale_path.open("r") as f:
                 self.fallback_strings = json.load(f)
 
@@ -39,7 +53,7 @@ class Localizer:
 
     def get(self, key):
         if key not in self.strings:
-            if self.fallback_to_english and key in self.fallback_strings:
+            if self.default_english and key in self.fallback_strings:
                 return self.fallback_strings[key]
             else:
                 raise LocalizationKeyError(f'No localization for key "{key}"')
