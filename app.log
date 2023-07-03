@@ -1293,3 +1293,29 @@ INFO:src.connection_manager:Adding cable: a-b [8],j-v [9]
 INFO:src.connection_manager:Cable successfully added.
 INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
 INFO:src.connection_manager:Cable successfully added.
+INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Adding wire: jj-a-1,s-tb-1
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-2,s-tb-2
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-3,s-tb-3
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-4,s-tb-4
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-5,s-tb-5
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-6,s-tb-6
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-7,s-tb-7
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-8,s-tb-8
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I028',)
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7f27388aff10>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7f27388aff10>]
+INFO:src.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.connection_app:selected_items: ('I028', 'I02A')
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7f27388aff10>]
+INFO:src.connection_app:selected_connections: [<src.connection.Wire object at 0x7f27388aff10>, <src.connection.Wire object at 0x7f27388b4b50>]
+INFO:src.connection_app:self.selected_connections = [<src.connection.Wire object at 0x7f27388aff10>, <src.connection.Wire object at 0x7f27388b4b50>]
