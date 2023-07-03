@@ -34,3 +34,11 @@ Note: An installation script/Windows installation wizard is currently under deve
 - _Increment functionality_: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
 - _JSON content validation_: Ensures the integrity of the content within the application.
 - Export data to CSV files
+
+## Screenshots
+
+![New Project Dialog Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/NewProjectDialogScreen.png)
+
+![Main Application Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/MainApplicationWindow.png)
+
+![Settings Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/SettingsWindow.png)
