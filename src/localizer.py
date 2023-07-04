@@ -39,14 +39,14 @@ class Localizer(metaclass=SingletonMeta):
                 raise LocaleNotFoundError(
                     "No locale file found for fallback locale 'en'"
                 )
-            with fallback_locale_path.open("r") as f:
+            with fallback_locale_path.open("r", encoding="utf8") as f:
                 self.fallback_strings = json.load(f)
 
         # Then load the desired locale
         locale_path = Path("locales") / f"{self.locale}.json"
         if not locale_path.exists():
             raise LocaleNotFoundError(f"No locale file found for {self.locale}")
-        with locale_path.open("r") as f:
+        with locale_path.open("r", encoding="utf-8") as f:
             self.strings = json.load(f)
 
     def get(self, key) -> str:
