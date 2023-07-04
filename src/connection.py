@@ -1,5 +1,6 @@
 # Love is love. Be yourself.
 from abc import ABC, abstractmethod
+from typing import Dict, Tuple
 
 
 class Connection(ABC):
@@ -11,7 +12,7 @@ class Connection(ABC):
         destination_component,
         destination_terminal_block,
         destination_terminal,
-    ):
+    ) -> None:
         self.source_component = source_component
         self.source_terminal_block = source_terminal_block
         self.source_terminal = source_terminal
@@ -41,7 +42,7 @@ class Connection(ABC):
 
         return is_normal_equal or is_reverse_equal
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, str]:
         return {
             "source_component": self.source_component,
             "source_terminal_block": self.source_terminal_block,
@@ -74,12 +75,12 @@ class Connection(ABC):
 
 
 class Wire(Connection):
-    def __str__(self):
+    def __str__(self) -> str:
         source = f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}"
         destination = f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}"
         return f"{source},{destination}"
 
-    def to_tuple(self):
+    def to_tuple(self) -> Tuple[str, str]:
         return (
             f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}",
             f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}",
@@ -87,12 +88,12 @@ class Wire(Connection):
 
 
 class Cable(Connection):
-    def __str__(self):
+    def __str__(self) -> str:
         source = f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]"
         destination = f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]"
         return f"{source},{destination}"
 
-    def to_tuple(self):
+    def to_tuple(self) -> Tuple[str, str]:
         return (
             f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]",
             f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]",

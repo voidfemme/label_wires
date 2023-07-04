@@ -10,7 +10,7 @@ from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedComb
 
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, master=None, language="en"):
+    def __init__(self, master=None, language="en") -> None:
         super().__init__(master=master)
         self.master = master
         self.language = language
@@ -30,7 +30,7 @@ class NewProjectDialog(tk.Toplevel):
         # Call method to create widgets
         self.create_widgets()
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         # Call methods to create specific sections of the GUI
         self.create_header_section()
         self.create_new_file_section()
@@ -38,18 +38,18 @@ class NewProjectDialog(tk.Toplevel):
         self.create_csv_delimiter_section()
         self.create_info_section()
 
-    def create_csv_delimiter_section(self):
+    def create_csv_delimiter_section(self) -> None:
         self.custom_csv_delimiter_label = LocalizedButton(
             self, self.localizer, "default_csv_delimiter"
         )
 
-    def create_header_section(self):
+    def create_header_section(self) -> None:
         # Section belongs at the top left
         title_label = LocalizedLabel(self, self.localizer, "application_title")
         self.grid_columnconfigure(0, weight=1)
         title_label.grid(row=0, column=0, sticky="ew")
 
-    def create_new_file_section(self):
+    def create_new_file_section(self) -> None:
         # Section belongs in the top left
         # Define the elements
         self.file_name_field_label = LocalizedLabel(
@@ -89,7 +89,7 @@ class NewProjectDialog(tk.Toplevel):
         self.directory.trace("w", self.check_fields)
         self.file_mode.trace("w", self.check_fields)
 
-    def create_open_existing_file_section(self):
+    def create_open_existing_file_section(self) -> None:
         # Section in the bottom left
         # Define the elements
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
@@ -117,7 +117,7 @@ class NewProjectDialog(tk.Toplevel):
         self.open_existing_file_button.grid(row=5, column=3, padx=10, pady=10)
         self.horizontal_rule.grid(row=4, column=0, columnspan=4, sticky="ew", pady=10)
 
-    def create_info_section(self):
+    def create_info_section(self) -> None:
         # For settings and "about this app" information
         # Define the elements
         self.vertical_rule = ttk.Separator(self, orient="vertical")
@@ -137,7 +137,7 @@ class NewProjectDialog(tk.Toplevel):
         self.settings_button.grid(row=4, column=5, sticky="w", padx=10, pady=10)
         self.about_button.grid(row=3, column=5, sticky="w", padx=10, pady=10)
 
-    def open_file_browse(self):
+    def open_file_browse(self) -> None:
         filetypes = (
             ("cable files", "*.cab"),
             ("wire files", "*.wir"),
@@ -150,18 +150,18 @@ class NewProjectDialog(tk.Toplevel):
         if filepath:  # If the user didn't cancel the dialog
             self.open_existing_file_directory.set(filepath)
 
-    def browse_directory(self):
+    def browse_directory(self) -> None:
         directory = filedialog.askdirectory()
         if directory:
             self.directory.set(directory)
 
-    def check_fields(self, *args):
+    def check_fields(self, *args) -> None:
         if self.file_base_name.get() and self.directory.get() and self.file_mode.get():
             self.create_button["state"] = "normal"
         else:
             self.create_button["state"] = "disabled"
 
-    def validate_and_create(self):
+    def validate_and_create(self) -> None:
         directory = Path(self.directory.get())
         file_name = self.file_base_name.get()
         file_path = directory / file_name
@@ -174,7 +174,7 @@ class NewProjectDialog(tk.Toplevel):
         else:
             self.apply()
 
-    def open_existing_file(self):
+    def open_existing_file(self) -> None:
         file_path = Path(self.open_existing_file_directory.get())
 
         if not file_path.exists():
@@ -193,16 +193,16 @@ class NewProjectDialog(tk.Toplevel):
             }
             self.destroy()
 
-    def open_settings(self):
+    def open_settings(self) -> None:
         self.settings = Settings()
         self.settings_window = SettingsWindow(
             self, self.settings, language=self.language
         )
 
-    def open_url(self, url):
+    def open_url(self, url) -> None:
         webbrowser.open_new(url)
 
-    def open_about_popup(self):
+    def open_about_popup(self) -> None:
         about_win = tk.Toplevel(self)
         about_win.title(self.localizer.get("about"))
         about_text = (
@@ -221,10 +221,10 @@ class NewProjectDialog(tk.Toplevel):
         label2.pack(side="top")
         label2.bind("<Button-1>", lambda e: self.open_url(link))
 
-    def quit_program(self):
+    def quit_program(self) -> None:
         self.master.quit_program()
 
-    def apply(self):
+    def apply(self) -> None:
         directory = Path(self.directory.get())
         file_name = self.file_base_name.get()
         mode = self.file_mode.get()

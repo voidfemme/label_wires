@@ -1,13 +1,5 @@
 [
     {
-        "source_component": "jj",
-        "source_terminal_block": "tb1",
-        "source_terminal": "1-5",
-        "destination_component": "l",
-        "destination_terminal_block": "k",
-        "destination_terminal": "1-8"
-    },
-    {
         "source_component": "a",
         "source_terminal_block": "b",
         "source_terminal": "2",
@@ -18,10 +10,10 @@
     {
         "source_component": "a",
         "source_terminal_block": "b",
-        "source_terminal": "6",
+        "source_terminal": "8",
         "destination_component": "j",
         "destination_terminal_block": "v",
-        "destination_terminal": "7"
+        "destination_terminal": "9"
     },
     {
         "source_component": "a",
@@ -33,19 +25,27 @@
     },
     {
         "source_component": "jj",
+        "source_terminal_block": "tb1",
+        "source_terminal": "1-5",
+        "destination_component": "l",
+        "destination_terminal_block": "k",
+        "destination_terminal": "1-8"
+    },
+    {
+        "source_component": "a",
+        "source_terminal_block": "b",
+        "source_terminal": "6",
+        "destination_component": "j",
+        "destination_terminal_block": "v",
+        "destination_terminal": "7"
+    },
+    {
+        "source_component": "jj",
         "source_terminal_block": "a",
         "source_terminal": "k",
         "destination_component": "a",
         "destination_terminal_block": "bv",
         "destination_terminal": "c"
-    },
-    {
-        "source_component": "a",
-        "source_terminal_block": "b",
-        "source_terminal": "8",
-        "destination_component": "j",
-        "destination_terminal_block": "v",
-        "destination_terminal": "9"
     },
     {
         "source_component": "a",

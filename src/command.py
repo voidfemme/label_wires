@@ -12,13 +12,13 @@ class Command:
 
 
 class AddConnectionCommand(Command):
-    def __init__(self, app, source, destination):
+    def __init__(self, app, source, destination) -> None:
         self.app = app
         self.source = source
         self.destination = destination
         self.item = None
 
-    def execute(self):
+    def execute(self) -> None:
         connection = self.app.connection_manager.add_connection(
             self.source["component"],
             self.source["terminal_block"],
@@ -48,7 +48,7 @@ class AddConnectionCommand(Command):
         # Update the tree widget to reflect the new connection list
         self.app.update_connection_list()
 
-    def undo(self):
+    def undo(self) -> None:
         connection = self.app.tree_item_to_connection.pop(self.item)
         self.app.connection_manager.delete_connection(connection)
         self.app.tree_widget.delete(self.item)
@@ -59,11 +59,11 @@ class AddConnectionCommand(Command):
 
 
 class DeleteConnectionCommand(Command):
-    def __init__(self, app):
+    def __init__(self, app) -> None:
         self.app = app
         self.deleted_items = []  # Store deleted items here
 
-    def execute(self):
+    def execute(self) -> None:
         for item in self.app.tree_widget.selection():
             # Future: revise the deletion method to be more transactional, and only delete
             # from the lists if I can delete from all three, otherwise fail the operation
@@ -112,7 +112,7 @@ class DeleteConnectionCommand(Command):
                 continue
         pass
 
-    def undo(self):
+    def undo(self) -> None:
         for deleted_item in self.deleted_items:
             connection = deleted_item["connection"]
             item = deleted_item["item"]

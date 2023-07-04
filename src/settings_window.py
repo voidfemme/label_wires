@@ -11,7 +11,7 @@ from src.localized_widgets import (
 
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, master, settings, language="en", *args, **kwargs):
+    def __init__(self, master, settings, language="en", *args, **kwargs) -> None:
         super().__init__(master, *args, **kwargs)
         self.settings = settings
         self.localizer = Localizer(language)
@@ -32,7 +32,7 @@ class SettingsWindow(tk.Toplevel):
         )
         self.save_button.pack(side=tk.TOP, padx=5, pady=5)
 
-    def create_language_section(self):
+    def create_language_section(self) -> None:
         self.languages = ["en", "ru", "fr", "es", "shakespeare"]
         self.create_language_separator = ttk.Separator(self, orient="horizontal")
         self.language_label = LocalizedLabel(self, self.localizer, "language")
@@ -45,7 +45,7 @@ class SettingsWindow(tk.Toplevel):
         self.language_combobox.pack(side=tk.TOP, padx=5, pady=5)
         self.create_language_separator.pack(side=tk.TOP, pady=5)
 
-    def create_default_save_section(self):
+    def create_default_save_section(self) -> None:
         self.create_default_save_separator = ttk.Separator(self, orient="horizontal")
         self.default_save_location_label = LocalizedLabel(
             self, self.localizer, "default_save_location"
@@ -66,13 +66,15 @@ class SettingsWindow(tk.Toplevel):
         self.default_save_location_browse_button.pack(side=tk.TOP, padx=5, pady=5)
         self.create_default_save_separator.pack(side=tk.TOP, pady=5)
 
-    def create_csv_save_location_section(self):
+    def create_csv_save_location_section(self) -> None:
         self.create_csv_save_separator = ttk.Separator(self, orient="horizontal")
         self.csv_delimiter_separator = ttk.Separator(self, orient="horizontal")
         self.csv_save_location_label = LocalizedLabel(
             self, self.localizer, "csv_save_location"
         )
-        self.csv_delimiter_label = LocalizedLabel(self, self.localizer, "default_csv_delimiter")
+        self.csv_delimiter_label = LocalizedLabel(
+            self, self.localizer, "default_csv_delimiter"
+        )
         self.csv_save_location_entry = tk.Entry(self)
         self.csv_save_location_entry.insert(
             0, self.settings.get("csv_save_location", "")
@@ -96,13 +98,13 @@ class SettingsWindow(tk.Toplevel):
         self.csv_delimiter_entry.pack(side=tk.TOP, padx=5, pady=5)
         self.csv_delimiter_separator.pack(side=tk.TOP, pady=5)
 
-    def browse_directory(self, entry_field):
+    def browse_directory(self, entry_field) -> None:
         directory = filedialog.askdirectory()
         if directory:  # User didn't cancel the dialog
             entry_field.delete(0, tk.END)
             entry_field.insert(0, directory)
 
-    def save_settings(self):
+    def save_settings(self) -> None:
         new_locale = self.language_combobox.get()
         self.localizer.set_locale(new_locale)
         self.settings.set("language", new_locale)

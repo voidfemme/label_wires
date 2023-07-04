@@ -8,7 +8,7 @@ from src.settings import Settings
 logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 
-def start_app():
+def start_app() -> None:
     settings = Settings()
     app = ConnectionApp(language=settings.get("language"))
     app.mainloop()

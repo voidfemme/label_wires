@@ -1,5 +1,6 @@
 import json
 from pathlib import Path
+from typing import Any, Dict, Tuple, Type
 
 
 class LocaleNotFoundError(Exception):
@@ -11,9 +12,9 @@ class LocalizationKeyError(Exception):
 
 
 class SingletonMeta(type):
-    _instances = {}
+    _instances: Dict[Tuple[Any, ...], Any] = {}
 
-    def __call__(cls, *args, **kwargs):
+    def __call__(cls, *args, **kwargs) -> Any:
         if args not in cls._instances:
             instance = super().__call__(*args, **kwargs)
             cls._instances[args] = instance
@@ -21,7 +22,7 @@ class SingletonMeta(type):
 
 
 class Localizer(metaclass=SingletonMeta):
-    def __init__(self, locale, default_english=True):
+    def __init__(self, locale, default_english=True) -> None:
         self.locale = locale
         self.default_english = default_english
         self.strings = {}
@@ -48,10 +49,7 @@ class Localizer(metaclass=SingletonMeta):
         with locale_path.open("r") as f:
             self.strings = json.load(f)
 
-        # print(f"Loaded strings for {self.locale}: {self.strings}")
-        # print(f"Loaded fallback_strings: {self.fallback_strings}")
-
-    def get(self, key):
+    def get(self, key) -> str:
         if key not in self.strings:
             if self.default_english and key in self.fallback_strings:
                 return self.fallback_strings[key]
@@ -59,7 +57,7 @@ class Localizer(metaclass=SingletonMeta):
                 raise LocalizationKeyError(f'No localization for key "{key}"')
         return self.strings[key]
 
-    def set_locale(self, new_locale):
+    def set_locale(self, new_locale) -> None:
         self.locale = new_locale
         print(f"Setting locale to: {self.locale}")
         self.load_locale()

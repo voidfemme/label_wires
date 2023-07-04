@@ -23,7 +23,7 @@ logger = logging.getLogger(__name__)
 
 
 class ConnectionApp(tk.Tk):
-    def __init__(self, language="en"):
+    def __init__(self, language="en") -> None:
         super().__init__()
         self.language = language
         self.localizer = Localizer(self.language)
@@ -87,7 +87,7 @@ class ConnectionApp(tk.Tk):
         self.load_connections()
         self.deiconify()
 
-    def create_widgets(self):
+    def create_widgets(self) -> None:
         # Define labels
         if self.file_name is None:
             self.file_name = self.localizer.get("untitled_labels")
@@ -113,7 +113,7 @@ class ConnectionApp(tk.Tk):
         self.arrange_widgets_in_grid()
         self.update_connection_list()
 
-    def define_entry_fields(self):
+    def define_entry_fields(self) -> None:
         # Define Entry fields
         self.source_component_entry = tk.Entry(self, textvariable=self.source_component)
         self.source_terminal_block_entry = tk.Entry(
@@ -131,7 +131,7 @@ class ConnectionApp(tk.Tk):
             self, textvariable=self.destination_terminal
         )
 
-    def define_checkbuttons(self):
+    def define_checkbuttons(self) -> None:
         self.source_increment_checkbutton = LocalizedCheckButton(
             self, self.localizer, "increment", variable=self.source_increment_toggle
         )
@@ -148,7 +148,7 @@ class ConnectionApp(tk.Tk):
             variable=self.lock_destination_toggle,
         )
 
-    def define_buttons(self):
+    def define_buttons(self) -> None:
         self.save_button = LocalizedButton(
             self, self.localizer, "save_file", command=self.save_file
         )
@@ -171,7 +171,7 @@ class ConnectionApp(tk.Tk):
             self, self.localizer, "quit", command=self.quit_program
         )
 
-    def define_bindings(self):
+    def define_bindings(self) -> None:
         # Define bindings
         self.source_component_entry.bind(
             "<Return>", lambda event: self.add_connection()
@@ -190,7 +190,7 @@ class ConnectionApp(tk.Tk):
             "<Return>", lambda event: self.add_connection()
         )
 
-    def arrange_widgets_in_grid(self):
+    def arrange_widgets_in_grid(self) -> None:
         # Arrange widgets in grid (left to right, top to bottom)
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)
         self.file_name_field_label.grid(
@@ -227,7 +227,7 @@ class ConnectionApp(tk.Tk):
         )
         self.quit_button.grid(row=8, column=5, padx=5, pady=5)
 
-    def create_tree_widget(self):
+    def create_tree_widget(self) -> LocalizedTreeView:
         columns = ("#1", "#2")
         columns_keys = ["source", "destination"]
         self.columns_keys_mapping = dict(zip(columns, columns_keys))
@@ -244,7 +244,7 @@ class ConnectionApp(tk.Tk):
 
         return tree
 
-    def update_selected_connections(self, event):
+    def update_selected_connections(self, event) -> None:
         logger.info(f"event = {event}")
 
         # Get currently selected items
@@ -263,20 +263,20 @@ class ConnectionApp(tk.Tk):
 
         logger.info(f"self.selected_connections = {self.selected_connections}")
 
-    def open_settings_window(self):
+    def open_settings_window(self) -> None:
         self.settings = Settings()
         self.settings_window = SettingsWindow(
             self, self.settings, language=self.language
         )
 
-    def validate_json_content(self, content):
+    def validate_json_content(self, content) -> bool:
         try:
             json.loads(content)
         except json.JSONDecodeError:
             return False
         return True
 
-    def increment(self, input_box: tk.Entry):
+    def increment(self, input_box: tk.Entry) -> None:
         try:
             value = int(input_box.get())
             input_box.delete(0, tk.END)
@@ -304,7 +304,7 @@ class ConnectionApp(tk.Tk):
             return True
         return False
 
-    def add_connection(self):
+    def add_connection(self) -> None:
         source = {
             "component": self.source_component.get(),
             "terminal_block": self.source_terminal_block.get(),
@@ -343,12 +343,12 @@ class ConnectionApp(tk.Tk):
         if self.destination_increment_toggle.get():
             self.increment(self.destination_terminal_entry)
 
-    def undo(self):
+    def undo(self) -> None:
         if self.undo_stack:
             command = self.undo_stack.pop()
             command.undo()
 
-    def delete_connection(self):
+    def delete_connection(self) -> None:
         command = DeleteConnectionCommand(self)
         command.execute()
         self.undo_stack.append(command)
@@ -356,7 +356,7 @@ class ConnectionApp(tk.Tk):
         self.update_connection_list()
         self.selected_connections = []
 
-    def populate_connections(self):
+    def populate_connections(self) -> None:
         self.connection_manager.load_from_file()
         for connection in self.connection_manager.get_connections():
             source, destination = self.connection_manager.get_connection_tuple(
@@ -364,7 +364,7 @@ class ConnectionApp(tk.Tk):
             )
             self.tree_widget.insert("", "end", values=(source, destination))
 
-    def update_connection_list(self):
+    def update_connection_list(self) -> None:
         self.tree_widget.delete(
             *self.tree_widget.get_children()
         )  # clear the tree widget
@@ -380,7 +380,7 @@ class ConnectionApp(tk.Tk):
             self.connections_dict[str(connection)] = connection
             self.tree_item_to_connection[item_id] = connection
 
-    def run_program(self):
+    def run_program(self) -> None:
         try:
             if self.file_path is None:
                 self.file_path = "untitled"
@@ -425,6 +425,6 @@ class ConnectionApp(tk.Tk):
         # Clear the status label after 5 seconds
         self.after(5000, lambda: self.status_label.config(text=""))
 
-    def quit_program(self):
+    def quit_program(self) -> None:
         self.destroy()
         sys.exit(0)

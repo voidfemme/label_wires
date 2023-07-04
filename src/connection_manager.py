@@ -6,11 +6,12 @@ import string
 import os
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import List, Tuple
+from typing import List, Tuple, TypeVar, Generic, Type
 from src.connection import Connection, Cable, Wire
 from src.settings import Settings
 
 logger = logging.getLogger(__name__)
+ConnectionType = TypeVar("ConnectionType", bound=Connection)
 
 
 def is_valid_file_path(path: str) -> bool:
@@ -36,7 +37,7 @@ def is_valid_file_path(path: str) -> bool:
     return valid_path_chars
 
 
-def is_valid_entry_string(input_string):
+def is_valid_entry_string(input_string) -> bool:
     # Check that input is a string
     if not isinstance(input_string, str):
         return False
@@ -49,13 +50,13 @@ def is_valid_entry_string(input_string):
     return True
 
 
-class ConnectionManager(ABC):
-    def __init__(self, file_path):
+class ConnectionManager(ABC, Generic[ConnectionType]):
+    def __init__(self, file_path) -> None:
         self.settings = Settings()
         self.file_path = file_path or self.settings.get("default_directory")
         if not is_valid_file_path(file_path):
             raise ValueError(f"Invalid file path: {file_path}")
-        self.connections = []
+        self.connections: List[ConnectionType] = []
 
     def save_to_file(self) -> bool:
         try:
@@ -85,7 +86,7 @@ class ConnectionManager(ABC):
         except Exception as e:
             logger.info(f"Error loading JSON file: {e}")
 
-    def delete_connection(self, connection_to_delete):
+    def delete_connection(self, connection_to_delete) -> bool:
         if connection_to_delete in self.connections:
             self.connections.remove(connection_to_delete)
             self.save_to_file()
@@ -95,7 +96,9 @@ class ConnectionManager(ABC):
             logger.info("Attempted to delete a connection that doesn't exist.")
             return False
 
-    def edit_connection(self, old_connection: Connection, new_connection: Connection):
+    def edit_connection(
+        self, old_connection: Connection, new_connection: Connection
+    ) -> bool:
         if old_connection in self.connections:
             # If new connection already exists or is the reverse of an existing connection, don't do the edit
             if new_connection in self.connections:
@@ -113,20 +116,12 @@ class ConnectionManager(ABC):
             logger.info("Attempted to edit a connection that doesn't exist.")
             return False
 
-    @abstractmethod
-    def add_connection(self, *args):
-        pass
-
-    @abstractmethod
-    def get_connection_class(self):
-        """This method should return the class of the connection manager"""
-
     def get_connection_tuple(self, connection) -> Tuple[str, str]:
         if connection not in self.connections:
             return ("", "")
         return connection.to_tuple()
 
-    def get_connections(self):
+    def get_connections(self) -> List[ConnectionType]:
         # Return a copy of the list of connections. Return a copy because returning the
         # object itself can alow external code to mutate the internal state of the class.
         return self.connections[:]
@@ -142,13 +137,21 @@ class ConnectionManager(ABC):
             for connection in self.connections:
                 writer.writerow(connection.to_tuple())
 
+    @abstractmethod
+    def add_connection(self, *args) -> bool:
+        pass
 
-class WireManager(ConnectionManager):
+    @abstractmethod
+    def get_connection_class(self) -> Type[Connection]:
+        """This method should return the class of the connection manager"""
+
+
+class WireManager(ConnectionManager[Wire]):
     def __init__(self, file_path):
         super().__init__(file_path)
         self.connections: List[Wire] = []
 
-    def get_connection_class(self):
+    def get_connection_class(self) -> Type[Wire]:
         return Wire
 
     def add_connection(
@@ -193,12 +196,12 @@ class WireManager(ConnectionManager):
             return False
 
 
-class CableManager(ConnectionManager):
+class CableManager(ConnectionManager[Cable]):
     def __init__(self, file_path):
         super().__init__(file_path)
         self.connections: List[Cable] = []
 
-    def get_connection_class(self):
+    def get_connection_class(self) -> Type[Cable]:
         return Cable
 
     def add_connection(
@@ -209,7 +212,7 @@ class CableManager(ConnectionManager):
         destination_component: str,
         destination_terminal_block: str,
         destination_terminal: str,
-    ):
+    ) -> bool:
         cable = Cable(
             source_component,
             source_terminal_block,
