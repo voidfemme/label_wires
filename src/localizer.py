@@ -34,7 +34,10 @@ class Localizer(metaclass=SingletonMeta):
         print(f"Loading locale: {self.locale}")
         if self.default_english:
             # Load the fallback locale first
-            fallback_locale_path = Path("locales") / "en.json"
+            fallback_locale_path = (
+                Path(__file__).resolve().parent.parent.joinpath("locales", "en.json")
+            )
+            print(f"Loading fallback locale: {fallback_locale_path}")
             if not fallback_locale_path.exists():
                 raise LocaleNotFoundError(
                     "No locale file found for fallback locale 'en'"
@@ -43,7 +46,9 @@ class Localizer(metaclass=SingletonMeta):
                 self.fallback_strings = json.load(f)
 
         # Then load the desired locale
-        locale_path = Path("locales") / f"{self.locale}.json"
+        locale_path = (
+            Path(__file__).resolve().parent.parent.joinpath("locales", f"{self.locale}.json")
+        )
         if not locale_path.exists():
             raise LocaleNotFoundError(f"No locale file found for {self.locale}")
         with locale_path.open("r", encoding="utf-8") as f:

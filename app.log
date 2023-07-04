@@ -1375,3 +1375,4 @@ INFO:src.connection_manager:Cable successfully added.
 INFO:src.connection_manager:Adding cable: a-b [4],j-v [5]
 INFO:src.connection_manager:Cable successfully added.
 INFO:src.connection_manager:Error loading JSON file: Expecting value: line 1 column 1 (char 0)
+INFO:src.connection_manager:Error loading JSON file: [Errno 21] Is a directory: '.'

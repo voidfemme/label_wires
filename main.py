@@ -10,7 +10,7 @@ logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 def start_app() -> None:
     settings = Settings()
-    app = ConnectionApp(language=settings.get("language"))
+    app = ConnectionApp(language=settings.get("language", "en"))
     app.mainloop()
 
 
