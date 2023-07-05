@@ -31,7 +31,7 @@ class ConnectionApp(tk.Tk):
         self.undo_stack = []
 
         # Set the default window size
-        self.geometry("1300x400")
+        self.geometry("1000x400")
 
         # Hide the main window
         self.withdraw()
