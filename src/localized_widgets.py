@@ -1,6 +1,17 @@
 import tkinter as tk
 from tkinter import ttk
 
+"""
+This file contains versions of Tkinter widgets that follow the Observer design pattern.
+They each observe a localization key and update their displayed text whenever the
+associated value in the localizer changes.
+
+The Observer pattern allows us to decouple the localization logic from the UI logic.
+This makes the UI elements reusable and the code easier to maintain.
+
+These are primarily used in connection_app.py, settings_window.py, and new_project_dialog.py
+"""
+
 
 class LocalizedLabel(tk.Label):
     _all_instances = []
@@ -27,6 +38,7 @@ class LocalizedLabel(tk.Label):
         self.config(text=new_text)
 
     def destroy(self) -> None:
+        # Ensures that we free up the widgets when we're done
         self._all_instances.remove(self)
         super().destroy()
 
@@ -59,8 +71,6 @@ class LocalizedButton(tk.Button):
     def update(self) -> None:
         # self.update_format_args(self.format_args)
         new_text = self.localizer.get(self.l10n_key)
-        print(f"Updating {type(self).__name__} with key {self.l10n_key}")
-        print(f"new_text: {new_text}")
         self.config(text=new_text)
 
     def destroy(self) -> None:
@@ -94,8 +104,6 @@ class LocalizedCheckButton(tk.Checkbutton):
     def update(self) -> None:
         # self.update_format_args(self.format_args)
         new_text = self.localizer.get(self.l10n_key)
-        print(f"Updating {type(self).__name__} with key {self.l10n_key}")
-        print(f"new_text: {new_text}")
         self.config(text=new_text)
 
     def destroy(self) -> None:
@@ -134,7 +142,7 @@ class LocalizedCombobox(ttk.Combobox):
             instance.update()
 
 
-class LocalizedTreeView(ttk.Treeview):
+class LocalizedTreeview(ttk.Treeview):
     _all_instances = []
 
     def __init__(self, master, localizer, columns_keys_mapping, **kwargs) -> None:
@@ -155,6 +163,6 @@ class LocalizedTreeView(ttk.Treeview):
 
     @classmethod
     def update_all(cls) -> None:
-        print("Called LocalizedTreeView.update_all()")
+        print("Called LocalizedTreeview.update_all()")
         for instance in cls._all_instances:
             instance.update()

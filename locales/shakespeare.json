@@ -43,5 +43,6 @@
   "language": "Tongue",
   "save_settings": "Preserve Settings",
   "csv_save_location": "CSV Preserve Location",
-  "default_save_location": "Default Preserve Location"
+  "default_save_location": "Default Preserve Location",
+  "hello": "Good day"
 }

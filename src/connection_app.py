@@ -16,7 +16,7 @@ from src.localized_widgets import (
     LocalizedLabel,
     LocalizedButton,
     LocalizedCheckButton,
-    LocalizedTreeView,
+    LocalizedTreeview,
 )
 
 logger = logging.getLogger(__name__)
@@ -227,11 +227,11 @@ class ConnectionApp(tk.Tk):
         )
         self.quit_button.grid(row=8, column=5, padx=5, pady=5)
 
-    def create_tree_widget(self) -> LocalizedTreeView:
+    def create_tree_widget(self) -> LocalizedTreeview:
         columns = ("#1", "#2")
         columns_keys = ["source", "destination"]
         self.columns_keys_mapping = dict(zip(columns, columns_keys))
-        tree = LocalizedTreeView(
+        tree = LocalizedTreeview(
             self, self.localizer, self.columns_keys_mapping, show="headings"
         )
 

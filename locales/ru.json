@@ -45,5 +45,6 @@
   "csv_save_location": "Место сохранения CSV",
   "default_save_location": "Место сохранения по умолчанию",
   "custom_csv_delimiter": "Custom CSV Delimiter"
+  ,"hello": "Привет"
 }
 
