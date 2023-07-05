@@ -63,14 +63,14 @@ class NewProjectDialog(tk.Toplevel):
         self.file_name_field_entry = tk.Entry(self, textvariable=self.file_base_name)
         self.save_directory_entry = tk.Entry(self, textvariable=self.directory)
         self.entry_mode_entry = LocalizedCombobox(
-            self, self.localizer, "entry_mode_values"
+            self, self.localizer, "entry_mode_values", textvariable=self.file_mode
         )
 
         self.browse_directory_button = LocalizedButton(
             self, self.localizer, "browse", command=self.browse_directory
         )
         self.create_button = LocalizedButton(
-            self, self.localizer, "create_button", command=self.validate_and_create
+            self, self.localizer, "create_button", command=self.validate_and_create, state="disabled"
         )
 
         # Add the widgets to the grid
@@ -85,14 +85,14 @@ class NewProjectDialog(tk.Toplevel):
         self.grid_columnconfigure(1, weight=1)
 
         # Trace the tkinter variables
-        self.file_base_name.trace("w", self.check_fields)
-        self.directory.trace("w", self.check_fields)
-        self.file_mode.trace("w", self.check_fields)
+        self.file_base_name.trace("w", self.check_create_file_entry_fields)
+        self.directory.trace("w", self.check_create_file_entry_fields)
+        self.file_mode.trace("w", self.check_create_file_entry_fields)
 
     def create_open_existing_file_section(self) -> None:
         # Section in the bottom left
         # Define the elements
-        self.open_existing_file_directory.trace("w", self.check_existing_file)
+        self.open_existing_file_directory.trace("w", self.check_open_file_entry_fields)
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
         self.open_existing_file_label = LocalizedLabel(
             self, self.localizer, "open_existing_file_label"
@@ -142,13 +142,6 @@ class NewProjectDialog(tk.Toplevel):
         self.settings_button.grid(row=4, column=5, sticky="w", padx=10, pady=10)
         self.about_button.grid(row=3, column=5, sticky="w", padx=10, pady=10)
 
-    def check_existing_file(self, *args) -> None:
-        file_path = self.open_existing_file_directory.get()
-        if file_path:
-            self.browse_for_existing_files_button["state"] = "normal"
-        else:
-            self.browse_for_existing_files_button["state"] = "disabled"
-
     def open_file_browse(self) -> None:
         filetypes = (
             ("cable files", "*.cab"),
@@ -167,7 +160,13 @@ class NewProjectDialog(tk.Toplevel):
         if directory:
             self.directory.set(directory)
 
-    def check_fields(self, *args) -> None:
+    def check_open_file_entry_fields(self, *args) -> None:
+        if self.open_existing_file_directory.get():
+            self.open_existing_file_button["state"] = "normal"
+        else:
+            self.open_existing_file_button["state"] = "disabled"
+
+    def check_create_file_entry_fields(self, *args) -> None:
         if self.file_base_name.get() and self.directory.get() and self.file_mode.get():
             self.create_button["state"] = "normal"
         else:
