@@ -12,7 +12,6 @@ The settings.json file should look like this:
     "csv_save_location": "/home/rsp/documents",
     "default_csv_delimiter": "|"
 }
-
 Settings can be retrieved by using the get method, passing the setting key as an argument.
 """
 

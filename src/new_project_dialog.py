@@ -8,9 +8,13 @@ from src.settings import Settings
 from src.settings_window import SettingsWindow
 from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCombobox
 
+"""
+This is the dialog that pops up when the user opens the application. 
+It allows them to access settings, create a new project, or open an existing project.
+"""
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, master=None, language="en") -> None:
+    def __init__(self, master=None, language="en") -> None:  # Passing the language as a parameter here doesn't seem right
         super().__init__(master=master)
         self.master = master
         self.language = language

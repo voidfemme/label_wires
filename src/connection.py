@@ -2,6 +2,12 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Tuple
 
+"""
+Connection classes describe each connection in terms of the source and destination components,
+terminal blocks, and terminals. This is used to create a unique identifier for each connection
+that can be used to compare connections and to create a dictionary representation of the
+connection.
+"""
 
 class Connection(ABC):
     def __init__(

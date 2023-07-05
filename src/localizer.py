@@ -2,6 +2,12 @@ import json
 from pathlib import Path
 from typing import Any, Dict, Tuple, Type
 
+"""
+Singleton class for localization. This class is a singleton in order to allow every Localized 
+widget to access the same instance of the class. This is important because this allows us to live
+update the locale without having to restart the application.
+
+"""
 
 class LocaleNotFoundError(Exception):
     pass
