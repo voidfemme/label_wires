@@ -5,7 +5,7 @@ from src.localized_widgets import (
     LocalizedLabel,
     LocalizedButton,
     LocalizedCombobox,
-    LocalizedTreeView,
+    LocalizedTreeview,
     LocalizedCheckButton,
 )
 
@@ -117,7 +117,7 @@ class SettingsWindow(tk.Toplevel):
         LocalizedLabel.update_all()
         LocalizedButton.update_all()
         LocalizedCheckButton.update_all()
-        LocalizedTreeView.update_all()
+        LocalizedTreeview.update_all()
         LocalizedCombobox.update_all()
         self.settings.save_settings()
         self.update_idletasks()

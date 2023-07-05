@@ -92,6 +92,7 @@ class NewProjectDialog(tk.Toplevel):
     def create_open_existing_file_section(self) -> None:
         # Section in the bottom left
         # Define the elements
+        self.open_existing_file_directory.trace("w", self.check_existing_file)
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
         self.open_existing_file_label = LocalizedLabel(
             self, self.localizer, "open_existing_file_label"
@@ -103,7 +104,11 @@ class NewProjectDialog(tk.Toplevel):
             self, self.localizer, "browse", command=self.open_file_browse
         )
         self.open_existing_file_button = LocalizedButton(
-            self, self.localizer, "open_button", command=self.open_existing_file
+            self,
+            self.localizer,
+            "open_button",
+            command=self.open_existing_file,
+            state="disabled",
         )
 
         # Add the widgets to the grid
@@ -136,6 +141,13 @@ class NewProjectDialog(tk.Toplevel):
         self.quit_button.grid(row=5, column=5, sticky="w", padx=10, pady=10)
         self.settings_button.grid(row=4, column=5, sticky="w", padx=10, pady=10)
         self.about_button.grid(row=3, column=5, sticky="w", padx=10, pady=10)
+
+    def check_existing_file(self, *args) -> None:
+        file_path = self.open_existing_file_directory.get()
+        if file_path:
+            self.browse_for_existing_files_button["state"] = "normal"
+        else:
+            self.browse_for_existing_files_button["state"] = "disabled"
 
     def open_file_browse(self) -> None:
         filetypes = (

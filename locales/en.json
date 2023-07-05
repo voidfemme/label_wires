@@ -53,5 +53,6 @@
   "undo": "Undo",
   "save": "Save",
   "cancel": "Cancel",
-  "hello": "Hello"
+  "hello": "Hello",
+  "file_already_exists": "File Already Exists"
 }
