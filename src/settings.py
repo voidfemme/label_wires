@@ -1,6 +1,20 @@
 import json
 from pathlib import Path
 
+"""
+To use this class, you need to create a settings.json file in the config folder.
+The settings.json file should look like this:
+{
+    "language": "en",
+    "default_wire_file_directory": "",
+    "default_csv_directory": "",
+    "default_save_location": "/home/rsp/documents",
+    "csv_save_location": "/home/rsp/documents",
+    "default_csv_delimiter": "|"
+}
+
+Settings can be retrieved by using the get method, passing the setting key as an argument.
+"""
 
 class Settings:
     def __init__(self, file_path=None) -> None:
