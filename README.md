@@ -47,3 +47,10 @@ Note: An installation script/Windows installation wizard is currently under deve
 **Settings Menu**
 
 ![Settings Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/SettingsWindow.png)
+
+
+## Known Bugs
+
+- Treewidget does not auto-scroll
+- Various formatted strings are not displaying the correct data
+- Missing "success" message when saving settings. I'd like to have feedback about the updated state of all the settings, or some other feedback when saving messages.
