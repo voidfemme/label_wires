@@ -153,7 +153,7 @@ class DeleteConnectionCommand(Command):
                 except KeyError:
                     logger.warning(f"Item {item} not found in tree_item_to_connection")
 
-                self.deleted_items.parentend(
+                self.deleted_items.append(
                     {
                         "item": item,
                         "connection": connection,
