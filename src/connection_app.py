@@ -342,6 +342,7 @@ class ConnectionApp(tk.Tk):
             self.increment(self.source_terminal_entry)
         if self.destination_increment_toggle.get():
             self.increment(self.destination_terminal_entry)
+        self.tree_widget.yview_moveto(1)
 
     def undo(self) -> None:
         if self.undo_stack:

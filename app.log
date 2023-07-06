@@ -1404,3 +1404,23 @@ INFO:src.connection_manager:Adding wire: jj-a-30,kk-q-107
 INFO:src.connection_manager:Wire successfully added.
 INFO:src.connection_manager:Adding wire: jj-a-31,kk-q-108
 INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Loaded connection: jj-a-21,kk-q-98
+INFO:src.connection_manager:Loaded connection: jj-a-22,kk-q-99
+INFO:src.connection_manager:Loaded connection: jj-a-23,kk-q-100
+INFO:src.connection_manager:Loaded connection: jj-a-24,kk-q-101
+INFO:src.connection_manager:Loaded connection: jj-a-25,kk-q-102
+INFO:src.connection_manager:Loaded connection: jj-a-26,kk-q-103
+INFO:src.connection_manager:Loaded connection: jj-a-27,kk-q-104
+INFO:src.connection_manager:Loaded connection: jj-a-28,kk-q-105
+INFO:src.connection_manager:Loaded connection: jj-a-29,kk-q-106
+INFO:src.connection_manager:Loaded connection: jj-a-30,kk-q-107
+INFO:src.connection_manager:Loaded connection: jj-a-31,kk-q-108
+INFO:src.connection_manager:JSON file loaded as /home/rsp/documents/test_file.wir
+INFO:src.connection_manager:Adding wire: jj-a-234e,sdf-fre-3
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-234e,sdf-fre-34
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-234e,sdf-fre-234
+INFO:src.connection_manager:Wire successfully added.
+INFO:src.connection_manager:Adding wire: jj-a-234e,sdf-fre-6432
+INFO:src.connection_manager:Wire successfully added.

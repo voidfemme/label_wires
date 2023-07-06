@@ -37,12 +37,7 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         try:
             with open(self.file_path, "r") as json_file:
                 conn_dicts = json.load(json_file)
-
-                # Validate the data
-                try:
-                    validate_json_data(conn_dicts)
-                except ValueError as e:
-                    print(e)
+                validate_json_data(conn_dicts)
 
             self.connections = [
                 self.get_connection_class()(**conn_dict)
@@ -56,6 +51,10 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
             logger.info(f"Error: Directory '{self.file_path}' not found")
         except PermissionError:
             logger.info(f"Error: Permission denied to read from'{self.file_path}'")
+        except ValueError:
+            logger.info(
+                f"Error: Invalid JSON data. Please inspect the input file: {self.file_path}"
+            )
         except Exception as e:
             logger.info(f"Error loading JSON file: {e}")
 

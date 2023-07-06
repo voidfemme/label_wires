@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from typing import Any, Dict, Tuple, Type
+from typing import Any, Dict, Tuple
 
 """
 Singleton class for localization. This class is a singleton in order to allow every Localized 
@@ -8,6 +8,7 @@ widget to access the same instance of the class. This is important because this 
 update the locale without having to restart the application.
 
 """
+
 
 class LocaleNotFoundError(Exception):
     pass
@@ -53,7 +54,9 @@ class Localizer(metaclass=SingletonMeta):
 
         # Then load the desired locale
         locale_path = (
-            Path(__file__).resolve().parent.parent.joinpath("locales", f"{self.locale}.json")
+            Path(__file__)
+            .resolve()
+            .parent.parent.joinpath("locales", f"{self.locale}.json")
         )
         if not locale_path.exists():
             raise LocaleNotFoundError(f"No locale file found for {self.locale}")
