@@ -1,5 +1,5 @@
 import tkinter as tk
-from tkinter import ttk, messagebox
+from tkinter import ttk, scrolledtext
 from pathlib import Path
 import webbrowser
 
@@ -13,24 +13,41 @@ information about how to use the project.
 
 
 class DocumentationDialog(tk.Toplevel):
-    def __init__(self, master=None) -> None:
+    def __init__(
+        self,
+        master=None,
+        language="en",
+    ) -> None:
+        super().__init__(master=master)
         self.master = master
-        self.localizer = Localizer("en")
+        self.language = language
+        self.localizer = Localizer(self.language)
         self.title("WireLab Documentation")
 
-        self.create_document_selector()
-        self.create_document_reader()
+        # Initialize variables
+        self.doc_folder = Path("docs")
+        self.result = None
 
-        self.close_button = LocalizedButton(self, self.localizer, l10n_key="close")
-        self.layout_elements()
+        # Create widgets
+        self.tree = ttk.Treeview(master, selectmode="browse")
+        self.doc_text = scrolledtext.ScrolledText(master)
 
-    def create_document_selector(self):
-        columns = "#1"
-        columns_keys = ["topic"]
-        self.columns_keys_mapping = dict(zip(columns, columns_keys))
+        # Place widgets
+        self.tree.pack(side="left", fill="y")
+        self.doc_text.pack(side="right", fill="both", expand=True)
 
-    def create_document_reader(self):
-        pass
+        self.load_docs()
 
-    def layout_elements(self):
-        pass
+        self.tree.bind("<<TreeviewSelect>>", self.on_tree_select)
+
+    def load_docs(self):
+        for file_path in self.doc_folder.iterdir():
+            self.tree.insert("", "end", text=file_path.name, values=[str(file_path)])
+
+    def on_tree_select(self, event):
+        item_id = self.tree.selection()[0]
+        file_path = Path(self.tree.item(item_id)["values"][0])
+
+        with file_path.open("r") as file:
+            self.doc_text.delete("1.0", tk.END)
+            self.doc_text.insert(tk.END, file.read())
