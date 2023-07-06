@@ -36,6 +36,7 @@ Note: An installation script/Windows installation wizard is currently under deve
 - Export data to CSV files
 
 ## Screenshots
+
 **New Project Dialog Window**
 
 ![New Project Dialog Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/NewProjectDialogScreen.png)
@@ -48,9 +49,9 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 ![Settings Window](https://github.com/voidfemme/label_wires/blob/main/data/Screenshots/SettingsWindow.png)
 
-
 ## Known Bugs
 
 - Various formatted strings are not displaying the correct data
 - Missing "success" message when saving settings. There should be some kind of feedback about the updated state of all the settings.
 - Missing some localization values
+- formatted strings do not update when language is updated

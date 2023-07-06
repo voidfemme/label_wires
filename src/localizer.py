@@ -1,4 +1,5 @@
 import json
+import logging
 from pathlib import Path
 from typing import Any, Dict, Tuple
 
@@ -8,6 +9,8 @@ widget to access the same instance of the class. This is important because this 
 update the locale without having to restart the application.
 
 """
+
+logger = logging.getLogger(__name__)
 
 
 class LocaleNotFoundError(Exception):
@@ -37,14 +40,13 @@ class Localizer(metaclass=SingletonMeta):
         self.load_locale()
 
     def load_locale(self):
-        print("------------------------------")
-        print(f"Loading locale: {self.locale}")
+        logger.info(f"Loading locale: {self.locale}")
         if self.default_english:
             # Load the fallback locale first
             fallback_locale_path = (
                 Path(__file__).resolve().parent.parent.joinpath("locales", "en.json")
             )
-            print(f"Loading fallback locale: {fallback_locale_path}")
+            logger.info(f"Loading fallback locale: {fallback_locale_path}")
             if not fallback_locale_path.exists():
                 raise LocaleNotFoundError(
                     "No locale file found for fallback locale 'en'"
@@ -73,5 +75,5 @@ class Localizer(metaclass=SingletonMeta):
 
     def set_locale(self, new_locale) -> None:
         self.locale = new_locale
-        print(f"Setting locale to: {self.locale}")
+        logger.info(f"Setting locale to: {self.locale}")
         self.load_locale()

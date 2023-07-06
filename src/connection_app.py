@@ -400,7 +400,7 @@ class ConnectionApp(tk.Tk):
         success = self.connection_manager.save_to_file()
 
         if success:
-            self.display_status(self.localizer.get("success_file_added"))
+            self.display_status(self.localizer.get("success_file_added").format(self.file_path))
         else:
             self.display_status(self.localizer.get("error_file_added"))
 

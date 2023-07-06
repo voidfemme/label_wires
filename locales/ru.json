@@ -44,7 +44,16 @@
   "save_settings": "Сохранить настройки",
   "csv_save_location": "Место сохранения CSV",
   "default_save_location": "Место сохранения по умолчанию",
-  "custom_csv_delimiter": "Custom CSV Delimiter"
-  ,"hello": "Привет"
+  "custom_csv_delimiter": "Custom CSV Delimiter",
+  "hello": "Привет",
+  "entry_mode_values": [
+    "cable",
+    "wire"
+  ],
+  "default_csv_delimiter": "Настроенный разделитель CSV",
+  "removed_connection": "Удаленное соединение",
+  "undo": "Отменить",
+  "save": "Сохранить",
+  "cancel": "Отмена",
+  "file_already_exists": "Файл уже существует"
 }
-
