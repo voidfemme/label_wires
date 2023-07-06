@@ -53,4 +53,4 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 - Treewidget does not auto-scroll
 - Various formatted strings are not displaying the correct data
-- Missing "success" message when saving settings. I'd like to have feedback about the updated state of all the settings, or some other feedback when saving messages.
+- Missing "success" message when saving settings. There should be some kind of feedback about the updated state of all the settings.

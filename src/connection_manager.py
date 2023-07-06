@@ -1,53 +1,19 @@
 import csv
 import json
 import logging
-import re
-import string
-import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from typing import List, Tuple, TypeVar, Generic, Type
 from src.connection import Connection, Cable, Wire
 from src.settings import Settings
+from src.validation import is_valid_file_path, is_valid_entry_string, validate_json_data
+
+"""
+This is the connection manager, which is responsible for managing the master list of wires.
+"""
 
 logger = logging.getLogger(__name__)
 ConnectionType = TypeVar("ConnectionType", bound=Connection)
-
-
-def is_valid_file_path(path: str) -> bool:
-    file_path = Path(path)
-    dir_name = file_path.parent
-    file_name = file_path.name
-
-    if os.name == "nt":  # For Windows systems
-        valid_path_chars = not bool(re.search(r'[<>:"|?*]|\.$|\s$', file_name))
-    else:  # For Unix/Linux based systems
-        valid_path_chars = "\0" not in path
-
-    # Check if path exists and if it has write Permissions
-    path_exists = dir_name.exists()
-    can_write = os.access(dir_name, os.W_OK)
-
-    if not path_exists:
-        raise FileNotFoundError(f"Path does not exist: {path}")
-
-    if not can_write:
-        raise PermissionError(f"No write permissions for path: {path}")
-
-    return valid_path_chars
-
-
-def is_valid_entry_string(input_string) -> bool:
-    # Check that input is a string
-    if not isinstance(input_string, str):
-        return False
-
-    # Check for control characters
-    if any(char not in string.printable for char in input_string):
-        return False
-
-    # If it passes both checks, it's a valid string.
-    return True
 
 
 class ConnectionManager(ABC, Generic[ConnectionType]):
@@ -71,6 +37,13 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         try:
             with open(self.file_path, "r") as json_file:
                 conn_dicts = json.load(json_file)
+
+                # Validate the data
+                try:
+                    validate_json_data(conn_dicts)
+                except ValueError as e:
+                    print(e)
+
             self.connections = [
                 self.get_connection_class()(**conn_dict)
                 for conn_dict in conn_dicts
@@ -100,7 +73,8 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         self, old_connection: Connection, new_connection: Connection
     ) -> bool:
         if old_connection in self.connections:
-            # If new connection already exists or is the reverse of an existing connection, don't do the edit
+            # If new connection already exists or is the reverse of an existing connection,
+            # don't do the edit
             if new_connection in self.connections:
                 logger.info(
                     "Attempted to edit connection into a duplicate or reverse duplicate connection."
@@ -144,6 +118,7 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
     @abstractmethod
     def get_connection_class(self) -> Type[Connection]:
         """This method should return the class of the connection manager"""
+        pass
 
 
 class WireManager(ConnectionManager[Wire]):
