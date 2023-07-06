@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+import logging
+
+logger = logging.getLogger(__name__)
 
 """
 This file contains versions of Tkinter widgets that follow the Observer design pattern.
@@ -22,7 +25,7 @@ class LocalizedLabel(tk.Label):
         self.format_args = format_args or {}
         super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
-        print(f"Initialized {self.__class__.__name__} with key {self.l10n_key}")
+        logger.info(f"Initialized {self.__class__.__name__} with key {self.l10n_key}")
 
     def get_localized_text(self) -> str:
         return self.localizer.get(self.l10n_key).format(**self.format_args)
@@ -32,9 +35,9 @@ class LocalizedLabel(tk.Label):
         self.update()
 
     def update(self) -> None:
-        new_text = self.localizer.get(self.l10n_key)
-        print(f"Updating {type(self).__name__} with key {self.l10n_key}")
-        print(f"new_text: {new_text}")
+        new_text = self.localizer.get(self.l10n_key).format(**self.format_args)
+        logger.info(f"Updating {type(self).__name__} with key {self.l10n_key}")
+        logger.info(f"new_text: {new_text}")
         self.config(text=new_text)
 
     def destroy(self) -> None:
@@ -44,10 +47,10 @@ class LocalizedLabel(tk.Label):
 
     @classmethod
     def update_all(cls) -> None:
-        print("Called LocalizedLabel.update_all()")
-        print(f"Number of instances: {len(cls._all_instances)}")
+        logger.info("Called LocalizedLabel.update_all()")
+        logger.info(f"Number of instances: {len(cls._all_instances)}")
         for instance in cls._all_instances:
-            print(f"Updating instance: {instance}")
+            logger.info(f"Updating instance: {instance}")
             instance.update()
 
 
@@ -62,7 +65,7 @@ class LocalizedButton(tk.Button):
         self._all_instances.append(self)
 
     def get_localized_text(self) -> str:
-        return self.localizer.get(self.l10n_key).format(**self.format_args)
+        return self.localizer.get(self.l10n_key)
 
     def update_format_args(self, new_format_args) -> None:
         self.format_args.update(new_format_args)
@@ -70,7 +73,7 @@ class LocalizedButton(tk.Button):
 
     def update(self) -> None:
         # self.update_format_args(self.format_args)
-        new_text = self.localizer.get(self.l10n_key)
+        new_text = self.localizer.get(self.l10n_key).format(**self.format_args)
         self.config(text=new_text)
 
     def destroy(self) -> None:
@@ -102,8 +105,7 @@ class LocalizedCheckButton(tk.Checkbutton):
         self.update()
 
     def update(self) -> None:
-        # self.update_format_args(self.format_args)
-        new_text = self.localizer.get(self.l10n_key)
+        new_text = self.localizer.get(self.l10n_key).format(**self.format_args)
         self.config(text=new_text)
 
     def destroy(self) -> None:
