@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
 from pathlib import Path
@@ -13,8 +12,11 @@ This is the dialog that pops up when the user opens the application.
 It allows them to access settings, create a new project, or open an existing project.
 """
 
+
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, master=None, language="en") -> None:  # Passing the language as a parameter here doesn't seem right
+    def __init__(
+        self, master=None, language="en"
+    ) -> None:  # Passing the language as a parameter here doesn't seem right
         super().__init__(master=master)
         self.master = master
         self.language = language
@@ -74,7 +76,11 @@ class NewProjectDialog(tk.Toplevel):
             self, self.localizer, "browse", command=self.browse_directory
         )
         self.create_button = LocalizedButton(
-            self, self.localizer, "create_button", command=self.validate_and_create, state="disabled"
+            self,
+            self.localizer,
+            "create_button",
+            command=self.validate_and_create,
+            state="disabled",
         )
 
         # Add the widgets to the grid
