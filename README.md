@@ -27,13 +27,14 @@ Note: An installation script/Windows installation wizard is currently under deve
 ## Features
 
 - **Interactive GUI**: Offers six input fields for defining the source and destination parameters of each wire.
+- **OS Compatibility**: Compatible with Windows and Linux
 - **Data Management**: Handles wire data efficiently by storing user input in JSON format.
 - **CSV Output**: converts wire data into a structured CSV format for export
 - **Localization support**: English, Russian, Spanish(to be checked for errors), French (to be checked for errors), Shakespearean English
 - **Settings window**: Enables adjustment of language, default save locations, and CSV delimiter
 - **Increment functionality**: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
 - **JSON content validation**: Ensures the integrity of the content within the application.
-- **Export data to CSV files**: Use a custom delimiter, I recommend avoiding using a comma as the delimiter, since it can sometimes be advantageous to use commas in the text fields. I recommend using a pipe symbol: "|"
+- **Export data to CSV files**: Use a custom delimiter. I recommend avoiding using a comma as the delimiter, since it can sometimes be advantageous to use commas in the text fields. I recommend using a pipe symbol: "|"
 
 ### Coming soon
 
