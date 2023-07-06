@@ -6,7 +6,11 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 
-from src.command import AddConnectionCommand, DeleteConnectionCommand
+from src.command import (
+    AddConnectionCommand,
+    DeleteConnectionCommand,
+    EditConnectionCommand,
+)
 from src.settings import Settings
 from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
@@ -108,6 +112,7 @@ class ConnectionApp(tk.Tk):
         self.define_checkbuttons()
         self.define_buttons()
         self.define_bindings()
+
         # Define text area for connection numbers
         self.tree_widget = self.create_tree_widget()
         self.arrange_widgets_in_grid()
@@ -357,6 +362,15 @@ class ConnectionApp(tk.Tk):
         self.update_connection_list()
         self.selected_connections = []
 
+    def edit_connection(self) -> None:
+        # First, make sure only one item was selected.
+
+        # Then, populate the fields with the item's values.
+
+        # Use an EditConnectionCommand in order to be able to re-add the old connection
+        # command = EditConnectionCommand(self)
+        pass
+
     def populate_connections(self) -> None:
         self.connection_manager.load_from_file()
         for connection in self.connection_manager.get_connections():
@@ -400,7 +414,9 @@ class ConnectionApp(tk.Tk):
         success = self.connection_manager.save_to_file()
 
         if success:
-            self.display_status(self.localizer.get("success_file_added").format(self.file_path))
+            self.display_status(
+                self.localizer.get("success_file_added").format(self.file_path)
+            )
         else:
             self.display_status(self.localizer.get("error_file_added"))
 
