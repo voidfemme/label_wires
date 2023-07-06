@@ -105,6 +105,12 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         if filename.exists():
             raise FileExistsError(f"The file '{filename}' already exists.")
 
+        # Run a check to make sure there aren't commas in the data fields. I know my default
+        # delimiter is already a pipe symbol, but I want it to be a comma by default, but
+        # adapt to the user's needs. After writing the file to csv, I could maybe raise an error
+        # of some kind, catch that by the connection_app and print a message to tell the user
+        # what kind of delimiter to use.
+
         with open(filename, "w", newline="") as f:
             writer = csv.writer(f, delimiter="|")
             for connection in self.connections:

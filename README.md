@@ -33,7 +33,13 @@ Note: An installation script/Windows installation wizard is currently under deve
 - **Settings window**: Enables adjustment of language, default save locations, and CSV delimiter
 - **Increment functionality**: Provides a checkbutton to automatically Increment the numbers in the terminal fields.
 - **JSON content validation**: Ensures the integrity of the content within the application.
-- Export data to CSV files
+- **Export data to CSV files**: Use a custom delimiter, I recommend avoiding using a comma as the delimiter, since it can sometimes be advantageous to use commas in the text fields. I recommend using a pipe symbol: "|"
+
+### Coming soon
+
+- Installation wizard
+- Auto-detect commas in label data and choose the pipe symbol if they exist.
+- Full documentation panel for instructions on using the software and for importing to Brady LabelMark 6 software for printing.
 
 ## Screenshots
 
