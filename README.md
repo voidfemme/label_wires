@@ -51,6 +51,6 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 ## Known Bugs
 
-- Treewidget does not auto-scroll
 - Various formatted strings are not displaying the correct data
 - Missing "success" message when saving settings. There should be some kind of feedback about the updated state of all the settings.
+- Missing some localization values
