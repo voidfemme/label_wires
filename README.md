@@ -41,6 +41,7 @@ Note: An installation script/Windows installation wizard is currently under deve
 - Installation wizard
 - Auto-detect commas in label data and choose the pipe symbol if they exist.
 - Full documentation panel for instructions on using the software and for importing to Brady LabelMark 6 software for printing.
+- Traceback included in user-facing error message for easier debugging of user-tested features
 
 ## Screenshots
 

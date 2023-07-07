@@ -4,7 +4,8 @@ import json
 import logging
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import List, Tuple, TypeVar, Generic, Type
+
+from typing import List, Tuple, TypeVar, Generic, Type, Dict
 from src.connection import Connection, Cable, Wire
 from src.settings import Settings
 
@@ -45,8 +46,6 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
                 for conn_dict in conn_dicts
                 if not self.get_connection_class()(**conn_dict).is_empty()
             ]
-            for conn in self.connections:
-                logger.info(f"Loaded connection: {conn}")
             logger.info(f"JSON file loaded as {self.file_path}")
         except FileNotFoundError:
             logger.info(f"Error: Directory '{self.file_path}' not found")
@@ -71,7 +70,7 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         # If it passes both checks, it's a valid string.
         return True
 
-    def validate_json_data(self, input_data: dict) -> None:
+    def validate_json_data(self, input_data: List[Dict[str, str]]) -> None:
         required_fields = [
             "source_component",
             "source_terminal_block",
@@ -108,7 +107,7 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
 
     def edit_connection(
         self, old_connection: Connection, new_connection: Connection
-    ) -> bool:
+    ) -> bool:  # TODO: design tests for this method
         if old_connection in self.connections:
             # If new connection already exists or is the reverse of an existing connection,
             # don't do the edit
@@ -135,11 +134,13 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
     def get_connections(self) -> List[ConnectionType]:
         # Return a copy of the list of connections. Return a copy because returning the
         # object itself can alow external code to mutate the internal state of the class.
+        # ^^ Explain why this is bad
         return self.connections[:]
 
-    def export_to_csv(self, file):
-        filename = Path(file)
-        # Check if the file exists
+    def export_to_csv(self, file_path) -> None:  # Perhaps consider returning a bool
+        filename = Path(file_path)
+        # Check if the file exists; I don't want to overwrite any existing csv files
+        # Perhaps add a flag that will overwrite the file anyways when the user chooses.
         if filename.exists():
             raise FileExistsError(f"The file '{filename}' already exists.")
 
@@ -147,7 +148,8 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         # delimiter is already a pipe symbol, but I want it to be a comma by default, but
         # adapt to the user's needs. After writing the file to csv, I could maybe raise an error
         # of some kind, catch that by the connection_app and print a message to tell the user
-        # what kind of delimiter to use. Perhaps a `validate_csv` function.
+        # what kind of delimiter to use. Perhaps a `validate_csv` function. I will possibly need
+        # a new class to deal with CSV stuff specifically
 
         try:
             with open(filename, "w", newline="") as f:
@@ -155,9 +157,9 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
                 for connection in self.connections:
                     writer.writerow(connection.to_tuple())  # type: ignore
         except FileNotFoundError:
-            logger.info(f"Error: Directory '{self.file_path}' not found")
+            logger.info(f"Error: Directory '{filename}' not found")
         except PermissionError:
-            logger.info(f"Error: Permission denied to read from'{self.file_path}'")
+            logger.info(f"Error: Permission denied to read from'{filename}'")
         except Exception as e:
             logger.info(f"Error: {e}")
 
