@@ -18,6 +18,9 @@ def is_valid_file_path(path: str) -> bool:
     path_exists = dir_name.exists()
     can_write = os.access(dir_name, os.W_OK)
 
+    # Check in connection_manager.py for logic pertaining to '.wire' and '.cable'
+    # suffixes
+
     if not path_exists:
         raise FileNotFoundError(f"Path does not exist: {path}")
 
