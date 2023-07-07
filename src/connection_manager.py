@@ -110,6 +110,9 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         # adapt to the user's needs. After writing the file to csv, I could maybe raise an error
         # of some kind, catch that by the connection_app and print a message to tell the user
         # what kind of delimiter to use.
+        
+        # TODO: Cables and wires have different formats, and I want to support more advanced
+        # cable operations in the future.
 
         with open(filename, "w", newline="") as f:
             writer = csv.writer(f, delimiter="|")
