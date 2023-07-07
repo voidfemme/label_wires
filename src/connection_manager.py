@@ -34,6 +34,12 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         except PermissionError:
             logger.info(f"Permission Error: could not write to: {self.file_path}")
             return False
+        except ValueError:
+            logger.info(f"ValueError: Could not write data to file.")
+            return False
+        except Exception as e:
+            logger.info(f"Error: {e}")
+            return False
 
     def load_json_from_file(self) -> None:
         try:
@@ -189,7 +195,7 @@ class WireManager(ConnectionManager[Wire]):
         destination_component: str,
         destination_terminal_block: str,
         destination_terminal: str,
-    ):
+    ) -> bool:
         wire = Wire(
             source_component,
             source_terminal_block,
