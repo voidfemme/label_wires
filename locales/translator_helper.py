@@ -32,7 +32,8 @@ def verify_localization_files(directory):
                     if isinstance(value, list):
                         for item in value:
                             translated_value = input(
-                                    f"Please enter a translation for '{item}'. (Member of list {value}): "
+                                f"Please enter a translation for '{item}'. "
+                                + f"(Member of list {value}): "
                             )
                     else:
                         translated_value = input(

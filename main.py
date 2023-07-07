@@ -2,15 +2,13 @@
 # Love is love. Be yourself.
 import logging
 from src.connection_app import ConnectionApp
-from src.settings import Settings
 
 
 logging.basicConfig(filename="app.log", level=logging.DEBUG)
 
 
 def start_app() -> None:
-    settings = Settings()
-    app = ConnectionApp(language=settings.get("language", "en"))
+    app = ConnectionApp()
     app.mainloop()
 
 

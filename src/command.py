@@ -211,4 +211,3 @@ class DeleteConnectionCommand(Command):
             )
         self.deleted_items.clear()
         self.parent.update_connection_list()
-        path = Path("docs")

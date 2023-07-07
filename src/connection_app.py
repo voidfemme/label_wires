@@ -27,10 +27,10 @@ logger = logging.getLogger(__name__)
 
 
 class ConnectionApp(tk.Tk):
-    def __init__(self, language="en") -> None:
+    def __init__(self) -> None:
         super().__init__()
-        self.language = language
-        self.localizer = Localizer(self.language)
+        self.settings = Settings()
+        self.localizer = Localizer(self.settings.get("language"))
         self.title(self.localizer.get("application_title"))
         self.undo_stack = []
 
@@ -41,7 +41,7 @@ class ConnectionApp(tk.Tk):
         self.withdraw()
 
         # Call NewProjectDialog and wait until it's done
-        self.new_project_dialog = NewProjectDialog(self, language=self.language)
+        self.new_project_dialog = NewProjectDialog(self)
         self.wait_window(self.new_project_dialog)
         self.new_project_result = self.new_project_dialog.result
 
@@ -270,9 +270,7 @@ class ConnectionApp(tk.Tk):
 
     def open_settings_window(self) -> None:
         self.settings = Settings()
-        self.settings_window = SettingsWindow(
-            self, self.settings, language=self.language
-        )
+        self.settings_window = SettingsWindow(self, self.settings)
 
     def validate_json_content(self, content) -> bool:
         try:
@@ -372,7 +370,7 @@ class ConnectionApp(tk.Tk):
         pass
 
     def populate_connections(self) -> None:
-        self.connection_manager.load_from_file()
+        self.connection_manager.load_json_from_file()
         for connection in self.connection_manager.get_connections():
             source, destination = self.connection_manager.get_connection_tuple(
                 connection
@@ -411,7 +409,7 @@ class ConnectionApp(tk.Tk):
             sys.exit(1)  # or however you want to handle this case
 
     def save_file(self) -> None:
-        success = self.connection_manager.save_to_file()
+        success = self.connection_manager.save_json_to_file()
 
         if success:
             self.display_status(
@@ -421,7 +419,7 @@ class ConnectionApp(tk.Tk):
             self.display_status(self.localizer.get("error_file_added"))
 
     def load_connections(self):
-        self.connection_manager.load_from_file()
+        self.connection_manager.load_json_from_file()
         self.update_connection_list()
 
     def export_to_csv(self) -> None:
