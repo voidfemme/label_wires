@@ -239,7 +239,7 @@ class NewProjectDialog(tk.Toplevel):
         label2.bind("<Button-1>", lambda e: self.open_url(link))
 
     def quit_program(self) -> None:
-        self.master.quit()
+        self.master.quit_program()  # type: ignore
 
     def apply(self) -> None:
         directory = Path(self.directory.get())

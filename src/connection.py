@@ -9,16 +9,29 @@ that can be used to compare connections and to create a dictionary representatio
 connection.
 """
 
+
 class Connection(ABC):
     def __init__(
         self,
-        source_component,
-        source_terminal_block,
-        source_terminal,
-        destination_component,
-        destination_terminal_block,
-        destination_terminal,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        destination_component: str,
+        destination_terminal_block: str,
+        destination_terminal: str,
     ) -> None:
+        # Validate inputs
+        attributes = [
+            source_component,
+            source_terminal_block,
+            source_terminal,
+            destination_component,
+            destination_terminal_block,
+            destination_terminal,
+        ]
+        if not all(isinstance(attribute, str) for attribute in attributes):
+            raise ValueError("All inputs must be of type string")
+
         self.source_component = source_component
         self.source_terminal_block = source_terminal_block
         self.source_terminal = source_terminal
@@ -28,7 +41,7 @@ class Connection(ABC):
 
     def __eq__(self, other: "Wire") -> bool:
         if not isinstance(other, Wire):
-            return NotImplemented
+            return False
         is_normal_equal = (
             self.source_component == other.source_component
             and self.source_terminal_block == other.source_terminal_block
@@ -44,6 +57,11 @@ class Connection(ABC):
             and self.destination_component == other.source_component
             and self.destination_terminal_block == other.source_terminal_block
             and self.destination_terminal == other.source_terminal
+        )
+
+        print(
+            f"Comparing cables, normal: {is_normal_equal}, reverse: {is_reverse_equal}\n",
+            f"Evaluates to {is_normal_equal or is_reverse_equal}"
         )
 
         return is_normal_equal or is_reverse_equal

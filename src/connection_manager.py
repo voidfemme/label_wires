@@ -205,20 +205,8 @@ class WireManager(ConnectionManager[Wire]):
             destination_terminal,
         )
 
-        inputs = [
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
-        ]
-
-        if not all(self.is_valid_entry_string(input) for input in inputs):
-            logger.info("invalid input")
-            return False
-
         logger.info(f"Adding wire: {wire}")
+        # Use "not in" to access the Wire's __eq__ function to check for duplicates
         if wire not in self.connections:
             self.connections.append(wire)
             self.save_json_to_file()
@@ -255,25 +243,13 @@ class CableManager(ConnectionManager[Cable]):
             destination_terminal,
         )
 
-        inputs = [
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
-        ]
-
-        if not all(self.is_valid_entry_string(input) for input in inputs):
-            logger.info("invalid input")
-            return False
-
-        logger.info(f"Adding cable: {cable}")
+        # Use "not in" to access the Cable's __eq__ function to check for duplicates
         if cable not in self.connections:
             self.connections.append(cable)
             self.save_json_to_file()
-            logger.info("Cable successfully added.")
+            print(f"Cable successfully added., id: {id(cable)}, type: {type(cable)}")
+            print(f"Cables in connections: {self.connections}")
             return True
         else:
-            logger.info("Attempted to add duplicate cable.")
+            print("Attempted to add duplicate cable.")
             return False

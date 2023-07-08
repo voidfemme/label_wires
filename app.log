@@ -1882,3 +1882,165 @@ INFO:src.localized_widgets:new_text: Место сохранения CSV
 INFO:src.localized_widgets:Updating instance: .!settingswindow.!localizedlabel4
 INFO:src.localized_widgets:Updating LocalizedLabel with key default_csv_delimiter
 INFO:src.localized_widgets:new_text: Настроенный разделитель CSV
+INFO:src.localizer:Loading locale: ru
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key language
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_csv_delimiter
+INFO:src.localizer:Setting locale to: en
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Called LocalizedLabel.update_all()
+INFO:src.localized_widgets:Number of instances: 9
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key application_title
+INFO:src.localized_widgets:new_text: WireLab
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:new_text: Имя файла
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:new_text: Сохранить в директории:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:new_text: Режим ввода:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel5
+INFO:src.localized_widgets:Updating LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:new_text: Открыть существующий файл:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key language
+INFO:src.localized_widgets:new_text: Language
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:new_text: Default Save Location
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:new_text: CSV Save Location
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_csv_delimiter
+INFO:src.localized_widgets:new_text: Custom CSV Delimiter
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key saving_as
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localized_widgets:Initialized LocalizedLabel with key language
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_csv_delimiter
+INFO:src.localizer:Setting locale to: en
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Called LocalizedLabel.update_all()
+INFO:src.localized_widgets:Number of instances: 10
+INFO:src.localized_widgets:Updating instance: .!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key component
+INFO:src.localized_widgets:new_text: Компонент
+INFO:src.localized_widgets:Updating instance: .!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:new_text: Блок клемм
+INFO:src.localized_widgets:Updating instance: .!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key terminal
+INFO:src.localized_widgets:new_text: Клемма
+INFO:src.localized_widgets:Updating instance: .!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key saving_as
+INFO:src.localized_widgets:new_text: Сохранение как: test_cables.cab
+INFO:src.localized_widgets:Updating instance: .!localizedlabel5
+INFO:src.localized_widgets:Updating LocalizedLabel with key field_one
+INFO:src.localized_widgets:new_text: Поле 1:
+INFO:src.localized_widgets:Updating instance: .!localizedlabel6
+INFO:src.localized_widgets:Updating LocalizedLabel with key field_two
+INFO:src.localized_widgets:new_text: Поле 2:
+INFO:src.localized_widgets:Updating instance: .!settingswindow.!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key language
+INFO:src.localized_widgets:new_text: Language
+INFO:src.localized_widgets:Updating instance: .!settingswindow.!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:new_text: Default Save Location
+INFO:src.localized_widgets:Updating instance: .!settingswindow.!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:new_text: CSV Save Location
+INFO:src.localized_widgets:Updating instance: .!settingswindow.!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_csv_delimiter
+INFO:src.localized_widgets:new_text: Custom CSV Delimiter
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key language
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:Initialized LocalizedLabel with key default_csv_delimiter
+INFO:src.localizer:Setting locale to: ru
+INFO:src.localizer:Loading locale: ru
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Called LocalizedLabel.update_all()
+INFO:src.localized_widgets:Number of instances: 9
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key application_title
+INFO:src.localized_widgets:new_text: WireLab
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:new_text: Имя файла
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:new_text: Сохранить в директории:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:new_text: Режим ввода:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!localizedlabel5
+INFO:src.localized_widgets:Updating LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:new_text: Открыть существующий файл:
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel
+INFO:src.localized_widgets:Updating LocalizedLabel with key language
+INFO:src.localized_widgets:new_text: Язык
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel2
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_save_location
+INFO:src.localized_widgets:new_text: Место сохранения по умолчанию
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel3
+INFO:src.localized_widgets:Updating LocalizedLabel with key csv_save_location
+INFO:src.localized_widgets:new_text: Место сохранения CSV
+INFO:src.localized_widgets:Updating instance: .!newprojectdialog.!settingswindow.!localizedlabel4
+INFO:src.localized_widgets:Updating LocalizedLabel with key default_csv_delimiter
+INFO:src.localized_widgets:new_text: Настроенный разделитель CSV
+INFO:src.localizer:Loading locale: ru
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key saving_as
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: ru
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label

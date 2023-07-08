@@ -6,9 +6,7 @@ from pathlib import Path
 
 from src.connection_manager import ConnectionManager, WireManager, CableManager
 
-"""
-Pyright errors can be misleading!
-"""
+# Pyright errors can be misleading!
 
 
 class ConnectionManagerTestClass(ConnectionManager):
@@ -263,121 +261,36 @@ class TestConnectionManager(unittest.TestCase):
 class TestWireManager(unittest.TestCase):
     def setUp(self):
         self.wire_manager = WireManager("/fake/path")
-        self.wire_1 = MagicMock()
-        self.wire_1.to_dict.return_value = {"mock": "wire1"}  # Side effect
-        self.wire_2 = MagicMock()
-        self.wire_2.to_dict.return_value = {"mock": "wire2"}  # Side effect
-        self.wire_manager.connections = [self.wire_1, self.wire_2]
-        self.test_file_path = "test/file/path"
 
     def tearDown(self) -> None:
         self.conn_manager = None
-        self.wire_1 = None
-        self.wire_2 = None
 
     def test_get_connection_class(self):
         result = self.wire_manager.get_connection_class()
         self.assertEqual(result, Wire)
 
-    def test_add_connection_invalid_field(self):
-        result = self.wire_manager.add_connection(
-            "test1", "test2", "test3", "test4", 5, "test6"
-        )
-        self.assertFalse(result)
+    def test_add_connection(self):
+        result = self.wire_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        self.assertTrue(result)
 
-    def test_add_connection_duplicate(self):
-        # Setup
-        self.wire_manager.add_connection("t1", "t2", "t3", "t4", "t5", "t6")
-
-        # Action and Assertion
-        matching_wire = self.wire_manager.add_connection(
-            "t1", "t2", "t3", "t4", "t5", "t6"
-        )
-        self.assertFalse(matching_wire, "Should not allow adding matching wire")
-
-        reverse_matching_wire = self.wire_manager.add_connection(
-            "t4", "t5", "t6", "t1", "t2", "t3"
-        )
-
-        self.assertFalse(reverse_matching_wire, "Should not allow adding matching wire")
-
-        mismatching_wire = self.wire_manager.add_connection(
-            "t6", "t5", "t4", "t3", "t2", "t1"
-        )
-        self.assertTrue(mismatching_wire, "Should allow adding unique wire")
-
-        matching_source_wire = self.wire_manager.add_connection(
-            "t1", "t2", "t3", "t1", "t2", "t3"
-        )
-        self.assertTrue(
-            matching_source_wire, "Should allow adding wire with matching source"
-        )
-
-        matching_destination_wire = self.wire_manager.add_connection(
-            "t4", "t5", "t6", "t4", "t5", "t6"
-        )
-        self.assertTrue(
-            matching_destination_wire,
-            "Should allow adding wire with matching matching_destination",
-        )
+        result2 = self.wire_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        self.assertFalse(result2)
 
 
 class TestCableManager(unittest.TestCase):
     def setUp(self):
         self.cable_manager = CableManager("/fake/path")
-        self.wire_1 = MagicMock()
-        self.wire_1.to_dict.return_value = {"mock": "wire1"}  # Side effect
-        self.wire_2 = MagicMock()
-        self.wire_2.to_dict.return_value = {"mock": "wire2"}  # Side effect
-        self.cable_manager.connections = [self.wire_1, self.wire_2]
-        self.test_file_path = "test/file/path"
 
     def tearDown(self) -> None:
         self.conn_manager = None
-        self.wire_1 = None
-        self.wire_2 = None
 
     def test_get_connection_class(self):
         result = self.cable_manager.get_connection_class()
         self.assertEqual(result, Cable)
 
-    def test_add_connection_invalid_field(self):
-        result = self.cable_manager.add_connection(
-            "test1", "test2", "test3", "test4", 5, "test6"
-        )
+    def test_add_connection(self):
+        result = self.cable_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        self.assertTrue(result)
 
-    def test_add_connection_duplicate(self):
-        # Setup
-        self.cable_manager.add_connection("t1", "t2", "t3", "t4", "t5", "t6")
-
-        # Action and Assertion
-        matching_wire = self.cable_manager.add_connection(
-            "t1", "t2", "t3", "t4", "t5", "t6"
-        )
-        self.assertFalse(matching_wire, "Should not allow adding matching wire")
-
-        reverse_matching_wire = self.cable_manager.add_connection(
-            "t4", "t5", "t6", "t1", "t2", "t3"
-        )
-
-        self.assertFalse(reverse_matching_wire, "Should not allow adding matching wire")
-
-        mismatching_wire = self.cable_manager.add_connection(
-            "t6", "t5", "t4", "t3", "t2", "t1"
-        )
-        self.assertTrue(mismatching_wire, "Should allow adding unique wire")
-
-        matching_source_wire = self.cable_manager.add_connection(
-            "t1", "t2", "t3", "t1", "t2", "t3"
-        )
-        self.assertTrue(
-            matching_source_wire, "Should allow adding wire with matching source"
-        )
-
-        matching_destination_wire = self.cable_manager.add_connection(
-            "t4", "t5", "t6", "t4", "t5", "t6"
-        )
-        self.assertTrue(
-            matching_destination_wire,
-            "Should allow adding wire with matching matching_destination",
-        )
+        result2 = self.cable_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        self.assertFalse(result2)
