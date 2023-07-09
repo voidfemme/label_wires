@@ -168,7 +168,6 @@ class DeleteConnectionCommand(Command):
             except KeyError:
                 logger.warning(f"Connection not found for item: {item}")
                 continue
-        pass
 
     def undo(self) -> None:
         for deleted_item in self.deleted_items:

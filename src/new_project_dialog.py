@@ -80,9 +80,7 @@ class NewProjectDialog(tk.Toplevel):
             "create_button",
             command=self.validate_and_create,
             state="disabled",
-        )
-
-        # Add the widgets to the grid
+        ) # Add the widgets to the grid
         self.file_name_field_label.grid(row=1, column=0, sticky="w", padx=10, pady=10)
         self.file_name_field_entry.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
         self.save_directory_label.grid(row=2, column=0, sticky="w", padx=10, pady=10)
