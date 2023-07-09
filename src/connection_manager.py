@@ -179,44 +179,6 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         pass
 
 
-class WireManager(ConnectionManager[Wire]):
-    def __init__(self, file_path):
-        super().__init__(file_path)
-        self.connections: List[Wire] = []
-
-    def get_connection_class(self) -> Type[Wire]:
-        return Wire
-
-    def add_connection(
-        self,
-        source_component: str,
-        source_terminal_block: str,
-        source_terminal: str,
-        destination_component: str,
-        destination_terminal_block: str,
-        destination_terminal: str,
-    ) -> bool:
-        wire = Wire(
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
-        )
-
-        logger.info(f"Adding wire: {wire}")
-        # Use "not in" to access the Wire's __eq__ function to check for duplicates
-        if wire not in self.connections:
-            self.connections.append(wire)
-            self.save_json_to_file()
-            logger.info("Wire successfully added.")
-            return True
-        else:
-            logger.info("Attempted to add duplicate or reverse wire.")
-            return False
-
-
 class CableManager(ConnectionManager[Cable]):
     def __init__(self, file_path):
         super().__init__(file_path)
@@ -252,4 +214,42 @@ class CableManager(ConnectionManager[Cable]):
             return True
         else:
             print("Attempted to add duplicate cable.")
+            return False
+
+
+class WireManager(ConnectionManager[Wire]):
+    def __init__(self, file_path):
+        super().__init__(file_path)
+        self.connections: List[Wire] = []
+
+    def get_connection_class(self) -> Type[Wire]:
+        return Wire
+
+    def add_connection(
+        self,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        destination_component: str,
+        destination_terminal_block: str,
+        destination_terminal: str,
+    ) -> bool:
+        wire = Wire(
+            source_component,
+            source_terminal_block,
+            source_terminal,
+            destination_component,
+            destination_terminal_block,
+            destination_terminal,
+        )
+
+        logger.info(f"Adding wire: {wire}")
+        # Use "not in" to access the Wire's __eq__ function to check for duplicates
+        if wire not in self.connections:
+            self.connections.append(wire)
+            self.save_json_to_file()
+            logger.info("Wire successfully added.")
+            return True
+        else:
+            logger.info("Attempted to add duplicate or reverse wire.")
             return False

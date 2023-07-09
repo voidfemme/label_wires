@@ -273,7 +273,7 @@ class TestWireManager(unittest.TestCase):
         result = self.wire_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
         self.assertTrue(result)
 
-        result2 = self.wire_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        result2 = self.wire_manager.add_connection("f4", "f5", "f6", "f1", "f2", "f3")
         self.assertFalse(result2)
 
 
@@ -292,5 +292,5 @@ class TestCableManager(unittest.TestCase):
         result = self.cable_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
         self.assertTrue(result)
 
-        result2 = self.cable_manager.add_connection("f1", "f2", "f3", "f4", "f5", "f6")
+        result2 = self.cable_manager.add_connection("f2", "f2", "f3", "f4", "f5", "f6")
         self.assertFalse(result2)

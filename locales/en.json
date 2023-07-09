@@ -1,7 +1,7 @@
 {
   "application_title": "WireLab",
   "error": "Error",
-  "error_connection_manager_init": "Failed to initialize the Connection Manager. Please check your input",
+  "error_connection_manager_init": "Failed to initialize the Connection Manager. Please check your input. Quitting...",
   "untitled_labels": "untitled connection labels",
   "field_one": "Field 1:",
   "field_two": "Field 2:",

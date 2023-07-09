@@ -9,6 +9,8 @@ that can be used to compare connections and to create a dictionary representatio
 connection.
 """
 
+# This file has a high degree of coupling, and could really use some work from the ground up
+
 
 class Connection(ABC):
     def __init__(

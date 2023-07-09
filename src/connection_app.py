@@ -26,6 +26,28 @@ from src.localized_widgets import (
 logger = logging.getLogger(__name__)
 
 
+class Header(tk.Frame):
+    def __init__(self, parent, localizer, settings, file_name):
+        super().__init__(parent)
+        self.parent = parent
+        self.localizer = localizer
+        self.settings = settings
+        if file_name is None:
+            self.file_name = self.localizer.get("untitled_labels")
+        else:
+            self.file_name = file_name
+        self.file_name_label = tk.Label(self, text=self.file_name)
+        self.file_name_label.grid(row=0, column=0)
+
+
+class TreeWidgetWireList(tk.Frame):
+    def __init__(self, parent, localizer, settings, file_name):
+        super().__init__(parent)
+        self.localizer = localizer
+        self.settings = settings
+        self.file_name = file_name
+
+
 class ConnectionApp(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
@@ -40,23 +62,13 @@ class ConnectionApp(tk.Tk):
         # Hide the main window
         self.withdraw()
 
-        # Call NewProjectDialog and wait until it's done
-        self.new_project_dialog = NewProjectDialog(self)
-        self.wait_window(self.new_project_dialog)
-        self.new_project_result = self.new_project_dialog.result
+        self.wait_for_new_project_dialog()
 
-        if self.new_project_result is None:
-            self.quit()
-            return
-
-        # Get results from NewProjectDialog
-        self.file_name = self.new_project_result.get("file_name")
-        self.entry_mode = self.new_project_result.get("mode")
-        self.file_path = self.new_project_result.get("file_path")
-
-        self.connections_dict = {}
-        self.tree_item_to_connection = {}
-        self.selected_connections = []
+        self.connections_dict = (
+            {}
+        )  # For holding the list of connections in the treewidget
+        self.tree_item_to_connection = {}  # What is this for?
+        self.selected_connections = []  # user-selected connections
 
         # Initialize the ConnectionManager
         if self.entry_mode and self.file_path:
@@ -86,28 +98,47 @@ class ConnectionApp(tk.Tk):
         self.destination_terminal_block = tk.StringVar()
         self.destination_terminal = tk.StringVar()
 
-        self.connection_frame = tk.Frame(self)
         self.create_widgets()
         self.load_connections()
         self.deiconify()
 
+    def wait_for_new_project_dialog(self):
+        # Call NewProjectDialog and wait until it's done
+        self.new_project_dialog = NewProjectDialog(self)
+        self.wait_window(self.new_project_dialog)
+        self.new_project_result = self.new_project_dialog.result
+
+        if self.new_project_result is None:
+            self.quit()
+            return
+
+        # Get results from NewProjectDialog
+        self.file_name = self.new_project_result.get("file_name")
+        self.entry_mode = self.new_project_result.get("mode")
+        self.file_path = self.new_project_result.get("file_path")
+
     def create_widgets(self) -> None:
         # Define labels
-        if self.file_name is None:
-            self.file_name = self.localizer.get("untitled_labels")
-        self.file_name_label = tk.Label(self, text=self.file_name)
+        self.header = Header(self, self.localizer, self.settings, self.file_name)
+
         self.component_label = LocalizedLabel(self, self.localizer, "component")
+
         self.terminal_block_label = LocalizedLabel(
             self, self.localizer, "terminal_block"
         )
+
         self.terminal_label = LocalizedLabel(self, self.localizer, "terminal")
+
         self.file_name_field_label = LocalizedLabel(
             self, self.localizer, "saving_as", format_args={"filename": self.file_name}
         )
+
         self.source_label = LocalizedLabel(self, self.localizer, "field_one")
+
         self.destination_label = LocalizedLabel(self, self.localizer, "field_two")
 
         self.status_label = tk.Label(self, text="")
+
         self.define_entry_fields()
         self.define_checkbuttons()
         self.define_buttons()
@@ -271,13 +302,6 @@ class ConnectionApp(tk.Tk):
     def open_settings_window(self) -> None:
         self.settings = Settings()
         self.settings_window = SettingsWindow(self, self.settings)
-
-    def validate_json_content(self, content) -> bool:
-        try:
-            json.loads(content)
-        except json.JSONDecodeError:
-            return False
-        return True
 
     def increment(self, input_box: tk.Entry) -> None:
         try:
