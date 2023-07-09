@@ -20,6 +20,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.create_and_place_entry_boxes()
         self.create_and_place_checkbuttons()
         self.create_and_place_buttons()
+        self.define_bindings()
 
         self.horizontal_rule = ttk.Separator(self, orient="horizontal")
         self.horizontal_rule.grid(row=4, column=0, columnspan=4, sticky="ew", pady=10)
@@ -100,7 +101,7 @@ class ConnectionEntryFrame(tk.Frame):
 
     def create_and_place_buttons(self):
         self.undo_button = LocalizedButton(
-            self, self.localizer, "undo", command=self.call_parent_method("undo")
+            self, self.localizer, "undo", command=self.parent.undo
         )
         self.undo_button.grid(row=3, column=2, padx=5, pady=5)
 
@@ -108,29 +109,29 @@ class ConnectionEntryFrame(tk.Frame):
             self,
             self.localizer,
             "add_connection",
-            command=self.call_parent_method("add_connection"),
+            command=self.parent.add_connection
         )
         self.add_connection_button.grid(row=3, column=3, padx=5, pady=5)
 
     def define_bindings(self) -> None:
         # Define bindings
         self.source_component_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
         self.source_terminal_block_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
         self.source_terminal_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
         self.destination_component_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
         self.destination_terminal_block_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
         self.destination_terminal_entry.bind(
-            "<Return>", lambda event: self.call_parent_method("add_connection")
+            "<Return>", lambda event: self.parent.add_connection()
         )
 
     def call_parent_method(self, method_name, *args, **kwargs):

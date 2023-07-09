@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Love is love. Be yourself.
 import logging
-from src.connection_app import ConnectionApp
+from src.ui.connection_app import ConnectionApp
 
 
 logging.basicConfig(filename="app.log", level=logging.DEBUG)

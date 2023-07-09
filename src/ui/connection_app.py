@@ -4,8 +4,7 @@ import logging
 import sys
 
 import tkinter as tk
-from tkinter import ttk, messagebox, filedialog
-from typing import Tuple
+from tkinter import messagebox, filedialog
 
 from src.command import (
     AddConnectionCommand,
@@ -17,16 +16,10 @@ from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
 from src.connection_manager_factory import ConnectionManagerFactory
 from src.localizer import Localizer
-from src.localized_widgets import (
-    LocalizedLabel,
-    LocalizedButton,
-    LocalizedCheckButton,
-    LocalizedTreeview,
-)
 from src.command_manager import CommandManager
 
 from src.ui.header import Header
-from src.ui.tree_widget_wire_list import TreeWidgetWireList
+from src.ui.tree_widget_wire_list import TreeWidgetFrame
 from src.ui.connection_entry_frame import ConnectionEntryFrame
 from src.ui.utility_buttons import UtilityButtonsFrame
 
@@ -40,9 +33,10 @@ class ConnectionApp(tk.Tk):
         self.localizer = Localizer(self.settings.get("language"))
         self.title(self.localizer.get("application_title"))
         self.command_manager = CommandManager()
+        self.undo_stack = []
 
         # Set the default window size
-        self.geometry("1500x400")
+        self.geometry("1200x400")
 
         # Hide the main window
         self.withdraw()
@@ -50,12 +44,9 @@ class ConnectionApp(tk.Tk):
         # Show new project dialog and wait for result
         self.wait_for_new_project_dialog()
 
+        self.initialize_connection_lists()
+
         # Initialize ConnectionManager
-        self.connections_dict = (
-            {}
-        )  # For holding the list of connections in the treewidget
-        self.tree_item_to_connection = {}  # What is this for?
-        self.selected_connections = []  # user-selected connections
         self.initialize_connection_manager()
 
         # Sources
@@ -78,7 +69,18 @@ class ConnectionApp(tk.Tk):
         self.load_connections()
         self.deiconify()
 
+    def initialize_connection_lists(self):
+        # Initialize lists for managing wires
+        self.connections_dict = {}  # holds the list of connections in the treewidget
+
+        # quick lookup table to map from tree widget item identifiers to the connections in your
+        # application.
+        self.tree_item_to_connection = {}
+
+        self.selected_connections = []  # user-selected connections
+
     def wait_for_new_project_dialog(self):
+        print("Waiting for new project dialog")
         # Call NewProjectDialog and wait until it's done
         self.new_project_dialog = NewProjectDialog(self)
         self.wait_window(self.new_project_dialog)
@@ -95,6 +97,7 @@ class ConnectionApp(tk.Tk):
 
     def initialize_connection_manager(self):
         # Initialize the ConnectionManager
+        print("Initializing Connection Manager")
         if self.entry_mode and self.file_path:
             self.connection_manager = (
                 ConnectionManagerFactory.create_connection_manager(
@@ -109,11 +112,12 @@ class ConnectionApp(tk.Tk):
             sys.exit(0)
 
     def create_widgets(self) -> None:
+        print("Creating Widgets")
         # Define labels
         self.header = Header(self, self.localizer, self.settings, self.file_name)
 
         # Define text area for connection numbers
-        self.tree_widget = TreeWidgetWireList(
+        self.tree_widget = TreeWidgetFrame(
             self,
             self.localizer,
             self.settings,
@@ -129,29 +133,15 @@ class ConnectionApp(tk.Tk):
         )
 
         self.status_label = tk.Label(self, text="")
-        self.utility_buttons_frame = UtilityButtonsFrame(self, self.localizer, self.connection_manager)
-
-
-        self.define_buttons()
+        self.utility_buttons_frame = UtilityButtonsFrame(
+            self, self.localizer, self.connection_manager
+        )
 
         self.arrange_widgets_in_grid()
         self.update_connection_list()
 
-    def define_buttons(self) -> None:
-        self.save_button = LocalizedButton(
-            self, self.localizer, "save_file", command=self.save_file
-        )
-        self.settings_button = LocalizedButton(
-            self, self.localizer, "settings", command=self.open_settings_window
-        )
-        self.export_button = LocalizedButton(
-            self, self.localizer, "export", command=self.export_to_csv
-        )
-        self.quit_button = LocalizedButton(
-            self, self.localizer, "quit", command=self.quit_program
-        )
-
     def arrange_widgets_in_grid(self) -> None:
+        print("Arranging widgets")
         # Arrange widgets in grid (left to right, top to bottom)
         self.header.grid(row=0, column=0, stick="ew")
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)
@@ -198,16 +188,14 @@ class ConnectionApp(tk.Tk):
         destination_terminal_block,
         destination_terminal,
     ) -> bool:
-        if (
+        return (
             source_component == ""
             and source_terminal_block == ""
             and source_terminal == ""
             and destination_component == ""
             and destination_terminal_block == ""
             and destination_terminal == ""
-        ):
-            return True
-        return False
+        )
 
     def add_connection(self) -> None:
         source = {
@@ -240,13 +228,14 @@ class ConnectionApp(tk.Tk):
             return
 
         cmd = AddConnectionCommand(self, source, destination)
-        cmd.execute()
+        self.command_manager.execute(cmd)
 
         if self.source_increment_toggle.get():
-            self.increment(self.source_terminal_entry)
+            self.increment(self.connection_entry_frame.source_terminal_entry)
         if self.destination_increment_toggle.get():
-            self.increment(self.destination_terminal_entry)
+            self.increment(self.connection_entry_frame.destination_terminal_entry)
         self.tree_widget.yview_moveto(1)
+        print(f"added connection")
 
     def handle_delete_button_clicked(self) -> None:
         command = DeleteConnectionCommand(self)
@@ -263,10 +252,9 @@ class ConnectionApp(tk.Tk):
         pass
 
     def undo(self) -> None:
-        pass
-        # if self.undo_stack:
-        #     command = self.undo_stack.pop()
-        #     command.undo()
+        if self.command_manager.undo_stack:
+            command = self.command_manager.undo_stack.pop()
+            command.undo()
 
     def populate_connections(self) -> None:
         self.connection_manager.load_json_from_file()

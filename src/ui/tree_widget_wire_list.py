@@ -3,10 +3,9 @@ from tkinter import ttk
 import tkinter as tk
 
 from src.localized_widgets import LocalizedButton, LocalizedTreeview
-from src.command import DeleteConnectionCommand
 
 
-class TreeWidgetWireList(tk.Frame):
+class TreeWidgetFrame(tk.Frame):
     def __init__(
         self, parent, localizer, settings, connection_manager, command_manager, **kwargs
     ):
@@ -17,9 +16,7 @@ class TreeWidgetWireList(tk.Frame):
         self.connection_manager = connection_manager
         self.command_manager = command_manager
 
-        self.connections_dict = (
-            {}
-        )  # For holding the list of connections in the treewidget
+        self.connections_dict = {}  # holds list of connections in the treewidget
         self.tree_item_to_connection = {}  # What is this for?
         self.selected_connections = []  # user-selected connections
         self.tree_widget = self.create_tree_widget()
