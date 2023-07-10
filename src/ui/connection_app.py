@@ -22,6 +22,7 @@ from src.ui.header import Header
 from src.ui.tree_widget_wire_list import TreeWidgetFrame
 from src.ui.connection_entry_frame import ConnectionEntryFrame
 from src.ui.utility_buttons import UtilityButtonsFrame
+from src.ui.footer import Footer
 
 logger = logging.getLogger(__name__)
 
@@ -132,10 +133,11 @@ class ConnectionApp(tk.Tk):
             self.command_manager,
         )
 
-        self.status_label = tk.Label(self, text="")
         self.utility_buttons_frame = UtilityButtonsFrame(
             self, self.localizer, self.connection_manager
         )
+
+        self.footer = Footer(self, self.localizer, self.settings)
 
         self.arrange_widgets_in_grid()
         self.update_connection_list()
@@ -143,10 +145,11 @@ class ConnectionApp(tk.Tk):
     def arrange_widgets_in_grid(self) -> None:
         print("Arranging widgets")
         # Arrange widgets in grid (left to right, top to bottom)
-        self.header.grid(row=0, column=0, stick="ew")
+        self.header.grid(row=0, column=0, sticky="ew")
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)
         self.connection_entry_frame.grid(row=1, column=1, padx=5, pady=5)
         self.utility_buttons_frame.grid(row=2, column=1, padx=5, pady=5)
+        self.footer.grid(row=3, column=0, sticky="ew")
 
     def update_selected_connections(self, event) -> None:
         logger.info(f"event = {event}")
@@ -235,7 +238,6 @@ class ConnectionApp(tk.Tk):
         if self.destination_increment_toggle.get():
             self.increment(self.connection_entry_frame.destination_terminal_entry)
         self.tree_widget.yview_moveto(1)
-        print(f"added connection")
 
     def handle_delete_button_clicked(self) -> None:
         command = DeleteConnectionCommand(self)
@@ -322,10 +324,7 @@ class ConnectionApp(tk.Tk):
 
     def display_status(self, message) -> None:
         # Update the status label with the message
-        self.status_label["text"] = message
-
-        # Clear the status label after 5 seconds
-        self.after(5000, lambda: self.status_label.config(text=""))
+        self.footer.display_status(message)
 
     def quit_program(self) -> None:
         self.destroy()

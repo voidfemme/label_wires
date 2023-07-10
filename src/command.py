@@ -21,6 +21,7 @@ class EditConnectionCommand(Command):
         self.old_destination = None
 
     def execute(self) -> None:
+        print("Executing edit connection command")
         connection = self.parent.tree_item_to_connection[self.item]
         self.old_source = self.parent.connection_manager.get_connection_tuple(
             connection
