@@ -35,6 +35,7 @@ class ConnectionApp(tk.Tk):
         self.title(self.localizer.get("application_title"))
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
+        self.business_logic = ConnectionAppBusinessLogic(self)
         self.undo_stack = []
 
         # Set the default window size
@@ -109,7 +110,7 @@ class ConnectionApp(tk.Tk):
             self.settings,
             self.connection_manager,
             self.command_manager,
-            self.event_system
+            self.event_system,
         )
         self.connection_entry_frame = ConnectionEntryFrame(
             self,
@@ -117,7 +118,7 @@ class ConnectionApp(tk.Tk):
             self.settings,
             self.connection_manager,
             self.command_manager,
-            self.event_system
+            self.event_system,
         )
 
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
@@ -146,6 +147,10 @@ class ConnectionApp(tk.Tk):
             row=5, column=1, columnspan=5, sticky="ew", pady=5
         )
         self.footer.grid(row=6, column=1, sticky="ew")
+
+    def scroll_to_bottom_of_treewidget(self) -> None:
+        self.tree_widget.tree_widget.update_idletasks()
+        self.tree_widget.tree_widget.yview_moveto(1)
 
     def open_settings_window(self) -> None:
         self.settings_window = SettingsWindow(self, self.settings)
@@ -178,10 +183,7 @@ class ConnectionApp(tk.Tk):
             sys.exit(1)  # or however you want to handle this case
 
     def save_file(self) -> None:
-        # Ask the connection manager to save the file
-        success = self.connection_manager.save_json_to_file()
-
-        if success:
+        if self.business_logic.saved_to_json_file():
             self.display_status(
                 self.localizer.get("success_file_added").format(self.file_path)
             )
@@ -189,19 +191,11 @@ class ConnectionApp(tk.Tk):
             self.display_status(self.localizer.get("error_file_added"))
 
     def load_connections(self):
-        self.connection_manager.load_json_from_file()
+        self.business_logic.loaded_from_json_file()
         self.tree_widget.update_connection_list()
 
     def export_to_csv(self) -> None:
-        filename = filedialog.asksaveasfilename(
-            defaultextension=".csv", filetypes=[("CSV Files", "*.csv")]
-        )
-        if filename:  # if a filename was entered in the dialog
-            try:
-                self.connection_manager.export_to_csv(filename)
-                self.display_status(self.localizer.get("exported_file"))
-            except FileExistsError as e:
-                self.display_status(str(e))
+        self.business_logic.export_to_csv()
 
     def display_status(self, message) -> None:
         # Update the status label with the message
@@ -210,3 +204,25 @@ class ConnectionApp(tk.Tk):
     def quit_program(self) -> None:
         self.destroy()
         sys.exit(0)
+
+
+class ConnectionAppBusinessLogic:
+    def __init__(self, parent):
+        self.parent = parent
+
+    def export_to_csv(self) -> None:
+        filename = filedialog.asksaveasfilename(
+            defaultextension=".csv", filetypes=[("CSV Files", "*.csv")]
+        )
+        if filename:
+            try:
+                self.parent.connection_manager.export_to_csv(filename)
+                self.parent.display_status(self.parent.localizer.get("exported_file"))
+            except FileExistsError as e:
+                self.parent.display_status(str(e))
+
+    def saved_to_json_file(self) -> None:
+        return self.parent.connection_manager.save_json_to_file()
+
+    def loaded_from_json_file(self) -> None:
+        self.parent.connection_manager.load_json_from_file()

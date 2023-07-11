@@ -24,6 +24,8 @@ class ConnectionEntryFrame(tk.Frame):
         self.command_manager = command_manager
         self.event_system = event_system
 
+        self.business_logic = ConnectionEntryFrameBusinessLogic(self)
+
         # Define textvariables
         # Sources
         self.source_increment_toggle = tk.BooleanVar()
@@ -146,6 +148,7 @@ class ConnectionEntryFrame(tk.Frame):
         )
 
     def add_connection(self) -> None:
+        # Get user input from the UI
         source = {
             "component": self.source_component.get(),
             "terminal_block": self.source_terminal_block.get(),
@@ -175,16 +178,13 @@ class ConnectionEntryFrame(tk.Frame):
         ):
             return
 
-        cmd = AddConnectionCommand(
-            self.event_system, self.connection_manager, source, destination
-        )
-        self.command_manager.execute(cmd)
+        self.business_logic.add_connection(source, destination)
 
         if self.source_increment_toggle.get():
             self.parent.increment(self.source_terminal_entry)
         if self.destination_increment_toggle.get():
             self.parent.increment(self.destination_terminal_entry)
-        self.parent.tree_widget.yview_moveto(1)
+        self.parent.scroll_to_bottom_of_treewidget()
 
     def is_empty_label(
         self,
@@ -208,3 +208,17 @@ class ConnectionEntryFrame(tk.Frame):
         if self.command_manager.undo_stack:
             command = self.command_manager.undo_stack.pop()
             command.undo()
+
+
+class ConnectionEntryFrameBusinessLogic:
+    def __init__(self, parent):
+        self.parent = parent
+
+    def add_connection(self, source, destination) -> None:
+        cmd = AddConnectionCommand(
+            self.parent.event_system,
+            self.parent.connection_manager,
+            source,
+            destination,
+        )
+        self.parent.command_manager.execute(cmd)
