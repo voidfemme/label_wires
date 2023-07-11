@@ -59,7 +59,7 @@ Note: An installation script/Windows installation wizard is currently under deve
 
 ## Known Bugs
 
-- Various formatted strings are not displaying the correct data.
+- Various formatted strings are not displaying the correct data. (i.e. it says "Exporting to {filename}", instead of actually printing the csv filename it exported to.)
     - Specifically the formatted strings when adding a new connection.
 - Missing "success" message when saving settings. There should be some kind of feedback about the updated state of all the settings.
 - Quit button broken
