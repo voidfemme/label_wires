@@ -5,6 +5,7 @@ import webbrowser
 
 from src.localizer import Localizer
 from src.localized_widgets import LocalizedTreeview, LocalizedButton
+from src.settings import Settings
 
 """
 This is the documentation dialog box. It displays a treewidget and a text area that has
@@ -19,9 +20,9 @@ class DocumentationDialog(tk.Toplevel):
         language="en",
     ) -> None:
         super().__init__(master=master)
-        self.master = master
-        self.language = language
-        self.localizer = Localizer(self.language)
+        self.master = master  # type: ignore
+        self.settings = Settings()
+        self.localizer = Localizer(self.settings.get("settings"))
         self.title("WireLab Documentation")
 
         # Initialize variables

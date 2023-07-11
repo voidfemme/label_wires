@@ -1,16 +1,15 @@
 #!/usr/bin/env python3
 # Love is love. Be yourself.
 import logging
-from src.connection_app import ConnectionApp
-from src.settings import Settings
+from src.ui.connection_app import ConnectionApp
 
 
-logging.basicConfig(filename="app.log", level=logging.DEBUG)
+# logging.basicConfig(filename="app.log", level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
 
 def start_app() -> None:
-    settings = Settings()
-    app = ConnectionApp(language=settings.get("language", "en"))
+    app = ConnectionApp()
     app.mainloop()
 
 

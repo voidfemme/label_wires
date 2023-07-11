@@ -1,6 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, ttk, messagebox
 from pathlib import Path
+from typing import Any, Optional
 import webbrowser
 from src.localizer import Localizer
 from src.settings import Settings
@@ -14,13 +15,11 @@ It allows them to access settings, create a new project, or open an existing pro
 
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(
-        self, master=None, language="en"
-    ) -> None:  # Passing the language as a parameter here doesn't seem right
+    def __init__(self, master: Optional[Any] = None) -> None:
         super().__init__(master=master)
-        self.master = master
-        self.language = language
-        self.localizer = Localizer(self.language)
+        self.settings = Settings()
+        self.master = master  # type: ignore
+        self.localizer = Localizer(self.settings.get("language"))
         self.title("New Project")
 
         # Initialize all the variables
@@ -81,9 +80,7 @@ class NewProjectDialog(tk.Toplevel):
             "create_button",
             command=self.validate_and_create,
             state="disabled",
-        )
-
-        # Add the widgets to the grid
+        ) # Add the widgets to the grid
         self.file_name_field_label.grid(row=1, column=0, sticky="w", padx=10, pady=10)
         self.file_name_field_entry.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
         self.save_directory_label.grid(row=2, column=0, sticky="w", padx=10, pady=10)
@@ -215,10 +212,7 @@ class NewProjectDialog(tk.Toplevel):
             self.destroy()
 
     def open_settings(self) -> None:
-        self.settings = Settings()
-        self.settings_window = SettingsWindow(
-            self, self.settings, language=self.language
-        )
+        self.settings_window = SettingsWindow(self, self.settings)
 
     def open_url(self, url) -> None:
         webbrowser.open_new(url)
@@ -243,7 +237,7 @@ class NewProjectDialog(tk.Toplevel):
         label2.bind("<Button-1>", lambda e: self.open_url(link))
 
     def quit_program(self) -> None:
-        self.master.quit_program()
+        self.master.quit_program()  # type: ignore
 
     def apply(self) -> None:
         directory = Path(self.directory.get())

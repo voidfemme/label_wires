@@ -41,7 +41,7 @@ Note: An installation script/Windows installation wizard is currently under deve
 - Installation wizard
 - Auto-detect commas in label data and choose the pipe symbol if they exist.
 - Full documentation panel for instructions on using the software and for importing to Brady LabelMark 6 software for printing.
-- Quick-swap entry mode from wires to labels and vice versa
+- Traceback included in user-facing error message for easier debugging of user-tested features
 
 ## Screenshots
 
@@ -62,4 +62,4 @@ Note: An installation script/Windows installation wizard is currently under deve
 - Various formatted strings are not displaying the correct data.
     - Specifically the formatted strings when adding a new connection.
 - Missing "success" message when saving settings. There should be some kind of feedback about the updated state of all the settings.
-- Cannot undo adding a wire.
+- Quit button broken
