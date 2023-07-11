@@ -16,6 +16,7 @@ from src.new_project_dialog import NewProjectDialog
 from src.connection_manager_factory import ConnectionManagerFactory
 from src.localizer import Localizer
 from src.command_manager import CommandManager
+from src.event_system import EventSystem
 
 from src.ui.header import Header
 from src.ui.tree_widget_frame import TreeWidgetFrame
@@ -33,6 +34,7 @@ class ConnectionApp(tk.Tk):
         self.localizer = Localizer(self.settings.get("language"))
         self.title(self.localizer.get("application_title"))
         self.command_manager = CommandManager()
+        self.event_system = EventSystem()  # Publish-Subscribe system for actions
         self.undo_stack = []
 
         # Set the default window size
@@ -107,6 +109,7 @@ class ConnectionApp(tk.Tk):
             self.settings,
             self.connection_manager,
             self.command_manager,
+            self.event_system
         )
         self.connection_entry_frame = ConnectionEntryFrame(
             self,
@@ -114,6 +117,7 @@ class ConnectionApp(tk.Tk):
             self.settings,
             self.connection_manager,
             self.command_manager,
+            self.event_system
         )
 
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
@@ -147,12 +151,6 @@ class ConnectionApp(tk.Tk):
         self.settings_window = SettingsWindow(self, self.settings)
 
     def edit_connection(self) -> None:
-        # First, make sure only one item was selected.
-
-        # Then, populate the fields with the item's values.
-
-        # Use an EditConnectionCommand in order to be able to re-add the old connection
-        # command = EditConnectionCommand(self)
         pass
 
     def populate_connections(self) -> None:

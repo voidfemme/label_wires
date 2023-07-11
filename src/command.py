@@ -12,16 +12,16 @@ class Command:
 
 
 class AddConnectionCommand(Command):
-    def __init__(self, parent, connection_manager, source, destination) -> None:
-        self.parent = parent
+    def __init__(self, event_system, connection_manager, source, destination) -> None:
         self.connection_manager = connection_manager
         self.source = source
         self.destination = destination
         self.item = None
+        self.event_system = event_system
 
     def execute(self) -> None:
         # Add the connection in the connection manager
-        connection = self.connection_manager.add_connection(
+        self.connection = self.connection_manager.add_connection(
             self.source["component"],
             self.source["terminal_block"],
             self.source["terminal"],
@@ -30,59 +30,31 @@ class AddConnectionCommand(Command):
             self.destination["terminal"],
         )
 
-        # extract the source and destination tuple to add to the treewidget
-        source, destination = self.connection_manager.get_connection_tuple(
-            connection
-        )
-
-        # Add to tree widget and get unique identifier
-        self.item = self.parent.tree_widget.insert(
-            "", "end", values=(source, destination)
-        )
-
-        # Add to the mapping dictionary
-        self.parent.tree_item_to_connection[self.item] = connection
-
-        # Print a message to the UI
-        self.parent.display_status(
-            self.parent.localizer.get("added_connection").format(
-                source=source, destination=destination
-            )
-        )
-
-        # Update the tree widget to reflect the new connection list
-        self.parent.update_connection_list()
+        # Publish an event that a connection has been added
+        self.event_system.publish("connection_added", self.connection)
 
     def undo(self) -> None:
-        connection = self.parent.tree_item_to_connection.pop(self.item)
-        self.parent.connection_manager.delete_connection(connection)
-        self.parent.tree_widget.delete(self.item)
-        self.parent.display_status(
-            self.parent.localizer.get("removed_connection").format(
-                connection=connection
-            )
-        )
-        self.parent.update_connection_list()
+        self.connection_manager.delete_connection(self.connection)
+
+        # Publish an event that a connection has been removed
+        self.event_system.publish("connection_removed", self.connection)
 
 
 class DeleteConnectionCommand(Command):
     """
     Deletes a connection from the connection manager
     """
+
     def __init__(self, parent) -> None:
         self.parent = parent
         self.deleted_items = []  # Store deleted items here
 
     def execute(self) -> None:
         for item in self.parent.tree_widget.selection():
-            # Future: revise the deletion method to be more transactional, and only delete
-            # from the lists if I can delete from all three, otherwise fail the operation
-            # ... I'll need a mechanism to either revert the deletions that have already
-            # occurred
             try:
                 connection = self.parent.tree_item_to_connection[item]
 
-                # Attempt to delete the connection
+                # Attempt to delete the connection from the connection manager
                 try:
                     self.parent.connection_manager.delete_connection(connection)
                 except Exception as e:

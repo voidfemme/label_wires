@@ -13,8 +13,16 @@ class TreeWidgetFrame(tk.Frame):
     """
     Class that handles the frame that contains the list of wires, and the edit and delete buttons
     """
+
     def __init__(
-        self, parent, localizer, settings, connection_manager, command_manager, **kwargs
+        self,
+        parent,
+        localizer,
+        settings,
+        connection_manager,
+        command_manager,
+        event_system,
+        **kwargs,
     ):
         super().__init__(parent)
         self.parent = parent
@@ -22,6 +30,11 @@ class TreeWidgetFrame(tk.Frame):
         self.settings = settings
         self.connection_manager = connection_manager
         self.command_manager = command_manager
+        self._event_system = event_system
+
+        # Subscribe to event system events
+        self._event_system.subscribe("connection_added", self.on_connection_added)
+        self._event_system.subscribe("connection_removed", self.on_connection_removed)
 
         self.connection_manager.add_observer(self)
 
@@ -44,6 +57,9 @@ class TreeWidgetFrame(tk.Frame):
         self.grid_rowconfigure(0, weight=1)
         self.grid_columnconfigure(0, weight=1)
         self.grid_columnconfigure(1, weight=1)
+
+        # Instantiate business logic (temporary)
+        self.business_logic = TreeWidgetBusinessLogic(self)
 
     # Wrapper Functions
     def delete(self, *args, **kwargs):
@@ -95,20 +111,21 @@ class TreeWidgetFrame(tk.Frame):
         return tree
 
     def update_selected_connections(self, event) -> None:
-        print(event)
-        # Get currently selected items
-        selected_items = self.tree_widget.selection()
-
-        # Clear the selected connections list
-        self.selected_connections = []
-
-        # Add all currently selected connections to the list
-        for item in selected_items:
-            connection = self.tree_item_to_connection.get(item)
-            if connection:
-                self.selected_connections.append(connection)
-
-        logger.info(f"self.selected_connections = {self.selected_connections}")
+        self.business_logic.update_selected_connections(self)
+        # print(event)
+        # # Get currently selected items
+        # selected_items = self.tree_widget.selection()
+        #
+        # # Clear the selected connections list
+        # self.selected_connections = []
+        #
+        # # Add all currently selected connections to the list
+        # for item in selected_items:
+        #     connection = self.tree_item_to_connection.get(item)
+        #     if connection:
+        #         self.selected_connections.append(connection)
+        #
+        # logger.info(f"self.selected_connections = {self.selected_connections}")
 
     def on_delete_button_clicked(self):
         command = DeleteConnectionCommand(self)
@@ -116,26 +133,43 @@ class TreeWidgetFrame(tk.Frame):
         self.update_connection_list()
 
     def on_edit_button_clicked(self):
-        command = EditConnectionCommand(self)
+        # First, make sure only one item was selected.
+
+        # Then, populate the fields with the item's values.
+
+        # Use an EditConnectionCommand in order to be able to re-add the old connection
+        # command = EditConnectionCommand(self, source, destination, item)
+        pass
+
+    def on_connection_added(self, connection):
+        # Extract the source and destination tuple to add to the treewidget
+        source, destination = self.connection_manager.get_connection_tuple(connection)
+
+        # Add to tree widget and get unique identifier
+        self.item = self.tree_widget.insert("", "end", values=(source, destination))
+
+        # Add to the mapping dictionary
+        self.tree_item_to_connection[self.item] = connection
+
+        # Print a message to the UI
+        self.parent.display_status(
+            self.localizer.get("added_connection").format(
+                source=source, destination=destination
+            )
+        )
+
+        # Update the tree widget
+        self.business_logic.update_connection_list()
+
+    def on_connection_removed(self, connection):
+        item = [k for k, v in self.tree_item_to_connection.items() if v == connection][
+            0
+        ]
+        self.tree_widget.delete(item)
+        del self.tree_item_to_connection[item]
 
     def update_connection_list(self) -> None:
-        # Clear the existing items in the tree
-        for i in self.tree_widget.get_children():
-            self.tree_widget.delete(i)
-
-        # Get the current list of wires from the ConnectionManager
-        connections = self.connection_manager.get_connections()
-
-        for connection in connections:
-            source, destination = self.connection_manager.get_connection_tuple(
-                connection
-            )
-            # Add to the tree widget and get its unique identifier
-            item_id = self.tree_widget.insert("", "end", values=(source, destination))
-
-            # Add to the dictionaries
-            self.connections_dict[str(connection)] = connection
-            self.tree_item_to_connection[item_id] = connection
+        self.business_logic.update_connection_list()
 
 
 class TreeWidgetBusinessLogic:
@@ -143,5 +177,41 @@ class TreeWidgetBusinessLogic:
     This class is for refactoring later. The idea is to separate all the business logic into
     this function.
     """
-    def __init__(self) -> None:
-        pass
+
+    def __init__(self, parent) -> None:
+        self.parent = parent
+
+    def update_connection_list(self) -> None:
+        for i in self.parent.tree_widget.get_children():
+            self.parent.tree_widget.delete(i)
+
+        connections = self.parent.connection_manager.get_connections()
+
+        for connection in connections:
+            source, destination = self.parent.connection_manager.get_connection_tuple(
+                connection
+            )
+            item_id = self.parent.tree_widget.insert(
+                "", "end", values=(source, destination)
+            )
+
+            self.parent.connections_dict[str(connection)] = connection
+            self.parent.tree_item_to_connection[item_id] = connection
+
+    def update_selected_connections(self, event) -> None:
+        print(event)
+        # Get currently selected items
+        selected_items = self.parent.tree_widget.selection()
+
+        # Clear the selected connections list
+        self.parent.selected_connections = []
+
+        # Add all currently selected connections to the list
+        for item in selected_items:
+            connection = self.parent.tree_item_to_connection.get(item)
+            if connection:
+                self.parent.selected_connections.append(connection)
+
+        logger.info(
+            f"self.parent.selected_connections = {self.parent.selected_connections}"
+        )

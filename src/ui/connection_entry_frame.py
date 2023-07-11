@@ -7,7 +7,14 @@ from src.command import AddConnectionCommand
 
 class ConnectionEntryFrame(tk.Frame):
     def __init__(
-        self, parent, localizer, settings, connection_manager, command_manager, **kwargs
+        self,
+        parent,
+        localizer,
+        settings,
+        connection_manager,
+        command_manager,
+        event_system,
+        **kwargs
     ):
         super().__init__(parent)
         self.parent = parent
@@ -15,6 +22,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.settings = settings
         self.connection_manager = connection_manager
         self.command_manager = command_manager
+        self.event_system = event_system
 
         # Define textvariables
         # Sources
@@ -167,7 +175,9 @@ class ConnectionEntryFrame(tk.Frame):
         ):
             return
 
-        cmd = AddConnectionCommand(self, self.connection_manager, source, destination)
+        cmd = AddConnectionCommand(
+            self.event_system, self.connection_manager, source, destination
+        )
         self.command_manager.execute(cmd)
 
         if self.source_increment_toggle.get():
