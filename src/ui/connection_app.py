@@ -37,6 +37,7 @@ class ConnectionApp(tk.Tk):
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
         self.undo_stack = []
 
+        # TODO: Allow Windows to automatically set the window size
         # Set the default window size
         self.geometry("1200x400")
 
