@@ -9,19 +9,23 @@ from typing import List, Tuple, TypeVar, Generic, Type, Dict
 from src.connection import Connection, Cable, Wire
 from src.settings import Settings
 
-"""
-This is the connection manager, which is responsible for managing the master list of wires.
-"""
 
 logger = logging.getLogger(__name__)
 ConnectionType = TypeVar("ConnectionType", bound=Connection)
 
 
 class ConnectionManager(ABC, Generic[ConnectionType]):
+    """
+    This is the connection manager, which is responsible for managing the master list of wires.
+    This class uses the observer pattern to notify observers about its own state. This allows
+    me to update the wire-list (for example) from the ui
+    """
+
     def __init__(self, file_path) -> None:
         self.settings = Settings()
         self.file_path = file_path or self.settings.get("default_directory")
         self.connections: List[ConnectionType] = []
+        self.observers = []
 
     def save_json_to_file(self) -> bool:
         try:
@@ -168,6 +172,17 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
             logger.info(f"Error: Permission denied to read from'{filename}'")
         except Exception as e:
             logger.info(f"Error: {e}")
+
+    # Observer Methods
+    def add_observer(self, observer) -> None:
+        self.observers.append(observer)
+
+    def remove_observer(self, observer) -> None:
+        self.observers.remove(observer)
+
+    def notify_observers(self) -> None:
+        for observer in self.observers:
+            observer.update_connection_list()
 
     @abstractmethod
     def add_connection(self, *args) -> bool:

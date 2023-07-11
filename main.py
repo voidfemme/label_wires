@@ -4,7 +4,8 @@ import logging
 from src.ui.connection_app import ConnectionApp
 
 
-logging.basicConfig(filename="app.log", level=logging.DEBUG)
+# logging.basicConfig(filename="app.log", level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
 
 
 def start_app() -> None:

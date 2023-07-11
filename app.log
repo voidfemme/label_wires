@@ -3229,3 +3229,362 @@ INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
 INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
 INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
 INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.ui.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.connection_app:selected_items: ('I006',)
+INFO:src.ui.connection_app:self.selected_connections = []
+WARNING:src.command:Connection not found for item: I006
+INFO:src.ui.connection_app:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.connection_app:selected_items: ()
+INFO:src.ui.connection_app:self.selected_connections = []
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ('I008',)
+INFO:src.ui.tree_widget_wire_list:selected_connections: [<src.connection.Cable object at 0x7fd26f1ee810>]
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = [<src.connection.Cable object at 0x7fd26f1ee810>]
+WARNING:src.command:Connection not found for item: I008
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ()
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = []
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ('I012',)
+INFO:src.ui.tree_widget_wire_list:selected_connections: [<src.connection.Cable object at 0x7fd26f1ee7d0>]
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = [<src.connection.Cable object at 0x7fd26f1ee7d0>]
+WARNING:src.command:Connection not found for item: I012
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ()
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = []
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ('I01B',)
+INFO:src.ui.tree_widget_wire_list:selected_connections: [<src.connection.Cable object at 0x7fd26f1ee710>]
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = [<src.connection.Cable object at 0x7fd26f1ee710>]
+WARNING:src.command:Connection not found for item: I01B
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ()
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = []
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ('I026',)
+INFO:src.ui.tree_widget_wire_list:selected_connections: [<src.connection.Cable object at 0x7fd26f1ee710>]
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = [<src.connection.Cable object at 0x7fd26f1ee710>]
+WARNING:src.command:Connection not found for item: I026
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ()
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = []
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ('I031',)
+INFO:src.ui.tree_widget_wire_list:selected_connections: [<src.connection.Cable object at 0x7fd26f1ee710>]
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = [<src.connection.Cable object at 0x7fd26f1ee710>]
+WARNING:src.command:Connection not found for item: I031
+INFO:src.ui.tree_widget_wire_list:event = <VirtualEvent event x=0 y=0>
+INFO:src.ui.tree_widget_wire_list:selected_items: ()
+INFO:src.ui.tree_widget_wire_list:self.selected_connections = []
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label
+INFO:src.localized_widgets:Initialized LocalizedLabel with key component
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal_block
+INFO:src.localized_widgets:Initialized LocalizedLabel with key terminal
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_one
+INFO:src.localized_widgets:Initialized LocalizedLabel with key field_two
+INFO:src.connection_manager:JSON file loaded as /home/rsp/test_cables.cab
+INFO:src.ui.tree_widget_frame:self.selected_connections = [<src.connection.Cable object at 0x7f661d5465d0>]
+WARNING:src.command:Connection not found for item: I006
+INFO:src.ui.tree_widget_frame:self.selected_connections = []
+INFO:src.localizer:Loading locale: en
+INFO:src.localizer:Loading fallback locale: /home/rsp/programs/label_wires/locales/en.json
+INFO:src.localized_widgets:Initialized LocalizedLabel with key application_title
+INFO:src.localized_widgets:Initialized LocalizedLabel with key file_name_entry
+INFO:src.localized_widgets:Initialized LocalizedLabel with key save_in_directory
+INFO:src.localized_widgets:Initialized LocalizedLabel with key entry_mode
+INFO:src.localized_widgets:Initialized LocalizedLabel with key open_existing_file_label

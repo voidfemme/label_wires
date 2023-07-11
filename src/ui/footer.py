@@ -1,5 +1,6 @@
 import tkinter as tk
 
+
 class Footer(tk.Frame):
     def __init__(self, parent, localizer, settings):
         super().__init__(parent)
@@ -8,7 +9,7 @@ class Footer(tk.Frame):
         self.settings = settings
 
         self.status_label = tk.Label(self, text="")
-        self.status_label.grid(row=0, column=0, padx=10)
+        self.status_label.grid(row=1, column=0, padx=10)
 
         self.display_status("Welcome to WireLab")
 
