@@ -38,6 +38,7 @@ class ConnectionApp(tk.Tk):
         self.business_logic = ConnectionAppBusinessLogic(self)
         self.undo_stack = []
 
+        # TODO: Allow Windows to automatically set the window size
         # Set the default window size
         self.geometry("1200x400")
 

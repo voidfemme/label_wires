@@ -1,16 +1,10 @@
 # Project Notes
 
-I'm using the Factory pattern to establish a wiremanager vs a cablemanager. This isn't scalable?
-On the other hand, I still want to be able to write separate csv export functions for each. I shouldn't 
+- I'm using the Factory pattern to establish a wiremanager vs a cablemanager. This isn't scalable?
+- On the other hand, I still want to be able to write separate csv export functions for each. I shouldn't 
 touch this code until I'm sure.
 
-save_file
-export_to_csv
-open_settings_window
-quit_program
-add_connection
-delete_connection
-edit_connection
-undo
-destination_increment_toggle
-source_increment_toggle
+- Use the strategy pattern for printing out csv's based on wire mode. This will allow me to
+get rid of the Cable and Wire objects, instead opting for a single Connection object.
+
+- Consider (in the future) making the Connection object a dataclass
