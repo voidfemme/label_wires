@@ -162,7 +162,6 @@ class TreeWidgetBusinessLogic:
     This class is for refactoring later. The idea is to separate all the business logic into
     this function.
     """
-
     def __init__(self, parent) -> None:
         self.parent = parent
 

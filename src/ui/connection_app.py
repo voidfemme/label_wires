@@ -23,12 +23,19 @@ from src.controllers.gui_controller import GUIController
 
 logger = logging.getLogger(__name__)
 
+"""
+Perhaps I should put the Controller logic back into this, and instead extract the GUI
+code and turn this into the controller
+"""
+
 
 class ConnectionApp(tk.Tk):
     def __init__(self) -> None:
         super().__init__()
         self.settings = Settings()
         self.localizer = Localizer(self.settings.get("language"))
+        # Localizer belongs here bc it's an integral part of the UI
+
         self.title(self.localizer.get("application_title"))
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions

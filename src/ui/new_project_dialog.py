@@ -145,7 +145,6 @@ class NewProjectDialog(tk.Toplevel):
 
     def open_file_browse(self) -> None:
         filetypes = (
-            ("cable files", "*.cab"),
             ("wire files", "*.wir"),
             ("all files", "*.*"),
         )
@@ -196,12 +195,9 @@ class NewProjectDialog(tk.Toplevel):
             )
         else:
             file_name = file_path.name
-            mode = "wire" if str(file_path).endswith(".wir") else "cable"
-            # If the file does not exist, store its path as the result and close the dialog
             self.result = {
                 "file_path": str(file_path),
                 "file_name": file_name,
-                "mode": mode,
             }
             self.destroy()
 
@@ -240,8 +236,6 @@ class NewProjectDialog(tk.Toplevel):
 
         if mode == "wire":
             file_ext = ".wir"
-        elif mode == "cable":
-            file_ext = ".cab"
         else:
             file_ext = ".json"
         file_path = directory / (file_name + file_ext)
@@ -260,7 +254,6 @@ class NewProjectDialog(tk.Toplevel):
                 self.result = {
                     "file_path": str(file_path),
                     "file_name": file_name,
-                    "mode": mode,
                 }
             except Exception as e:
                 messagebox.showerror(self.localizer.get("error"), str(e))
