@@ -6,10 +6,10 @@ import webbrowser
 from src.localizer import Localizer
 from src.settings import Settings
 from src.settings_window import SettingsWindow
-from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCombobox
+from src.localized_widgets import LocalizedLabel, LocalizedButton
 
 """
-This is the dialog that pops up when the user opens the application. 
+This is the dialog that pops up when the user opens the application.
 It allows them to access settings, create a new project, or open an existing project.
 """
 
@@ -27,7 +27,7 @@ class NewProjectDialog(tk.Toplevel):
         self.directory = tk.StringVar()
         self.file_mode = tk.StringVar()
         self.open_existing_file_directory = tk.StringVar()
-        self.file_ext = {"cable": ".cab", "wire": ".wir"}
+        self.file_ext = {"wire": ".wir"}
 
         # Initialize result attribute
         self.result = None
@@ -63,13 +63,9 @@ class NewProjectDialog(tk.Toplevel):
         self.save_directory_label = LocalizedLabel(
             self, self.localizer, "save_in_directory"
         )
-        self.entry_mode_label = LocalizedLabel(self, self.localizer, "entry_mode")
 
         self.file_name_field_entry = tk.Entry(self, textvariable=self.file_base_name)
         self.save_directory_entry = tk.Entry(self, textvariable=self.directory)
-        self.entry_mode_entry = LocalizedCombobox(
-            self, self.localizer, "entry_mode_values", textvariable=self.file_mode
-        )
 
         self.browse_directory_button = LocalizedButton(
             self, self.localizer, "browse", command=self.browse_directory
@@ -80,13 +76,11 @@ class NewProjectDialog(tk.Toplevel):
             "create_button",
             command=self.validate_and_create,
             state="disabled",
-        ) # Add the widgets to the grid
+        )  # Add the widgets to the grid
         self.file_name_field_label.grid(row=1, column=0, sticky="w", padx=10, pady=10)
         self.file_name_field_entry.grid(row=1, column=1, sticky="ew", padx=10, pady=10)
         self.save_directory_label.grid(row=2, column=0, sticky="w", padx=10, pady=10)
         self.save_directory_entry.grid(row=2, column=1, sticky="ew", padx=10, pady=10)
-        self.entry_mode_label.grid(row=3, column=0, sticky="w", padx=10, pady=10)
-        self.entry_mode_entry.grid(row=3, column=1, sticky="ew", padx=10, pady=10)
         self.browse_directory_button.grid(row=2, column=2, padx=10, pady=10)
         self.create_button.grid(row=2, column=3, padx=10, pady=10)
         self.grid_columnconfigure(1, weight=1)

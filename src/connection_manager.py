@@ -17,8 +17,9 @@ ConnectionType = TypeVar("ConnectionType", bound=Connection)
 class ConnectionManager(ABC, Generic[ConnectionType]):
     """
     This is the connection manager, which is responsible for managing the master list of wires.
-    This class uses the observer pattern to notify observers about its own state. This allows
-    me to update the wire-list (for example) from the ui
+    This class uses the observer pattern. To update the UI about its connection list. In the
+    future, the UI should not handle this interaction directly, but instead the controller will
+    handle the interaction for me.
     """
 
     def __init__(self, file_path) -> None:
@@ -186,44 +187,6 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
     def get_connection_class(self) -> Type[Connection]:
         """This method should return the class of the connection manager"""
         pass
-
-
-class CableManager(ConnectionManager[Cable]):
-    def __init__(self, file_path):
-        super().__init__(file_path)
-        self.connections: List[Cable] = []
-
-    def get_connection_class(self) -> Type[Cable]:
-        return Cable
-
-    def add_connection(
-        self,
-        source_component: str,
-        source_terminal_block: str,
-        source_terminal: str,
-        destination_component: str,
-        destination_terminal_block: str,
-        destination_terminal: str,
-    ) -> bool:
-        cable = Cable(
-            source_component,
-            source_terminal_block,
-            source_terminal,
-            destination_component,
-            destination_terminal_block,
-            destination_terminal,
-        )
-
-        # Use "not in" to access the Cable's __eq__ function to check for duplicates
-        if cable not in self.connections:
-            self.connections.append(cable)
-            self.save_json_to_file()
-            print(f"Cable successfully added., id: {id(cable)}, type: {type(cable)}")
-            print(f"Cables in connections: {self.connections}")
-            return True
-        else:
-            print("Attempted to add duplicate cable.")
-            return False
 
 
 class WireManager(ConnectionManager[Wire]):
