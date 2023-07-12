@@ -111,16 +111,3 @@ class Wire(Connection):
             f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}",
             f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}",
         )
-
-
-class Cable(Connection):
-    def __str__(self) -> str:
-        source = f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]"
-        destination = f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]"
-        return f"{source},{destination}"
-
-    def to_tuple(self) -> Tuple[str, str]:
-        return (
-            f"{self.source_component}-{self.source_terminal_block} [{self.source_terminal}]",
-            f"{self.destination_component}-{self.destination_terminal_block} [{self.destination_terminal}]",
-        )

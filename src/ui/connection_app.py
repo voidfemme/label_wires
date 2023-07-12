@@ -7,16 +7,17 @@ from tkinter import ttk, messagebox, filedialog
 
 from src.settings import Settings
 from src.settings_window import SettingsWindow
-from src.new_project_dialog import NewProjectDialog
 from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
+from src.connection_manager import WireManager
 
 from src.ui.header import Header
 from src.ui.tree_widget_frame import TreeWidgetFrame
 from src.ui.connection_entry_frame import ConnectionEntryFrame
 from src.ui.utility_buttons import UtilityButtonsFrame
 from src.ui.footer import Footer
+from src.ui.new_project_dialog import NewProjectDialog
 
 from src.controllers.gui_controller import GUIController
 
@@ -65,7 +66,6 @@ class ConnectionApp(tk.Tk):
 
         # Get results from NewProjectDialog
         self.file_name = self.new_project_result.get("file_name")
-        self.entry_mode = self.new_project_result.get("mode")
         self.file_path = self.new_project_result.get("file_path")
 
     def create_widgets(self) -> None:
@@ -140,13 +140,7 @@ class ConnectionApp(tk.Tk):
         try:
             if self.file_path is None:
                 self.file_path = "untitled"
-            if self.entry_mode is None:
-                self.entry_mode = "connection"
-            self.connection_manager = (
-                ConnectionManagerFactory.create_connection_manager(
-                    self.entry_mode, self.file_path
-                )
-            )
+            self.connection_manager = WireManager(self.file_path)
         except ValueError as e:
             # Allow the user to manually select a mode
             logger.info(f"Error: {e}")

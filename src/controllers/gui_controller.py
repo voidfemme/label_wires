@@ -29,7 +29,7 @@ class GUIController:
     def initialize_connection_manager(self):
         # Initialize the ConnectionManager
         print("Initializing Connection Manager")
-        if self.parent.entry_mode and self.parent.file_path:
+        if self.parent.file_path:
             self.parent.connection_manager = WireManager(self.parent.file_name)
         else:
             # Ask the UI to display an error message

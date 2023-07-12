@@ -6,7 +6,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 
 from typing import List, Tuple, TypeVar, Generic, Type, Dict
-from src.connection import Connection, Cable, Wire
+from src.connection import Connection, Wire
 from src.settings import Settings
 
 
