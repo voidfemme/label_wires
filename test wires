@@ -1,0 +1,26 @@
+[
+    {
+        "source_component": "jj",
+        "source_terminal_block": "a",
+        "source_terminal": "qw",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "jj",
+        "source_terminal_block": "a",
+        "source_terminal": "qw",
+        "destination_component": "ad",
+        "destination_terminal_block": "fe",
+        "destination_terminal": "234r"
+    },
+    {
+        "source_component": "jj",
+        "source_terminal_block": "a",
+        "source_terminal": "qw",
+        "destination_component": "jj",
+        "destination_terminal_block": "a",
+        "destination_terminal": "qw"
+    }
+]

@@ -5,15 +5,9 @@ import sys
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 
-from src.command import (
-    AddConnectionCommand,
-    DeleteConnectionCommand,
-    EditConnectionCommand,
-)
 from src.settings import Settings
 from src.settings_window import SettingsWindow
 from src.new_project_dialog import NewProjectDialog
-from src.connection_manager_factory import ConnectionManagerFactory
 from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
@@ -23,6 +17,8 @@ from src.ui.tree_widget_frame import TreeWidgetFrame
 from src.ui.connection_entry_frame import ConnectionEntryFrame
 from src.ui.utility_buttons import UtilityButtonsFrame
 from src.ui.footer import Footer
+
+from src.controllers.gui_controller import GUIController
 
 logger = logging.getLogger(__name__)
 
@@ -35,10 +31,11 @@ class ConnectionApp(tk.Tk):
         self.title(self.localizer.get("application_title"))
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
-        self.business_logic = ConnectionAppBusinessLogic(self)
+        self.gui_controller = GUIController(self)
         self.undo_stack = []
 
-        # TODO: Allow Windows to automatically set the window size
+        # TODO: Allow Windows OS to automatically set the window size
+        # TODO: Set default font for both Windows and Linux
         # Set the default window size
         self.geometry("1200x400")
 
@@ -48,24 +45,12 @@ class ConnectionApp(tk.Tk):
         # Show new project dialog and wait for result
         self.wait_for_new_project_dialog()
 
-        self.initialize_connection_lists()
-
         # Initialize ConnectionManager
-        self.initialize_connection_manager()
+        self.gui_controller.initialize_connection_manager()
 
         self.create_widgets()
         self.load_connections()
         self.deiconify()
-
-    def initialize_connection_lists(self):
-        # Initialize lists for managing wires
-        self.connections_dict = {}  # holds the list of connections in the treewidget
-
-        # quick lookup table to map from tree widget item identifiers to the connections in your
-        # application.
-        self.tree_item_to_connection = {}
-
-        self.selected_connections = []  # user-selected connections
 
     def wait_for_new_project_dialog(self):
         print("Waiting for new project dialog")
@@ -82,22 +67,6 @@ class ConnectionApp(tk.Tk):
         self.file_name = self.new_project_result.get("file_name")
         self.entry_mode = self.new_project_result.get("mode")
         self.file_path = self.new_project_result.get("file_path")
-
-    def initialize_connection_manager(self):
-        # Initialize the ConnectionManager
-        print("Initializing Connection Manager")
-        if self.entry_mode and self.file_path:
-            self.connection_manager = (
-                ConnectionManagerFactory.create_connection_manager(
-                    self.entry_mode, self.file_path
-                )
-            )
-        else:
-            messagebox.showerror(
-                self.localizer.get("error"),
-                self.localizer.get("error_connection_manager_init"),
-            )
-            sys.exit(0)
 
     def create_widgets(self) -> None:
         print("Creating Widgets")
@@ -184,7 +153,7 @@ class ConnectionApp(tk.Tk):
             sys.exit(1)  # or however you want to handle this case
 
     def save_file(self) -> None:
-        if self.business_logic.saved_to_json_file():
+        if self.gui_controller.saved_to_json_file():
             self.display_status(
                 self.localizer.get("success_file_added").format(self.file_path)
             )
@@ -192,38 +161,26 @@ class ConnectionApp(tk.Tk):
             self.display_status(self.localizer.get("error_file_added"))
 
     def load_connections(self):
-        self.business_logic.loaded_from_json_file()
+        self.gui_controller.loaded_from_json_file()
         self.tree_widget.update_connection_list()
 
     def export_to_csv(self) -> None:
-        self.business_logic.export_to_csv()
+        self.gui_controller.export_to_csv()
 
     def display_status(self, message) -> None:
         # Update the status label with the message
         self.footer.display_status(message)
 
+    def display_file_browser(self, *args, **kwargs):
+        return filedialog.asksaveasfilename(*args, **kwargs)
+
+    def display_error_messagebox(self, title, message=""):
+        try:
+            messagebox.showerror(self.localizer.get(title), self.localizer.get(message))
+        except Exception as e:
+            # Add error handling for KeyError
+            logger.warn(e)
+
     def quit_program(self) -> None:
         self.destroy()
         sys.exit(0)
-
-
-class ConnectionAppBusinessLogic:
-    def __init__(self, parent):
-        self.parent = parent
-
-    def export_to_csv(self) -> None:
-        filename = filedialog.asksaveasfilename(
-            defaultextension=".csv", filetypes=[("CSV Files", "*.csv")]
-        )
-        if filename:
-            try:
-                self.parent.connection_manager.export_to_csv(filename)
-                self.parent.display_status(self.parent.localizer.get("exported_file"))
-            except FileExistsError as e:
-                self.parent.display_status(str(e))
-
-    def saved_to_json_file(self) -> None:
-        return self.parent.connection_manager.save_json_to_file()
-
-    def loaded_from_json_file(self) -> None:
-        self.parent.connection_manager.load_json_from_file()

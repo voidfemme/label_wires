@@ -137,55 +137,15 @@ class DeleteConnectionCommand(Command):
 
 
 class EditConnectionCommand(Command):
-    def __init__(self, parent, source, destination, item) -> None:
+    def __init__(self, parent) -> None:
         self.parent = parent
-        self.source = source
-        self.destination = destination
-        self.item = item
-        self.old_source = None
-        self.old_destination = None
+        self.connections_to_edit = []
 
     def execute(self) -> None:
-        print("Executing edit connection command")
-        connection = self.parent.tree_item_to_connection[self.item]
-        self.old_source = self.parent.connection_manager.get_connection_tuple(
-            connection
-        )[0]
-        self.old_destination = self.parent.connection_manager.get_connection_tuple(
-            connection
-        )[1]
-
-        self.parent.connection_manager.delete_connection(connection)
-        connection = self.parent.connection_manager.add_connection(
-            self.source["component"],
-            self.source["terminal_block"],
-            self.source["terminal"],
-            self.destination["component"],
-            self.destination["terminal_block"],
-            self.destination["terminal"],
-        )
-
-        source, destination = self.parent.connection_manager.get_connection_tuple(
-            connection
-        )
-
-        # Add to tree widget and get unique identifier
-        self.item = self.parent.tree_widget.insert(
-            "", "end", values=(source, destination)
-        )
-
-        # Add to the mapping dictionary
-        self.parent.tree_item_to_connection[self.item] = connection
-
-        # Print a message to the UI
-        self.parent.display_status(
-            self.parent.localizer.get("added_connection").format(
-                source=source, destination=destination
-            )
-        )
-
-        # Update the tree widget to reflect the new connection list
-        self.parent.update_connection_list()
+        for item in self.parent.tree_widget.selection():
+            print(f"Item: {item}")
+            source, destination = self.parent.connection_manager.get_connection_tuple(item)
+            print(f"Source: {source}, Destination: {destination}")
 
     def undo(self):
         pass

@@ -83,7 +83,9 @@ class TreeWidgetFrame(tk.Frame):
         self.delete_button = LocalizedButton(
             self, self.localizer, "delete", command=self.on_delete_button_clicked
         )
-        self.edit_button = LocalizedButton(self, self.localizer, "edit")
+        self.edit_button = LocalizedButton(
+            self, self.localizer, "edit", command=self.on_edit_button_clicked
+        )
 
         # Pack the buttons into the frame
         self.edit_button.grid(row=1, column=0, sticky=tk.W + tk.E)  # Left
@@ -112,20 +114,6 @@ class TreeWidgetFrame(tk.Frame):
 
     def update_selected_connections(self, event) -> None:
         self.business_logic.update_selected_connections(self)
-        # print(event)
-        # # Get currently selected items
-        # selected_items = self.tree_widget.selection()
-        #
-        # # Clear the selected connections list
-        # self.selected_connections = []
-        #
-        # # Add all currently selected connections to the list
-        # for item in selected_items:
-        #     connection = self.tree_item_to_connection.get(item)
-        #     if connection:
-        #         self.selected_connections.append(connection)
-        #
-        # logger.info(f"self.selected_connections = {self.selected_connections}")
 
     def on_delete_button_clicked(self):
         command = DeleteConnectionCommand(self)
@@ -133,13 +121,10 @@ class TreeWidgetFrame(tk.Frame):
         self.update_connection_list()
 
     def on_edit_button_clicked(self):
-        # First, make sure only one item was selected.
-
-        # Then, populate the fields with the item's values.
-
-        # Use an EditConnectionCommand in order to be able to re-add the old connection
-        # command = EditConnectionCommand(self, source, destination, item)
-        pass
+        print("Edit button clicked")
+        command = EditConnectionCommand(self)
+        self.command_manager.execute(command)
+        self.update_connection_list()
 
     def on_connection_added(self, connection):
         # Extract the source and destination tuple to add to the treewidget

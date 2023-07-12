@@ -153,14 +153,8 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         # Perhaps add a flag that will overwrite the file anyways when the user chooses.
         if filename.exists():
             raise FileExistsError(f"The file '{filename}' already exists.")
-
-        # Run a check to make sure there aren't commas in the data fields. I know my default
-        # delimiter is already a pipe symbol, but I want it to be a comma by default, but
-        # adapt to the user's needs. After writing the file to csv, I could maybe raise an error
-        # of some kind, catch that by the connection_app and print a message to tell the user
-        # what kind of delimiter to use. Perhaps a `validate_csv` function. I will possibly need
-        # a new class to deal with CSV stuff specifically
-
+        # I could use a Strategy pattern to allow the user to choose the format of output
+        # instead of having separate cable and wire objects
         try:
             with open(filename, "w", newline="") as f:
                 writer = csv.writer(f, delimiter="|")
@@ -173,7 +167,7 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         except Exception as e:
             logger.info(f"Error: {e}")
 
-    # Observer Methods
+    # Observer Methods to update the connection list in the GUI
     def add_observer(self, observer) -> None:
         self.observers.append(observer)
 
