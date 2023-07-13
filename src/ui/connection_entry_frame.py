@@ -220,6 +220,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.controller.undo_connection_command()
 
     def increment(self, entry_widget):
+        # Alter to auto detect numbers along with letters, and update the number
         current_value = entry_widget.get()
 
         if current_value.isdigit():
@@ -227,6 +228,6 @@ class ConnectionEntryFrame(tk.Frame):
             entry_widget.delete(0, tk.END)
             entry_widget.insert(0, incremented_value)
         else:
-            self.parent.display_error_messagebox(
-                "Error", "The value in the entry box is not a number"
+            self.parent.display_status(
+                f"Error: The value in the entry box ({current_value}) is not a number"
             )

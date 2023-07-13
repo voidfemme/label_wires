@@ -17,6 +17,7 @@ class TreeWidgetFrame(tk.Frame):
     def __init__(
         self,
         parent,
+        controller,
         localizer,
         settings,
         connection_manager,
@@ -26,6 +27,7 @@ class TreeWidgetFrame(tk.Frame):
     ):
         super().__init__(parent)
         self.parent = parent
+        self.controller = controller
         self.localizer = localizer
         self.settings = settings
         self.connection_manager = connection_manager
@@ -151,7 +153,7 @@ class TreeWidgetFrame(tk.Frame):
         for i in self.parent.tree_widget.get_children():
             self.parent.tree_widget.delete(i)
 
-        connections = self.parent.connection_manager.get_connections()
+        connections = self.controller.connection_manager.get_connections()
 
         for connection in connections:
             source, destination = self.connection_manager.get_connection_tuple(

@@ -16,28 +16,12 @@
         "destination_terminal": ""
     },
     {
-        "source_component": "asdf",
-        "source_terminal_block": "",
-        "source_terminal": "",
-        "destination_component": "",
-        "destination_terminal_block": "",
-        "destination_terminal": ""
-    },
-    {
         "source_component": "",
         "source_terminal_block": "",
         "source_terminal": "1",
         "destination_component": "",
         "destination_terminal_block": "",
         "destination_terminal": ""
-    },
-    {
-        "source_component": "",
-        "source_terminal_block": "",
-        "source_terminal": "q",
-        "destination_component": "",
-        "destination_terminal_block": "",
-        "destination_terminal": "1"
     },
     {
         "source_component": "",
@@ -53,6 +37,30 @@
         "source_terminal": "q",
         "destination_component": "",
         "destination_terminal_block": "",
-        "destination_terminal": "3"
+        "destination_terminal": "21"
+    },
+    {
+        "source_component": "a",
+        "source_terminal_block": "3",
+        "source_terminal": "1",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "a",
+        "source_terminal_block": "3",
+        "source_terminal": "2",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "a",
+        "source_terminal_block": "a",
+        "source_terminal": "3",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
     }
 ]

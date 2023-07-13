@@ -15,11 +15,6 @@ from src.command import AddConnectionCommand
 
 logger = logging.getLogger(__name__)
 
-"""
-Perhaps I should put the Controller logic back into this, and instead extract the GUI
-code and turn this into the controller
-"""
-
 
 class Controller:
     def __init__(self) -> None:
@@ -32,9 +27,6 @@ class Controller:
             self,
             self.localizer,
             self.settings,
-            self.connection_manager,
-            self.command_manager,
-            self.event_system,
         )
         self.undo_stack = []
 

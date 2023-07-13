@@ -20,19 +20,12 @@ class MainView(tk.Tk):
         controller,
         localizer,
         settings,
-        connection_manager,
-        command_manager,
-        event_system,
     ) -> None:
         super().__init__()
         self.controller = controller
         self.localizer = localizer
         self.title(self.localizer.get("application_title"))
         self.settings = settings
-        self.command_manager = command_manager
-        self.event_system = event_system
-        self.connection_manager = connection_manager
-
         self.geometry("1200x400")
         self.create_widgets()
         self.arrange_widgets_in_grid()
@@ -48,26 +41,27 @@ class MainView(tk.Tk):
         # Define text area for connection numbers
         self.tree_widget = TreeWidgetFrame(
             self,
+            self.controller,
             self.localizer,
             self.settings,
-            self.connection_manager,
-            self.command_manager,
-            self.event_system,
+            self.controller.connection_manager,
+            self.controller.command_manager,
+            self.controller.event_system,
         )
         self.connection_entry_frame = ConnectionEntryFrame(
             self,
             self.controller,
             self.localizer,
             self.settings,
-            self.connection_manager,
-            self.command_manager,
-            self.event_system,
+            self.controller.connection_manager,
+            self.controller.command_manager,
+            self.controller.event_system,
         )
 
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
 
         self.utility_buttons_frame = UtilityButtonsFrame(
-            self, self.localizer, self.connection_manager
+            self, self.localizer, self.controller.connection_manager
         )
 
         self.horizontal_rule_footer = ttk.Separator(self, orient="horizontal")
@@ -100,10 +94,10 @@ class MainView(tk.Tk):
             logger.warn(e)
 
     def saved_to_json_file(self) -> None:
-        return self.connection_manager.save_json_to_file()
+        return self.controller.connection_manager.save_json_to_file()
 
     def save_file(self):
-        if self.connection_manager.saved_to_json_file():
+        if self.controller.connection_manager.saved_to_json_file():
             self.display_status(
                 self.localizer.get("success_file_added").format(TEMPORARY_FILE_LOCATION)
             )
