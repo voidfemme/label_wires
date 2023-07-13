@@ -1,34 +1,26 @@
 [
     {
-        "source_component": "jj",
-        "source_terminal_block": "a",
-        "source_terminal": "1",
-        "destination_component": "kk",
-        "destination_terminal_block": "a",
-        "destination_terminal": "2"
-    },
-    {
-        "source_component": "jj",
-        "source_terminal_block": "a",
-        "source_terminal": "2",
-        "destination_component": "",
-        "destination_terminal_block": "",
-        "destination_terminal": ""
-    },
-    {
-        "source_component": "ff",
-        "source_terminal_block": "a",
-        "source_terminal": "d",
-        "destination_component": "",
-        "destination_terminal_block": "",
-        "destination_terminal": ""
-    },
-    {
         "source_component": "ff",
         "source_terminal_block": "a",
         "source_terminal": "d",
         "destination_component": "ff",
         "destination_terminal_block": "a",
         "destination_terminal": "d"
+    },
+    {
+        "source_component": "jj",
+        "source_terminal_block": "a",
+        "source_terminal": "3",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "asdf",
+        "source_terminal_block": "",
+        "source_terminal": "",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
     }
 ]

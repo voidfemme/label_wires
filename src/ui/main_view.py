@@ -56,6 +56,7 @@ class MainView(tk.Tk):
         )
         self.connection_entry_frame = ConnectionEntryFrame(
             self,
+            self.controller,
             self.localizer,
             self.settings,
             self.connection_manager,

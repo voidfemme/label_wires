@@ -9,6 +9,7 @@ class ConnectionEntryFrame(tk.Frame):
     def __init__(
         self,
         parent,
+        controller,
         localizer,
         settings,
         connection_manager,
@@ -18,13 +19,12 @@ class ConnectionEntryFrame(tk.Frame):
     ):
         super().__init__(parent)
         self.parent = parent
-        self.localizer = localizer
-        self.settings = settings
-        self.connection_manager = connection_manager
-        self.command_manager = command_manager
-        self.event_system = event_system
-
-        self.business_logic = ConnectionEntryFrameBusinessLogic(self)
+        self.controller = controller
+        # self.localizer = localizer
+        # self.settings = settings
+        # self.connection_manager = connection_manager
+        # self.command_manager = command_manager
+        # self.event_system = event_system
 
         # Define textvariables
         # Sources
@@ -51,21 +51,21 @@ class ConnectionEntryFrame(tk.Frame):
         self.define_bindings()
 
     def create_and_place_labels(self):
-        self.component_label = LocalizedLabel(self, self.localizer, "component")
+        self.component_label = LocalizedLabel(self, self.controller.localizer, "component")
         self.component_label.grid(row=0, column=1, padx=5, pady=5)
 
         self.terminal_block_label = LocalizedLabel(
-            self, self.localizer, "terminal_block"
+            self, self.controller.localizer, "terminal_block"
         )
         self.terminal_block_label.grid(row=0, column=2, padx=5, pady=5)
 
-        self.terminal_label = LocalizedLabel(self, self.localizer, "terminal")
+        self.terminal_label = LocalizedLabel(self, self.controller.localizer, "terminal")
         self.terminal_label.grid(row=0, column=3, padx=5, pady=5)
 
-        self.source_label = LocalizedLabel(self, self.localizer, "field_one")
+        self.source_label = LocalizedLabel(self, self.controller.localizer, "field_one")
         self.source_label.grid(row=1, column=0, padx=5, pady=5)
 
-        self.destination_label = LocalizedLabel(self, self.localizer, "field_two")
+        self.destination_label = LocalizedLabel(self, self.controller.localizer, "field_two")
         self.destination_label.grid(row=2, column=0, padx=5, pady=5)
 
     def create_and_place_entry_boxes(self):
@@ -97,13 +97,13 @@ class ConnectionEntryFrame(tk.Frame):
 
     def create_and_place_checkbuttons(self):
         self.increment_source_checkbutton = LocalizedCheckButton(
-            self, self.localizer, "increment", variable=self.source_increment_toggle
+            self, self.controller.localizer, "increment", variable=self.source_increment_toggle
         )
         self.increment_source_checkbutton.grid(row=1, column=4, padx=5, pady=5)
 
         self.increment_destination_checkbutton = LocalizedCheckButton(
             self,
-            self.localizer,
+            self.controller.localizer,
             "increment",
             variable=self.destination_increment_toggle,
         )
@@ -111,7 +111,7 @@ class ConnectionEntryFrame(tk.Frame):
 
         self.lock_destination_checkbutton = LocalizedCheckButton(
             self,
-            self.localizer,
+            self.controller.localizer,
             "lock_destination",
             variable=self.lock_destination_toggle,
         )
@@ -119,12 +119,12 @@ class ConnectionEntryFrame(tk.Frame):
 
     def create_and_place_buttons(self):
         self.undo_button = LocalizedButton(
-            self, self.localizer, "undo", command=self.undo
+            self, self.controller.localizer, "undo", command=self.on_undo_button_click
         )
         self.undo_button.grid(row=3, column=2, padx=5, pady=5)
 
         self.add_connection_button = LocalizedButton(
-            self, self.localizer, "add_connection", command=self.add_connection
+            self, self.controller.localizer, "add_connection", command=self.add_connection
         )
         self.add_connection_button.grid(row=3, column=3, padx=5, pady=5)
 
@@ -178,7 +178,7 @@ class ConnectionEntryFrame(tk.Frame):
         ):
             return
 
-        self.business_logic.add_connection(source, destination)
+        self.controller.add_connection_command(source, destination)
 
         if self.source_increment_toggle.get():
             self.parent.increment(self.source_terminal_entry)
@@ -204,21 +204,5 @@ class ConnectionEntryFrame(tk.Frame):
             and destination_terminal == ""
         )
 
-    def undo(self) -> None:
-        if self.command_manager.undo_stack:
-            command = self.command_manager.undo_stack.pop()
-            command.undo()
-
-
-class ConnectionEntryFrameBusinessLogic:
-    def __init__(self, parent):
-        self.parent = parent
-
-    def add_connection(self, source, destination) -> None:
-        cmd = AddConnectionCommand(
-            self.parent.event_system,
-            self.parent.connection_manager,
-            source,
-            destination,
-        )
-        self.parent.command_manager.execute(cmd)
+    def on_undo_button_click(self) -> None:
+        self.controller.undo_connection_command()

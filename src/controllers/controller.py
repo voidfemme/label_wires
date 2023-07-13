@@ -4,12 +4,14 @@ import logging
 from tkinter import filedialog
 
 from src.ui.main_view import MainView
+
 from src.settings import Settings
 from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
 from src.connection_manager import WireManager
 from src.utility_functions import TEMPORARY_FILE_LOCATION
+from src.command import AddConnectionCommand
 
 logger = logging.getLogger(__name__)
 
@@ -49,9 +51,20 @@ class Controller:
             )
             self.view.tree_widget.insert("", "end", values=(source, destination))
 
-    def load_connections(self):
+    def load_connections(self) -> None:
         self.loaded_from_json_file()
         self.view.tree_widget.update_connection_list()
+
+    def add_connection_command(self, source: str, destination: str) -> None:
+        cmd = AddConnectionCommand(
+            self.event_system, self.connection_manager, source, destination
+        )
+        self.command_manager.execute(cmd)
+
+    def undo_connection_command(self) -> None:
+        if self.command_manager.undo_stack:
+            command = self.command_manager.undo_stack.pop()
+            command.undo()
 
     def export_to_csv(self) -> None:
         self.export_to_csv()
