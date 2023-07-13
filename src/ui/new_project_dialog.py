@@ -5,7 +5,7 @@ from typing import Any, Optional
 import webbrowser
 from src.localizer import Localizer
 from src.settings import Settings
-from src.settings_window import SettingsWindow
+from src.ui.settings_window import SettingsWindow
 from src.localized_widgets import LocalizedLabel, LocalizedButton
 
 """

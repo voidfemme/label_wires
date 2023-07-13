@@ -8,11 +8,27 @@
         "destination_terminal": "2"
     },
     {
-        "source_component": "kk",
+        "source_component": "jj",
         "source_terminal_block": "a",
-        "source_terminal": "34",
-        "destination_component": "jk",
-        "destination_terminal_block": "4",
-        "destination_terminal": "3"
+        "source_terminal": "2",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "ff",
+        "source_terminal_block": "a",
+        "source_terminal": "d",
+        "destination_component": "",
+        "destination_terminal_block": "",
+        "destination_terminal": ""
+    },
+    {
+        "source_component": "ff",
+        "source_terminal_block": "a",
+        "source_terminal": "d",
+        "destination_component": "ff",
+        "destination_terminal_block": "a",
+        "destination_terminal": "d"
     }
 ]

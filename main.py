@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # Love is love. Be yourself.
 import logging
-from src.ui.connection_app import ConnectionApp
+from src.controllers.controller import Controller
 
 
 # logging.basicConfig(filename="app.log", level=logging.DEBUG)
@@ -9,8 +9,8 @@ logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(mess
 
 
 def start_app() -> None:
-    app = ConnectionApp()
-    app.mainloop()
+    controller = Controller()
+    controller.run()
 
 
 if __name__ == "__main__":
