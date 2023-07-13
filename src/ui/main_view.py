@@ -13,6 +13,10 @@ from src.ui.footer import Footer
 
 logger = logging.getLogger(__name__)
 
+# TODO: Add an entry box for the file name. Try to save, but if a name is not provided,
+# put a warning message in the display_status field. If a name is not provided on
+# quitting, provide a warning to either save the file or abandon the work.
+
 
 class MainView(tk.Tk):
     def __init__(
@@ -51,11 +55,6 @@ class MainView(tk.Tk):
         self.connection_entry_frame = ConnectionEntryFrame(
             self,
             self.controller,
-            self.localizer,
-            self.settings,
-            self.controller.connection_manager,
-            self.controller.command_manager,
-            self.controller.event_system,
         )
 
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
@@ -65,7 +64,7 @@ class MainView(tk.Tk):
         )
 
         self.horizontal_rule_footer = ttk.Separator(self, orient="horizontal")
-        self.footer = Footer(self, self.localizer, self.settings)
+        self.footer = Footer(self, self.controller, self.localizer, self.settings)
 
     def arrange_widgets_in_grid(self) -> None:
         print("Arranging widgets")
@@ -93,11 +92,8 @@ class MainView(tk.Tk):
             # Add error handling for KeyError
             logger.warn(e)
 
-    def saved_to_json_file(self) -> None:
-        return self.controller.connection_manager.save_json_to_file()
-
     def save_file(self):
-        if self.controller.connection_manager.saved_to_json_file():
+        if self.controller.save_to_json_file():
             self.display_status(
                 self.localizer.get("success_file_added").format(TEMPORARY_FILE_LOCATION)
             )
@@ -118,4 +114,7 @@ class MainView(tk.Tk):
         return filedialog.asksaveasfilename(*args, **kwargs)
 
     def quit_program(self) -> None:
+        # Check to see if a file name has been supplied. If it has, save and quit. Otherwise, prompt
+        # the user with a save-dialog box. Allow the user to export to csv and trash the contents
+        # as well.
         self.destroy()

@@ -44,7 +44,7 @@ class Controller:
             self.view.tree_widget.insert("", "end", values=(source, destination))
 
     def load_connections(self) -> None:
-        self.loaded_from_json_file()
+        self.load_from_json_file()
         self.view.tree_widget.update_connection_list()
 
     def add_connection_command(self, source: str, destination: str) -> None:
@@ -70,8 +70,8 @@ class Controller:
     def run(self):
         self.view.mainloop()
 
-    def saved_to_json_file(self) -> None:
-        self.connection_manager.save_json_to_file()
+    def save_to_json_file(self) -> bool:
+        return self.connection_manager.save_json_to_file()
 
-    def loaded_from_json_file(self) -> None:
+    def load_from_json_file(self) -> None:
         self.connection_manager.load_json_from_file()

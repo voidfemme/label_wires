@@ -2,15 +2,16 @@ import tkinter as tk
 
 
 class Footer(tk.Frame):
-    def __init__(self, parent, localizer, settings):
+    def __init__(self, parent, controller, localizer, settings):
         super().__init__(parent)
-        self.parent = parent
+        self.controller = controller
         self.localizer = localizer
         self.settings = settings
 
         self.status_label = tk.Label(self, text="")
         self.status_label.grid(row=1, column=0, padx=10)
 
+        # Replace with localization
         self.display_status("Welcome to WireLab")
 
     def display_status(self, message) -> None:

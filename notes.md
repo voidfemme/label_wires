@@ -9,3 +9,5 @@ get rid of the Cable and Wire objects, instead opting for a single Connection ob
   - Separate the tkinter window from the main controller
   - ConnectionApp should be left with only business logic
   - ConnectionApp will now be the Controller
+
+- Go through and make sure localization is applied anywhere there are displayed strings.

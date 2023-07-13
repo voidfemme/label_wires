@@ -1,30 +1,13 @@
 import tkinter as tk
-from tkinter import ttk
 
 from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCheckButton
-from src.command import AddConnectionCommand
 
 
 class ConnectionEntryFrame(tk.Frame):
-    def __init__(
-        self,
-        parent,
-        controller,
-        localizer,
-        settings,
-        connection_manager,
-        command_manager,
-        event_system,
-        **kwargs
-    ):
+    def __init__(self, parent, controller, **kwargs):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller
-        # self.localizer = localizer
-        # self.settings = settings
-        # self.connection_manager = connection_manager
-        # self.command_manager = command_manager
-        # self.event_system = event_system
 
         # Define textvariables
         # Sources
