@@ -51,7 +51,9 @@ class ConnectionEntryFrame(tk.Frame):
         self.define_bindings()
 
     def create_and_place_labels(self):
-        self.component_label = LocalizedLabel(self, self.controller.localizer, "component")
+        self.component_label = LocalizedLabel(
+            self, self.controller.localizer, "component"
+        )
         self.component_label.grid(row=0, column=1, padx=5, pady=5)
 
         self.terminal_block_label = LocalizedLabel(
@@ -59,13 +61,17 @@ class ConnectionEntryFrame(tk.Frame):
         )
         self.terminal_block_label.grid(row=0, column=2, padx=5, pady=5)
 
-        self.terminal_label = LocalizedLabel(self, self.controller.localizer, "terminal")
+        self.terminal_label = LocalizedLabel(
+            self, self.controller.localizer, "terminal"
+        )
         self.terminal_label.grid(row=0, column=3, padx=5, pady=5)
 
         self.source_label = LocalizedLabel(self, self.controller.localizer, "field_one")
         self.source_label.grid(row=1, column=0, padx=5, pady=5)
 
-        self.destination_label = LocalizedLabel(self, self.controller.localizer, "field_two")
+        self.destination_label = LocalizedLabel(
+            self, self.controller.localizer, "field_two"
+        )
         self.destination_label.grid(row=2, column=0, padx=5, pady=5)
 
     def create_and_place_entry_boxes(self):
@@ -97,7 +103,10 @@ class ConnectionEntryFrame(tk.Frame):
 
     def create_and_place_checkbuttons(self):
         self.increment_source_checkbutton = LocalizedCheckButton(
-            self, self.controller.localizer, "increment", variable=self.source_increment_toggle
+            self,
+            self.controller.localizer,
+            "increment",
+            variable=self.source_increment_toggle,
         )
         self.increment_source_checkbutton.grid(row=1, column=4, padx=5, pady=5)
 
@@ -124,7 +133,10 @@ class ConnectionEntryFrame(tk.Frame):
         self.undo_button.grid(row=3, column=2, padx=5, pady=5)
 
         self.add_connection_button = LocalizedButton(
-            self, self.controller.localizer, "add_connection", command=self.add_connection
+            self,
+            self.controller.localizer,
+            "add_connection",
+            command=self.add_connection,
         )
         self.add_connection_button.grid(row=3, column=3, padx=5, pady=5)
 
@@ -181,9 +193,9 @@ class ConnectionEntryFrame(tk.Frame):
         self.controller.add_connection_command(source, destination)
 
         if self.source_increment_toggle.get():
-            self.parent.increment(self.source_terminal_entry)
+            self.increment(self.source_terminal_entry)
         if self.destination_increment_toggle.get():
-            self.parent.increment(self.destination_terminal_entry)
+            self.increment(self.destination_terminal_entry)
         self.parent.scroll_to_bottom_of_treewidget()
 
     def is_empty_label(
@@ -206,3 +218,15 @@ class ConnectionEntryFrame(tk.Frame):
 
     def on_undo_button_click(self) -> None:
         self.controller.undo_connection_command()
+
+    def increment(self, entry_widget):
+        current_value = entry_widget.get()
+
+        if current_value.isdigit():
+            incremented_value = str(int(current_value) + 1)
+            entry_widget.delete(0, tk.END)
+            entry_widget.insert(0, incremented_value)
+        else:
+            self.parent.display_error_messagebox(
+                "Error", "The value in the entry box is not a number"
+            )
