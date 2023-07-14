@@ -35,7 +35,7 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.file_name = ""
+        self.set_file_path(filedialog.asksaveasfilename(title="Load or Create a New File"))
 
         self.load_connections()
 
@@ -58,9 +58,7 @@ class Controller:
 
     def load_connections(self) -> None:
         if self.view.header.get_file_path() == "":
-            self.view.footer.display_status(
-                "Could not load from file, no file location specified."
-            )
+            self.file_name = filedialog.askopenfilename()
         try:
             self.load_from_json_file()
         except NoFilePathGivenException as e:

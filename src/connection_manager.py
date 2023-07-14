@@ -69,7 +69,9 @@ class ConnectionManager:
             ]  # **conn_dict is because we're unpacking the dictionary into the Wire object
             logger.info(f"JSON file loaded as {self.full_file_path}")
         except FileNotFoundError:
-            logger.info(f"Error: Directory '{self.full_file_path}' not found")
+            logger.info(f"Error, {self.full_file_path} not found. Creating a new file")
+            with open(self.full_file_path, "w"):
+                pass
         except PermissionError:
             logger.info(f"Error: Permission denied to read from'{self.full_file_path}'")
         except ValueError:

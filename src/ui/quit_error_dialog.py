@@ -1,4 +1,4 @@
-import tkinter as tk 
+import tkinter as tk
 from tkinter import filedialog
 
 
@@ -9,7 +9,9 @@ class QuitErrorDialog:
         tk.Label(top, text="An error occurred!").pack()
 
         tk.Button(top, text="Cancel", command=self.cancel).pack()
-        tk.Button(top, text="Quit without saving", command=self.quit_without_saving).pack()
+        tk.Button(
+            top, text="Quit without saving", command=self.quit_without_saving
+        ).pack()
         tk.Button(top, text="Save As", command=self.save).pack()
 
     def cancel(self):
