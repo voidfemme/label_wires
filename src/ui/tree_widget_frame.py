@@ -117,10 +117,7 @@ class TreeWidgetFrame(tk.Frame):
         self.update_connection_list()
 
     def on_edit_button_clicked(self):
-        print("Edit button clicked")
-        command = EditConnectionCommand(self)
-        self.command_manager.execute(command)
-        self.update_connection_list()
+        self.controller.edit_connection()
 
     def on_connection_added(self, connection):
         # Extract the source and destination tuple to add to the treewidget

@@ -142,6 +142,15 @@ class ConnectionEntryFrame(tk.Frame):
             "<Return>", lambda event: self.add_connection()
         )
 
+    def populate_entries(self, connection):
+        self.source_component.set(connection.source_component)
+        self.source_terminal_block.set(connection.source_terminal_block)
+        self.source_terminal.set(connection.source_terminal)
+
+        self.destination_component.set(connection.destination_component)
+        self.destination_terminal_block.set(connection.destination_terminal_block)
+        self.destination_terminal.set(connection.destination_terminal)
+
     def add_connection(self) -> None:
         # Get user input from the UI
         source = {

@@ -1,4 +1,5 @@
 import logging
+from src.connection import Connection
 
 logger = logging.getLogger(__name__)
 
@@ -137,15 +138,28 @@ class DeleteConnectionCommand(Command):
 
 
 class EditConnectionCommand(Command):
-    def __init__(self, parent) -> None:
-        self.parent = parent
+    # Rewrite the other two commands so that I can make this a composition of those two.
+    def __init__(
+        self,
+        connection_manager,
+        old_connection: Connection,
+        new_values: dict[str, str],
+    ) -> None:
+        self.connection_manager = connection_manager
+        self.old_connection = old_connection
+        self.new_values = new_values
         self.connections_to_edit = []
 
     def execute(self) -> None:
-        for item in self.parent.tree_widget.selection():
-            print(f"Item: {item}")
-            source, destination = self.parent.connection_manager.get_connection_tuple(item)
-            print(f"Source: {source}, Destination: {destination}")
+        self.old_values = self.old_connection.to_dict()
 
-    def undo(self):
-        pass
+        self.connection_manager.delete_connection(self.old_connection)
+
+        new_connection = Connection(**self.new_values)
+        self.connection_manager.add_connection(new_connection)
+
+    def undo(self) -> None:
+        new_connection = Connection(**self.new_values)
+        self.connection_manager.delete_connection(new_connection)
+
+        self.connection_manager.add_connection(self.old_connection)

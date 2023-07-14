@@ -13,7 +13,7 @@ from src.connection_manager import ConnectionManager, NoFilePathGivenException
 from src.utility_functions import (
     ExportFormat,
 )
-from src.command import AddConnectionCommand
+from src.command import AddConnectionCommand, EditConnectionCommand
 from src.csv_exporting_strategy import (
     ExportWireToCSVStrategy,
     ExportCableToCSVStrategy,
@@ -47,7 +47,29 @@ class Controller:
         self.connection_manager.full_file_path = file_path
 
     def edit_connection(self) -> None:
-        pass
+        # Get the currently selected connection.
+        selected_items = self.view.tree_widget.selection()
+        if not selected_items:
+            return
+        item = selected_items[0]  # Only one connection can be edited at once
+        old_connection = self.view.tree_widget.tree_item_to_connection.get(item)
+        if not old_connection:
+            return
+
+        # Put the old values into the entry boxes
+        self.view.connection_entry_frame.populate_entries(old_connection)
+
+        new_values = {
+            "source_component": self.view.connection_entry_frame.source_component.get(),
+            "source_terminal_block": self.view.connection_entry_frame.source_terminal_block.get(),
+            "source_terminal": self.view.connection_entry_frame.source_terminal.get(),
+            "destination_component": self.view.connection_entry_frame.destination_component.get(),
+            "destination_terminal_block": self.view.connection_entry_frame.destination_terminal_block.get(),
+            "destination_terminal": self.view.connection_entry_frame.destination_terminal.get(),
+        }
+
+        command = EditConnectionCommand(self.connection_manager, old_connection, new_values)
+        self.command_manager.execute(command)
 
     def populate_connections(self) -> None:
         self.connection_manager.load_json_from_file()
