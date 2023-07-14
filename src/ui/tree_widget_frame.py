@@ -3,7 +3,7 @@ from tkinter import ttk
 import tkinter as tk
 import logging
 
-from src.localized_widgets import LocalizedButton, LocalizedTreeview
+from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
 from src.command import DeleteConnectionCommand, EditConnectionCommand
 
 logger = logging.getLogger(__name__)

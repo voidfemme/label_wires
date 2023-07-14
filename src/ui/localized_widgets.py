@@ -9,10 +9,7 @@ This file contains versions of Tkinter widgets that follow the Observer design p
 They each observe a localization key and update their displayed text whenever the
 associated value in the localizer changes.
 
-The Observer pattern allows us to decouple the localization logic from the UI logic.
-This makes the UI elements reusable and the code easier to maintain.
-
-These are primarily used in connection_app.py, settings_window.py, and new_project_dialog.py
+The Observer pattern allows me to decouple the localization logic from the UI logic.
 """
 
 

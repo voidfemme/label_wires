@@ -4,7 +4,7 @@ from pathlib import Path
 import webbrowser
 
 from src.localizer import Localizer
-from src.localized_widgets import LocalizedTreeview, LocalizedButton
+from src.ui.localized_widgets import LocalizedTreeview, LocalizedButton
 from src.settings import Settings
 
 """

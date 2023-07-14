@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from src.localized_widgets import LocalizedButton
+from src.ui.localized_widgets import LocalizedButton
 from src.utility_functions import ExportFormat
 from src.ui.quit_error_dialog import QuitErrorDialog
 
