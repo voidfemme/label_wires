@@ -2,7 +2,6 @@ import tkinter as tk
 import logging
 from tkinter import ttk, messagebox, filedialog
 
-from src.utility_functions import TEMPORARY_FILE_LOCATION
 from src.ui.settings_window import SettingsWindow
 from src.ui.header import Header
 from src.ui.tree_widget_frame import TreeWidgetFrame
@@ -39,7 +38,10 @@ class MainView(tk.Tk):
         print("Creating Widgets")
         # Define labels
         self.header = Header(
-            self, self.localizer, self.settings, TEMPORARY_FILE_LOCATION
+            self,
+            self.controller,
+            self.localizer,
+            self.settings,
         )
 
         # Define text area for connection numbers
@@ -60,7 +62,7 @@ class MainView(tk.Tk):
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
 
         self.utility_buttons_frame = UtilityButtonsFrame(
-            self, self.localizer, self.controller.connection_manager
+            self, self.controller, self.localizer
         )
 
         self.horizontal_rule_footer = ttk.Separator(self, orient="horizontal")
@@ -93,9 +95,10 @@ class MainView(tk.Tk):
             logger.warn(e)
 
     def save_file(self):
+        file_name = self.controller.file_name
         if self.controller.save_to_json_file():
             self.display_status(
-                self.localizer.get("success_file_added").format(TEMPORARY_FILE_LOCATION)
+                self.localizer.get("success_file_added").format(file_name)
             )
         else:
             self.display_status(self.localizer.get("error_file_added"))

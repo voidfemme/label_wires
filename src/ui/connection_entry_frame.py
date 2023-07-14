@@ -23,7 +23,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.destination_terminal = tk.StringVar()
 
         # Lock destination input to match what the user types in source input
-        # Perhaps do this live in the near future
+        # In the future, update the text as the user types
         self.lock_destination_toggle = tk.BooleanVar()
 
         # Create and place widgets

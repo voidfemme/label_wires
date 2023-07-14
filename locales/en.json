@@ -56,5 +56,7 @@
   "cancel": "Cancel",
   "hello": "Hello",
   "file_already_exists": "File Already Exists",
-  "edit": "Edit"
+  "edit": "Edit",
+  "export_cables": "Export Cables",
+  "export_wires": "Export Wires"
 }

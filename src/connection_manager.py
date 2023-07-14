@@ -1,20 +1,22 @@
-import csv
-import string
 import json
 import logging
-from abc import ABC, abstractmethod
 from pathlib import Path
 
-from typing import List, Tuple, TypeVar, Generic, Type, Dict
-from src.connection import Connection, Wire
+from typing import List, Tuple
+from src.connection import Connection
 from src.settings import Settings
+from src.utility_functions import validate_json_wire_fields
+from src.csv_exporting_strategy import ExportToCSVStrategy
 
 
 logger = logging.getLogger(__name__)
-ConnectionType = TypeVar("ConnectionType", bound=Connection)
 
 
-class ConnectionManager(ABC, Generic[ConnectionType]):
+class NoFilePathGivenException(Exception):
+    pass
+
+
+class ConnectionManager:
     """
     This is the connection manager, which is responsible for managing the master list of wires.
     This class uses the observer pattern. To update the UI about its connection list. In the
@@ -22,22 +24,28 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
     handle the interaction for me.
     """
 
-    def __init__(self, file_path) -> None:
+    def __init__(self, parent, full_file_path=None) -> None:
+        self.parent = parent
         self.settings = Settings()
-        self.file_path = file_path or self.settings.get("default_directory")
-        self.connections: List[ConnectionType] = []
+        self.connections: List[Connection] = []
         self.observers = []
+        self.full_file_path = full_file_path
+
+    def set_save_file_name(self, file_name):
+        self.full_file_path = file_name
 
     def save_json_to_file(self) -> bool:
+        if not self.full_file_path:
+            raise NoFilePathGivenException("No file path provided. Cannot Save")
         try:
-            with open(self.file_path, "w") as file:
+            with open(self.full_file_path, "w") as file:
                 json.dump([conn.to_dict() for conn in self.connections], file, indent=4)
             return True
         except FileNotFoundError:
-            logger.info(f"Error: File {self.file_path} not found.")
+            logger.info(f"Error: File {self.full_file_path} not found.")
             return False
         except PermissionError:
-            logger.info(f"Permission Error: could not write to: {self.file_path}")
+            logger.info(f"Permission Error: could not write to: {self.full_file_path}")
             return False
         except ValueError:
             logger.info(f"ValueError: Could not write data to file.")
@@ -47,64 +55,29 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
             return False
 
     def load_json_from_file(self) -> None:
+        if not self.full_file_path:
+            raise NoFilePathGivenException("No file path provided. Cannot Load")
         try:
-            with open(self.file_path, "r") as json_file:
+            with open(self.full_file_path, "r") as json_file:
                 conn_dicts = json.load(json_file)
-                self.validate_json_data(conn_dicts)
+                validate_json_wire_fields(conn_dicts)
 
-            self.connections = [  # type: ignore
-                self.get_connection_class()(**conn_dict)
+            self.connections = [
+                Connection(**conn_dict)
                 for conn_dict in conn_dicts
-                if not self.get_connection_class()(**conn_dict).is_empty()
-            ]
-            logger.info(f"JSON file loaded as {self.file_path}")
+                if not Connection(**conn_dict).is_empty()
+            ]  # **conn_dict is because we're unpacking the dictionary into the Wire object
+            logger.info(f"JSON file loaded as {self.full_file_path}")
         except FileNotFoundError:
-            logger.info(f"Error: Directory '{self.file_path}' not found")
+            logger.info(f"Error: Directory '{self.full_file_path}' not found")
         except PermissionError:
-            logger.info(f"Error: Permission denied to read from'{self.file_path}'")
+            logger.info(f"Error: Permission denied to read from'{self.full_file_path}'")
         except ValueError:
             logger.info(
-                f"Error: Invalid JSON data. Please inspect the input file: {self.file_path}"
+                f"Error: Invalid JSON data. Please inspect the input file: {self.full_file_path}"
             )
         except Exception as e:
             logger.info(f"Error loading JSON file: {e}")
-
-    def is_valid_entry_string(self, input_string) -> bool:
-        # Check that input is a string
-        if not isinstance(input_string, str):
-            return False
-
-        # Check for control characters
-        if any(char not in string.printable for char in input_string):
-            return False
-
-        # If it passes both checks, it's a valid string.
-        return True
-
-    def validate_json_data(self, input_data: List[Dict[str, str]]) -> None:
-        required_fields = [
-            "source_component",
-            "source_terminal_block",
-            "source_terminal",
-            "destination_component",
-            "destination_terminal_block",
-            "destination_terminal",
-        ]
-
-        if not isinstance(input_data, list):
-            raise ValueError("Invalid data: root element should be a list.")
-
-        for item in input_data:
-            if not isinstance(item, dict):
-                raise ValueError(
-                    "Invalid data: all elements in list should be dictionaries."
-                )
-
-            for field in required_fields:
-                if field not in item:
-                    raise ValueError(f"Invalid data: missing '{field}'.")
-                if not isinstance(item[field], str):
-                    raise ValueError(f"Invalid data: '{field}' should be a string.")
 
     def delete_connection(self, connection_to_delete) -> bool:
         if connection_to_delete in self.connections:
@@ -128,8 +101,8 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
                 )
                 return False
             # Find the index of the old connection and replace it with the new one
-            index = self.connections.index(old_connection)  # type: ignore
-            self.connections[index] = new_connection  # type: ignore
+            index = self.connections.index(old_connection)
+            self.connections[index] = new_connection
             # Save updated connections to file
             self.save_json_to_file()
             return True
@@ -137,36 +110,23 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
             logger.info("Attempted to edit a connection that doesn't exist.")
             return False
 
-    def get_connection_tuple(self, connection) -> Tuple[str, str]:
+    def get_connection_tuple(self, connection: Connection) -> Tuple[str, str]:
         if connection not in self.connections:
             return ("", "")
         return connection.to_tuple()
 
-    def get_connections(self) -> List[ConnectionType]:
+    def get_connections(self) -> List[Connection]:
         # Return a copy of the list of connections. Return a copy because returning the
         # object itself can alow external code to mutate the internal state of the class.
-        # ^^ Explain why this is bad
         return self.connections[:]
 
-    def export_to_csv(self, file_path) -> None:  # Perhaps consider returning a bool
-        filename = Path(file_path)
-        # Check if the file exists; I don't want to overwrite any existing csv files
-        # Perhaps add a flag that will overwrite the file anyways when the user chooses.
-        if filename.exists():
-            raise FileExistsError(f"The file '{filename}' already exists.")
-        # I could use a Strategy pattern to allow the user to choose the format of output
-        # instead of having separate cable and wire objects
-        try:
-            with open(filename, "w", newline="") as f:
-                writer = csv.writer(f, delimiter="|")
-                for connection in self.connections:
-                    writer.writerow(connection.to_tuple())  # type: ignore
-        except FileNotFoundError:
-            logger.info(f"Error: Directory '{filename}' not found")
-        except PermissionError:
-            logger.info(f"Error: Permission denied to read from'{filename}'")
-        except Exception as e:
-            logger.info(f"Error: {e}")
+    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy) -> None:
+        full_file_path = Path(file_path)
+        if full_file_path.exists():
+            raise FileExistsError(
+                f"The file '{full_file_path}' already exists. Cannot overwrite."
+            )
+        strategy.export_to_csv(full_file_path, self.connections)
 
     # Observer Methods to update the connection list in the GUI
     def add_observer(self, observer) -> None:
@@ -179,24 +139,6 @@ class ConnectionManager(ABC, Generic[ConnectionType]):
         for observer in self.observers:
             observer.update_connection_list()
 
-    @abstractmethod
-    def add_connection(self, *args) -> bool:
-        pass
-
-    @abstractmethod
-    def get_connection_class(self) -> Type[Connection]:
-        """This method should return the class of the connection manager"""
-        pass
-
-
-class WireManager(ConnectionManager[Wire]):
-    def __init__(self, file_path):
-        super().__init__(file_path)
-        self.connections: List[Wire] = []
-
-    def get_connection_class(self) -> Type[Wire]:
-        return Wire
-
     def add_connection(
         self,
         source_component: str,
@@ -206,7 +148,7 @@ class WireManager(ConnectionManager[Wire]):
         destination_terminal_block: str,
         destination_terminal: str,
     ) -> bool:
-        wire = Wire(
+        connection = Connection(
             source_component,
             source_terminal_block,
             source_terminal,
@@ -215,13 +157,13 @@ class WireManager(ConnectionManager[Wire]):
             destination_terminal,
         )
 
-        logger.info(f"Adding wire: {wire}")
+        logger.info(f"Adding connection: {connection}")
         # Use "not in" to access the Wire's __eq__ function to check for duplicates
-        if wire not in self.connections:
-            self.connections.append(wire)
+        if connection not in self.connections:
+            self.connections.append(connection)
             self.save_json_to_file()
-            logger.info("Wire successfully added.")
+            logger.info("Connection successfully added.")
             return True
         else:
-            logger.info("Attempted to add duplicate or reverse wire.")
+            logger.info("Attempted to add duplicate or reverse duplicate connection.")
             return False
