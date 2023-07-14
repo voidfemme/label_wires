@@ -52,7 +52,7 @@ class UtilityButtonsFrame(tk.Frame):
         self.quit_button.grid(row=0, column=4, padx=5, pady=10)
 
     def on_quit_button_click(self):
-        self.quit_error_dialog = QuitErrorDialog(self, self.controller)
+        self.controller.quit_program()
 
     def on_export_wires_button_click(self):
         self.controller.export_to_csv(ExportFormat.WIRE)

@@ -35,7 +35,8 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.set_file_path(filedialog.asksaveasfilename(title="Load or Create a New File"))
+        self.file_name = filedialog.asksaveasfilename(title="Load or Create a New File")
+        self.set_file_path(self.file_name)
 
         self.load_connections()
 
