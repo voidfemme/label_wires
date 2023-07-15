@@ -1,6 +1,10 @@
 import tkinter as tk
 
-from src.ui.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCheckButton
+from src.ui.localized_widgets import (
+    LocalizedLabel,
+    LocalizedButton,
+    LocalizedCheckButton,
+)
 
 
 class ConnectionEntryFrame(tk.Frame):
@@ -119,27 +123,29 @@ class ConnectionEntryFrame(tk.Frame):
             self,
             self.controller.localizer,
             "add_connection",
-            command=self.add_connection,
+            command=self.on_add_connection_button_click,
         )
         self.add_connection_button.grid(row=3, column=3, padx=5, pady=5)
 
     def define_bindings(self) -> None:
         # Define bindings
         self.source_component_entry.bind(
-            "<Return>", lambda event: self.add_connection()
+            "<Return>", lambda event: self.on_add_connection_button_click()
         )
         self.source_terminal_block_entry.bind(
-            "<Return>", lambda event: self.add_connection()
+            "<Return>", lambda event: self.on_add_connection_button_click()
         )
-        self.source_terminal_entry.bind("<Return>", lambda event: self.add_connection())
+        self.source_terminal_entry.bind(
+            "<Return>", lambda event: self.on_add_connection_button_click()
+        )
         self.destination_component_entry.bind(
-            "<Return>", lambda event: self.add_connection()
+            "<Return>", lambda event: self.on_add_connection_button_click()
         )
         self.destination_terminal_block_entry.bind(
-            "<Return>", lambda event: self.add_connection()
+            "<Return>", lambda event: self.on_add_connection_button_click()
         )
         self.destination_terminal_entry.bind(
-            "<Return>", lambda event: self.add_connection()
+            "<Return>", lambda event: self.on_add_connection_button_click()
         )
 
     def populate_entries(self, connection):
@@ -151,7 +157,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.destination_terminal_block.set(connection.destination_terminal_block)
         self.destination_terminal.set(connection.destination_terminal)
 
-    def add_connection(self) -> None:
+    def on_add_connection_button_click(self) -> None:
         # Get user input from the UI
         source = {
             "component": self.source_component.get(),

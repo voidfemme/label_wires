@@ -10,9 +10,7 @@ from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
 from src.connection_manager import ConnectionManager, NoFilePathGivenException
-from src.utility_functions import (
-    ExportFormat,
-)
+from src.utility_functions import ExportFormat
 from src.command import AddConnectionCommand, EditConnectionCommand
 from src.csv_exporting_strategy import (
     ExportWireToCSVStrategy,
@@ -35,8 +33,8 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.file_name = filedialog.asksaveasfilename(title="Load or Create a New File")
-        self.set_file_path(self.file_name)
+        self.full_file_path = filedialog.asksaveasfilename(title="Load or Create a New File")
+        self.set_file_path(self.full_file_path)
 
         self.load_connections()
 
@@ -44,7 +42,8 @@ class Controller:
         self.file_name = filedialog.asksaveasfilename()
 
     def set_file_path(self, file_path):
-        self.connection_manager.full_file_path = file_path
+        print(f"Called Controller.set_file_path({file_path})")
+        self.connection_manager.set_save_file_name(file_path)
 
     def edit_connection(self) -> None:
         # Get the currently selected connection.
@@ -68,7 +67,9 @@ class Controller:
             "destination_terminal": self.view.connection_entry_frame.destination_terminal.get(),
         }
 
-        command = EditConnectionCommand(self.connection_manager, old_connection, new_values)
+        command = EditConnectionCommand(
+            self.connection_manager, old_connection, new_values
+        )
         self.command_manager.execute(command)
 
     def populate_connections(self) -> None:

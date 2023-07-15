@@ -13,13 +13,17 @@ class Header(tk.Frame):
 
     def create_and_place_elements(self):
         self.file_name_label = tk.Label(self, text="File Name: ")
-        self.file_name_label.grid(row=0, column=0)
+        self.file_name_label.grid(row=0, column=0, padx=5, pady=5)
         self.file_name_entry = tk.Entry(self)
         self.file_name_entry.grid(row=0, column=1, padx=5, pady=5)
         self.file_name_browse_button = tk.Button(
             self, text="Browse", command=self.browse
         )
         self.file_name_browse_button.grid(row=0, column=2, padx=5, pady=5)
+        self.set_file_path_button = tk.Button(
+            self, text="Set File Path", command=self.get_file_path
+        )
+        self.set_file_path_button.grid(row=0, column=3, padx=5, pady=5)
 
     def browse(self):
         filename = filedialog.asksaveasfilename()
@@ -37,4 +41,4 @@ class Header(tk.Frame):
             file_path = self.settings.get("default_save_location") + "/" + file_path
             if not file_path.endswith(".csv"):
                 file_path = file_path + ".csv"
-        return file_path
+        self.controller.set_file_path(file_path)
