@@ -2,6 +2,7 @@
 import logging
 
 from tkinter import filedialog
+from pathlib import Path
 
 from src.ui.main_view import MainView
 from src.ui.new_project_dialog import NewProjectDialog
@@ -18,6 +19,7 @@ from src.command import (
     DeleteConnectionCommand,
 )
 from src.csv_exporting_strategy import (
+    ExportToCSVStrategy,
     ExportWireToCSVStrategy,
     ExportCableToCSVStrategy,
 )
@@ -31,7 +33,7 @@ class Controller:
         self.localizer = Localizer(self.settings.get("language"))
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
-        self.connection_manager = ConnectionManager(self)
+        self.connection_manager = ConnectionManager()
         self.view = MainView(
             self,
             self.localizer,
@@ -121,6 +123,8 @@ class Controller:
 
     def export_to_csv(self, format: ExportFormat) -> None:
         file_path = filedialog.asksaveasfilename(title="Save CSV as...")
+        if file_path == "":
+            return
         if format == ExportFormat.WIRE:
             strategy = ExportWireToCSVStrategy()
             print("Exported Wires successfully")
@@ -146,3 +150,17 @@ class Controller:
 
     def load_from_json_file(self) -> None:
         self.connection_manager.load_json_from_file()
+
+
+class FileController:
+    def __init__(self, connection_manager: ConnectionManager) -> None:
+        self.connection_manager = connection_manager
+
+    def save_to_json(self) -> bool:
+        return self.connection_manager.save_json_to_file()
+
+    def load_from_json(self):
+        self.connection_manager.load_json_from_file()
+
+    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy):
+        self.connection_manager.export_to_csv(file_path, strategy)

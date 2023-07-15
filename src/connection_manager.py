@@ -2,7 +2,7 @@ import json
 import logging
 from pathlib import Path
 
-from typing import List, Tuple
+from typing import List, Tuple, Self
 from src.connection import Connection
 from src.settings import Settings
 from src.utility_functions import validate_json_wire_fields
@@ -24,8 +24,7 @@ class ConnectionManager:
     handle the interaction for me.
     """
 
-    def __init__(self, parent, full_file_path=None) -> None:
-        self.parent = parent
+    def __init__(self, full_file_path=None) -> None:
         self.settings = Settings()
         self.connections: List[Connection] = []
         self.observers = []
@@ -48,7 +47,7 @@ class ConnectionManager:
             logger.info(f"Permission Error: could not write to: {self.full_file_path}")
             return False
         except ValueError:
-            logger.info(f"ValueError: Could not write data to file.")
+            logger.info("ValueError: Could not write data to file.")
             return False
         except Exception as e:
             logger.info(f"Error: {e}")
