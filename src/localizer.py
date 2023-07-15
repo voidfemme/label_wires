@@ -32,7 +32,7 @@ class SingletonMeta(type):
 
 
 class Localizer(metaclass=SingletonMeta):
-    def __init__(self, locale, default_english=True) -> None:
+    def __init__(self, locale: str, default_english=True) -> None:
         self.locale = locale
         self.default_english = default_english
         self.strings = {}

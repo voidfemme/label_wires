@@ -2,7 +2,7 @@ import json
 import logging
 from pathlib import Path
 
-from typing import List, Tuple, Self
+from typing import List, Tuple
 from src.connection import Connection
 from src.settings import Settings
 from src.utility_functions import validate_json_wire_fields
@@ -30,7 +30,7 @@ class ConnectionManager:
         self.observers = []
         self.full_file_path = full_file_path
 
-    def set_save_file_name(self, file_name):
+    def set_save_file_name(self, file_name: str) -> None:
         self.full_file_path = file_name
 
     def save_json_to_file(self) -> bool:
@@ -80,7 +80,7 @@ class ConnectionManager:
         except Exception as e:
             logger.info(f"Error loading JSON file: {e}")
 
-    def delete_connection(self, connection_to_delete) -> bool:
+    def delete_connection(self, connection_to_delete: Connection) -> bool:
         if connection_to_delete in self.connections:
             self.connections.remove(connection_to_delete)
             self.save_json_to_file()
