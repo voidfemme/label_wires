@@ -81,13 +81,6 @@ class MainView(tk.Tk):
         self.tree_widget.tree_widget.update_idletasks()
         self.tree_widget.tree_widget.yview_moveto(1)
 
-    def display_error_messagebox(self, title, message=""):
-        try:
-            messagebox.showerror(self.localizer.get(title), self.localizer.get(message))
-        except Exception as e:
-            # Add error handling for KeyError
-            logger.warn(e)
-
     def save_file(self):
         file_name = self.controller.file_name
         if self.controller.save_to_json_file():

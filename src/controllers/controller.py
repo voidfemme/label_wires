@@ -4,6 +4,7 @@ import logging
 from tkinter import filedialog
 
 from src.ui.main_view import MainView
+from src.ui.new_project_dialog import NewProjectDialog
 
 from src.settings import Settings
 from src.localizer import Localizer
@@ -37,9 +38,12 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.full_file_path = filedialog.asksaveasfilename(
-            title="Load or Create a New File"
-        )
+        self.new_project_dialog = NewProjectDialog(self.settings, self.localizer, self.view)
+        self.view.wait_window(self.new_project_dialog)
+        if self.new_project_dialog.result is not None:
+            self.full_file_path = self.new_project_dialog.result.get("file_path", "")
+        else:
+            self.full_file_path = ""
         self.set_file_path(self.full_file_path)
         self.load_connections()
 

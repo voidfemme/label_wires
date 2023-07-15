@@ -88,7 +88,6 @@ class NewProjectDialog(tk.Toplevel):
         # Trace the tkinter variables
         self.file_base_name.trace("w", self.check_create_file_entry_fields)
         self.directory.trace("w", self.check_create_file_entry_fields)
-        self.file_mode.trace("w", self.check_create_file_entry_fields)
 
     def create_open_existing_file_section(self) -> None:
         # Section in the bottom left
@@ -167,7 +166,7 @@ class NewProjectDialog(tk.Toplevel):
             self.open_existing_file_button["state"] = "disabled"
 
     def check_create_file_entry_fields(self, *args) -> None:
-        if self.file_base_name.get() and self.directory.get() and self.file_mode.get():
+        if self.file_base_name.get() and self.directory.get():
             self.create_button["state"] = "normal"
         else:
             self.create_button["state"] = "disabled"
@@ -232,13 +231,8 @@ class NewProjectDialog(tk.Toplevel):
     def apply(self) -> None:
         directory = Path(self.directory.get())
         file_name = self.file_base_name.get()
-        mode = self.file_mode.get()
 
-        if mode == "wire":
-            file_ext = ".wir"
-        else:
-            file_ext = ".json"
-        file_path = directory / (file_name + file_ext)
+        file_path = directory / (file_name + ".wir")
 
         if file_path.exists():
             messagebox.showerror(
