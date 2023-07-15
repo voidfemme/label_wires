@@ -38,6 +38,7 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
+        self.full_file_path = None
 
         self.wait_for_new_project_dialog()
         self.load_connections()

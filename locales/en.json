@@ -58,5 +58,7 @@
   "file_already_exists": "File Already Exists",
   "edit": "Edit",
   "export_cables": "Export Cables",
-  "export_wires": "Export Wires"
+  "export_wires": "Export Wires",
+  "unsaved_changes": "You have unsaved changes",
+  "save_changes_prompt": "Would you like to save your changes?"
 }

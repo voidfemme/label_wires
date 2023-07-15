@@ -25,7 +25,6 @@ class NewProjectDialog(tk.Toplevel):
         # Initialize all the variables
         self.file_base_name = tk.StringVar()
         self.directory = tk.StringVar()
-        self.file_mode = tk.StringVar()
         self.open_existing_file_directory = tk.StringVar()
         self.file_ext = {"wire": ".wir"}
 
@@ -226,7 +225,7 @@ class NewProjectDialog(tk.Toplevel):
         label2.bind("<Button-1>", lambda e: self.open_url(link))
 
     def quit_program(self) -> None:
-        self.master.quit_program()  # type: ignore
+        self.parent.quit_program()  # type: ignore
 
     def apply(self) -> None:
         directory = Path(self.directory.get())

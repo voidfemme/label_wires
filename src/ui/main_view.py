@@ -12,9 +12,10 @@ from src.ui.footer import Footer
 
 logger = logging.getLogger(__name__)
 
-# TODO: Add an entry box for the file name. Try to save, but if a name is not provided,
-# put a warning message in the display_status field. If a name is not provided on
-# quitting, provide a warning to either save the file or abandon the work.
+"""
+Main View in the MVC (Model-View-Controller) pattern. This module instantiates and
+manages the various frames that make up its contents.
+"""
 
 
 class MainView(tk.Tk):
@@ -26,8 +27,7 @@ class MainView(tk.Tk):
     ) -> None:
         super().__init__()
         self.controller = controller
-        self.localizer = localizer
-        self.title(self.localizer.get("application_title"))
+        self.title(self.controller.localizer.get("application_title"))
         self.settings = settings
         self.geometry("1200x400")
         self.create_widgets()
@@ -56,11 +56,13 @@ class MainView(tk.Tk):
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")
 
         self.utility_buttons_frame = UtilityButtonsFrame(
-            self, self.controller, self.localizer
+            self, self.controller, self.controller.localizer
         )
 
         self.horizontal_rule_footer = ttk.Separator(self, orient="horizontal")
-        self.footer = Footer(self, self.controller, self.localizer, self.settings)
+        self.footer = Footer(
+            self, self.controller, self.controller.localizer, self.settings
+        )
 
     def arrange_widgets_in_grid(self) -> None:
         print("Arranging widgets")
@@ -85,10 +87,10 @@ class MainView(tk.Tk):
         file_name = self.controller.file_name
         if self.controller.save_to_json_file():
             self.display_status(
-                self.localizer.get("success_file_added").format(file_name)
+                self.controller.localizer.get("success_file_added").format(file_name)
             )
         else:
-            self.display_status(self.localizer.get("error_file_added"))
+            self.display_status(self.controller.localizer.get("error_file_added"))
 
     def display_status(self, message) -> None:
         # Update the status label with the message
@@ -107,19 +109,21 @@ class MainView(tk.Tk):
         # Check to see if a file name has been supplied. If it has, save and quit. Otherwise, prompt
         # the user with a save-dialog box. Allow the user to export to csv and trash the contents
         # as well.
+
+        # Handle the "Don't save" case
         if self.controller.full_file_path:
             self.controller.save_to_json_file()
             self.destroy()
         else:
             # Ask the user if they want to save
             save = messagebox.askyesno(
-                title=self.localizer.get("unsaved_changes"),
-                message=self.localizer.get("save_changes_prompt"),
+                title=self.controller.localizer.get("unsaved_changes"),
+                message=self.controller.localizer.get("save_changes_prompt"),
             )
             if save:
                 # If the user wants to save, show a save dialog
                 file_path = filedialog.asksaveasfilename(
-                    title=self.localizer.get("save_file"),
+                    title=self.controller.localizer.get("save_file"),
                     filetypes=[
                         ("JSON files", "*.json"),
                         ("Wire files", "*.wir"),
