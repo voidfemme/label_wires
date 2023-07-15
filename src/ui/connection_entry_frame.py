@@ -1,6 +1,6 @@
 import tkinter as tk
 
-from src.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCheckButton
+from src.ui.localized_widgets import LocalizedLabel, LocalizedButton, LocalizedCheckButton
 
 
 class ConnectionEntryFrame(tk.Frame):

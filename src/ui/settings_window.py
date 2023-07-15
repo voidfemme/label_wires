@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import filedialog, ttk
 from src.localizer import Localizer
-from src.localized_widgets import (
+from src.ui.localized_widgets import (
     LocalizedLabel,
     LocalizedButton,
     LocalizedCombobox,
