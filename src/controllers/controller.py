@@ -38,14 +38,20 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.new_project_dialog = NewProjectDialog(self.settings, self.localizer, self.view)
+
+        self.wait_for_new_project_dialog()
+        self.load_connections()
+
+    def wait_for_new_project_dialog(self):
+        self.new_project_dialog = NewProjectDialog(
+            self.settings, self.localizer, self.view
+        )
         self.view.wait_window(self.new_project_dialog)
         if self.new_project_dialog.result is not None:
             self.full_file_path = self.new_project_dialog.result.get("file_path", "")
         else:
             self.full_file_path = ""
         self.set_file_path(self.full_file_path)
-        self.load_connections()
 
     def get_file_path(self):
         self.file_name = filedialog.asksaveasfilename()
@@ -103,7 +109,7 @@ class Controller:
         self.command_manager.execute(command)
 
     def delete_connection_command(self):
-        command = DeleteConnectionCommand(self)
+        command = DeleteConnectionCommand(self, self.view)
         self.command_manager.execute(command)
         self.view.tree_widget.update_connection_list()
 

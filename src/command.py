@@ -46,14 +46,15 @@ class DeleteConnectionCommand(Command):
     Deletes a connection from the connection manager
     """
 
-    def __init__(self, parent) -> None:
+    def __init__(self, parent, view) -> None:
         self.parent = parent
+        self.view = view
         self.deleted_items = []  # Store deleted items here
 
     def execute(self) -> None:
-        for item in self.parent.tree_widget.selection():
+        for item in self.view.tree_widget.selection():
             try:
-                connection = self.parent.tree_item_to_connection[item]
+                connection = self.view.tree_widget.tree_item_to_connection[item]
 
                 # Attempt to delete the connection from the connection manager
                 try:
@@ -66,7 +67,7 @@ class DeleteConnectionCommand(Command):
 
                 # Attempt to delete from connections_dict
                 try:
-                    del self.parent.connections_dict[str(connection)]
+                    del self.view.tree_widget.connections_dict[str(connection)]
                 except KeyError:
                     logger.warning(
                         f"Connection {connection} not found in connections_dict"
@@ -74,7 +75,7 @@ class DeleteConnectionCommand(Command):
 
                 # Attempt to delete from tree_item_to_connection
                 try:
-                    del self.parent.tree_item_to_connection[item]
+                    del self.view.tree_widget.tree_item_to_connection[item]
                 except KeyError:
                     logger.warning(f"Item {item} not found in tree_item_to_connection")
 
@@ -116,18 +117,16 @@ class DeleteConnectionCommand(Command):
             )
 
             # Add the connection back to the connections_dict
-            self.parent.connections_dict[str(connection)] = connection
+            self.view.tree_widget.connections_dict[str(connection)] = connection
 
             # Add the connection back to tree_item_to_connection
-            self.parent.tree_item_to_connection[item] = connection
+            self.view.tree_widget.tree_item_to_connection[item] = connection
 
             # Add the connection back to the tree widget
             source, destination = self.parent.connection_manager.get_connection_tuple(
                 connection
             )
-            new_item = self.parent.tree_widget.insert(
-                "", "end", values=(source, destination)
-            )
+            self.view.tree_widget.insert("", "end", values=(source, destination))
             self.parent.display_status(
                 self.parent.localizer.get("added_connection").format(
                     source=source, destination=destination
