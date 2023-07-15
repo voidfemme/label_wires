@@ -4,7 +4,6 @@ import tkinter as tk
 import logging
 
 from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
-from src.command import DeleteConnectionCommand, EditConnectionCommand
 
 logger = logging.getLogger(__name__)
 
@@ -14,31 +13,17 @@ class TreeWidgetFrame(tk.Frame):
     Class that handles the frame that contains the list of wires, and the edit and delete buttons
     """
 
-    def __init__(
-        self,
-        parent,
-        controller,
-        localizer,
-        settings,
-        connection_manager,
-        command_manager,
-        event_system,
-        **kwargs,
-    ):
+    def __init__(self, parent, controller, event_system, **kwargs):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller
-        self.localizer = localizer
-        self.settings = settings
-        self.connection_manager = connection_manager
-        self.command_manager = command_manager
         self._event_system = event_system
 
         # Subscribe to event system events
         self._event_system.subscribe("connection_added", self.on_connection_added)
         self._event_system.subscribe("connection_removed", self.on_connection_removed)
 
-        self.connection_manager.add_observer(self)
+        self.controller.connection_manager.add_observer(self)
 
         self.connections_dict = {}  # holds list of connections in the treewidget
         self.tree_item_to_connection = {}  # What is this for?
@@ -80,10 +65,13 @@ class TreeWidgetFrame(tk.Frame):
     # Other Functions
     def create_and_place_buttons(self):
         self.delete_button = LocalizedButton(
-            self, self.localizer, "delete", command=self.on_delete_button_clicked
+            self,
+            self.controller.localizer,
+            "delete",
+            command=self.on_delete_button_clicked,
         )
         self.edit_button = LocalizedButton(
-            self, self.localizer, "edit", command=self.on_edit_button_clicked
+            self, self.controller.localizer, "edit", command=self.on_edit_button_clicked
         )
 
         # Pack the buttons into the frame
@@ -99,7 +87,7 @@ class TreeWidgetFrame(tk.Frame):
         columns_keys = ["source", "destination"]
         self.columns_keys_mapping = dict(zip(columns, columns_keys))
         tree = LocalizedTreeview(
-            self, self.localizer, self.columns_keys_mapping, show="headings"
+            self, self.controller.localizer, self.columns_keys_mapping, show="headings"
         )
 
         # Callback function to bind selecting an item to the selected connections
@@ -111,17 +99,19 @@ class TreeWidgetFrame(tk.Frame):
 
         return tree
 
+    # Move this function to the controller, on_delete_button_clicked should call the delete_
+    # _connection method from the Controller
     def on_delete_button_clicked(self):
-        command = DeleteConnectionCommand(self)
-        self.command_manager.execute(command)
-        self.update_connection_list()
+        self.controller.delete_connection_command()
 
     def on_edit_button_clicked(self):
         self.controller.edit_connection()
 
     def on_connection_added(self, connection):
         # Extract the source and destination tuple to add to the treewidget
-        source, destination = self.connection_manager.get_connection_tuple(connection)
+        source, destination = self.controller.connection_manager.get_connection_tuple(
+            connection
+        )
 
         # Add to tree widget and get unique identifier
         self.item = self.tree_widget.insert("", "end", values=(source, destination))
@@ -131,12 +121,13 @@ class TreeWidgetFrame(tk.Frame):
 
         # Print a message to the UI
         self.parent.display_status(
-            self.localizer.get("added_connection").format(
+            self.controller.localizer.get("added_connection").format(
                 source=source, destination=destination
             )
         )
 
         # Update the tree widget
+        self.controller.load_connections()
         self.update_connection_list()
 
     def on_connection_removed(self, connection):
@@ -146,6 +137,7 @@ class TreeWidgetFrame(tk.Frame):
         self.tree_widget.delete(item)
         del self.tree_item_to_connection[item]
 
+    # Reduce dependency on the self.controller.connection_manager
     def update_connection_list(self) -> None:
         for i in self.parent.tree_widget.get_children():
             self.parent.tree_widget.delete(i)
@@ -153,12 +145,11 @@ class TreeWidgetFrame(tk.Frame):
         connections = self.controller.connection_manager.get_connections()
 
         for connection in connections:
-            source, destination = self.connection_manager.get_connection_tuple(
-                connection
-            )
-            item_id = self.tree_widget.insert(
-                "", "end", values=(source, destination)
-            )
+            (
+                source,
+                destination,
+            ) = self.controller.connection_manager.get_connection_tuple(connection)
+            item_id = self.tree_widget.insert("", "end", values=(source, destination))
 
             self.connections_dict[str(connection)] = connection
             self.tree_item_to_connection[item_id] = connection
@@ -177,6 +168,4 @@ class TreeWidgetFrame(tk.Frame):
             if connection:
                 self.selected_connections.append(connection)
 
-        logger.info(
-            f"self.parent.selected_connections = {self.selected_connections}"
-        )
+        logger.info(f"self.parent.selected_connections = {self.selected_connections}")

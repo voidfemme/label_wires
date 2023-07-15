@@ -40,18 +40,12 @@ class MainView(tk.Tk):
         self.header = Header(
             self,
             self.controller,
-            self.localizer,
-            self.settings,
         )
 
         # Define text area for connection numbers
         self.tree_widget = TreeWidgetFrame(
             self,
             self.controller,
-            self.localizer,
-            self.settings,
-            self.controller.connection_manager,
-            self.controller.command_manager,
             self.controller.event_system,
         )
         self.connection_entry_frame = ConnectionEntryFrame(

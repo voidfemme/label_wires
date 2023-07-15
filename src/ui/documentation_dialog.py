@@ -16,13 +16,10 @@ information about how to use the project.
 class DocumentationDialog(tk.Toplevel):
     def __init__(
         self,
-        master=None,
-        language="en",
+        parent=None,
     ) -> None:
-        super().__init__(master=master)
-        self.master = master  # type: ignore
-        self.settings = Settings()
-        self.localizer = Localizer(self.settings.get("settings"))
+        super().__init__(master=parent)
+        self.parent = parent
         self.title("WireLab Documentation")
 
         # Initialize variables
@@ -30,8 +27,8 @@ class DocumentationDialog(tk.Toplevel):
         self.result = None
 
         # Create widgets
-        self.tree = ttk.Treeview(master, selectmode="browse")
-        self.doc_text = scrolledtext.ScrolledText(master)
+        self.tree = ttk.Treeview(parent, selectmode="browse")
+        self.doc_text = scrolledtext.ScrolledText(parent)
 
         # Place widgets
         self.tree.pack(side="left", fill="y")

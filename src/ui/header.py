@@ -3,13 +3,9 @@ from tkinter import filedialog
 
 
 class Header(tk.Frame):
-    def __init__(self, parent, controller, localizer, settings):
+    def __init__(self, parent, controller):
         super().__init__(parent)
-        self.parent = parent
         self.controller = controller
-        self.localizer = localizer
-        self.settings = settings
-        self.create_and_place_elements()
 
     def create_and_place_elements(self):
         self.file_name_label = tk.Label(self, text="File Name: ")
@@ -34,11 +30,15 @@ class Header(tk.Frame):
         self.controller.get_file_path()
 
     def get_file_path(self):
-        file_path = self.file_name_entry.get()
-        # Check if the file path is just a base name
-        if "/" not in file_path and "\\" not in file_path:
-            # Prepend the default save location
-            file_path = self.settings.get("default_save_location") + "/" + file_path
-            if not file_path.endswith(".csv"):
-                file_path = file_path + ".csv"
-        self.controller.set_file_path(file_path)
+        try:
+            file_path = self.file_name_entry.get()
+            # Check if the file path is just a base name
+            if "/" not in file_path and "\\" not in file_path:
+                # Prepend the default save location
+                file_path = self.controller.settings.get("default_save_location") + "/" + file_path
+                if not file_path.endswith(".csv"):
+                    file_path = file_path + ".csv"
+            self.controller.set_file_path(file_path)
+            self.controller.load_connections()
+        except AttributeError as e:
+            print(e)

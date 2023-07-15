@@ -11,7 +11,11 @@ from src.command_manager import CommandManager
 from src.event_system import EventSystem
 from src.connection_manager import ConnectionManager, NoFilePathGivenException
 from src.utility_functions import ExportFormat
-from src.command import AddConnectionCommand, EditConnectionCommand
+from src.command import (
+    AddConnectionCommand,
+    EditConnectionCommand,
+    DeleteConnectionCommand,
+)
 from src.csv_exporting_strategy import (
     ExportWireToCSVStrategy,
     ExportCableToCSVStrategy,
@@ -33,9 +37,10 @@ class Controller:
             self.settings,
         )
         self.undo_stack = []
-        self.full_file_path = filedialog.asksaveasfilename(title="Load or Create a New File")
+        self.full_file_path = filedialog.asksaveasfilename(
+            title="Load or Create a New File"
+        )
         self.set_file_path(self.full_file_path)
-
         self.load_connections()
 
     def get_file_path(self):
@@ -44,6 +49,21 @@ class Controller:
     def set_file_path(self, file_path):
         print(f"Called Controller.set_file_path({file_path})")
         self.connection_manager.set_save_file_name(file_path)
+
+    def populate_connections(self) -> None:
+        self.connection_manager.load_json_from_file()
+        for connection in self.connection_manager.get_connections():
+            source, destination = self.connection_manager.get_connection_tuple(
+                connection
+            )
+            self.view.tree_widget.insert("", "end", values=(source, destination))
+
+    def load_connections(self) -> None:
+        try:
+            self.load_from_json_file()
+        except NoFilePathGivenException as e:
+            self.view.footer.display_status(str(e))
+        self.view.tree_widget.update_connection_list()
 
     def edit_connection(self) -> None:
         # Get the currently selected connection.
@@ -72,28 +92,16 @@ class Controller:
         )
         self.command_manager.execute(command)
 
-    def populate_connections(self) -> None:
-        self.connection_manager.load_json_from_file()
-        for connection in self.connection_manager.get_connections():
-            source, destination = self.connection_manager.get_connection_tuple(
-                connection
-            )
-            self.view.tree_widget.insert("", "end", values=(source, destination))
-
-    def load_connections(self) -> None:
-        if self.view.header.get_file_path() == "":
-            self.file_name = filedialog.askopenfilename()
-        try:
-            self.load_from_json_file()
-        except NoFilePathGivenException as e:
-            self.view.footer.display_status(str(e))
-        self.view.tree_widget.update_connection_list()
-
     def add_connection_command(self, source: str, destination: str) -> None:
-        cmd = AddConnectionCommand(
+        command = AddConnectionCommand(
             self.event_system, self.connection_manager, source, destination
         )
-        self.command_manager.execute(cmd)
+        self.command_manager.execute(command)
+
+    def delete_connection_command(self):
+        command = DeleteConnectionCommand(self)
+        self.command_manager.execute(command)
+        self.view.tree_widget.update_connection_list()
 
     def undo_connection_command(self) -> None:
         if self.command_manager.undo_stack:

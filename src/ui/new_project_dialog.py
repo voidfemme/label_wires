@@ -6,7 +6,7 @@ import webbrowser
 from src.localizer import Localizer
 from src.settings import Settings
 from src.ui.settings_window import SettingsWindow
-from src.localized_widgets import LocalizedLabel, LocalizedButton
+from src.ui.localized_widgets import LocalizedLabel, LocalizedButton
 
 """
 This is the dialog that pops up when the user opens the application.
@@ -15,11 +15,11 @@ It allows them to access settings, create a new project, or open an existing pro
 
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, master: Optional[Any] = None) -> None:
-        super().__init__(master=master)
-        self.settings = Settings()
-        self.master = master  # type: ignore
-        self.localizer = Localizer(self.settings.get("language"))
+    def __init__(self, settings, localizer, parent: Optional[Any] = None) -> None:
+        super().__init__(master=parent)
+        self.settings = settings
+        self.parent = parent
+        self.localizer = localizer
         self.title("New Project")
 
         # Initialize all the variables
