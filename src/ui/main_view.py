@@ -107,4 +107,28 @@ class MainView(tk.Tk):
         # Check to see if a file name has been supplied. If it has, save and quit. Otherwise, prompt
         # the user with a save-dialog box. Allow the user to export to csv and trash the contents
         # as well.
+        if self.controller.full_file_path:
+            self.controller.save_to_json_file()
+            self.destroy()
+        else:
+            # Ask the user if they want to save
+            save = messagebox.askyesno(
+                title=self.localizer.get("unsaved_changes"),
+                message=self.localizer.get("save_changes_prompt"),
+            )
+            if save:
+                # If the user wants to save, show a save dialog
+                file_path = filedialog.asksaveasfilename(
+                    title=self.localizer.get("save_file"),
+                    filetypes=[
+                        ("JSON files", "*.json"),
+                        ("Wire files", "*.wir"),
+                        ("All files", "*.*"),
+                    ],
+                    defaultextension=".wir",
+                )
+                if file_path:
+                    # If the user selected a file, save the work
+                    self.controller.full_file_path = file_path
+                    self.controller.save_to_json_file()
         self.destroy()
