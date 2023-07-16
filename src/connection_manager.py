@@ -7,12 +7,17 @@ from src.connection import Connection
 from src.settings import Settings
 from src.utility_functions import validate_json_wire_fields
 from src.csv_exporting_strategy import ExportToCSVStrategy
+from src.file_handler import FileHandler
 
 
 logger = logging.getLogger(__name__)
 
 
 class NoFilePathGivenException(Exception):
+    pass
+
+
+class MalformedDataException(Exception):
     pass
 
 
@@ -30,55 +35,36 @@ class ConnectionManager:
         self.observers = []
         self.full_file_path = full_file_path
 
+    # Observer Methods to update the connection list in the GUI
+    def add_observer(self, observer) -> None:
+        self.observers.append(observer)
+
+    def remove_observer(self, observer) -> None:
+        self.observers.remove(observer)
+
+    def notify_observers(self) -> None:
+        for observer in self.observers:
+            observer.update_connection_list()
+
     def set_save_file_name(self, file_name: str) -> None:
         self.full_file_path = file_name
+        self.file_handler = FileHandler(self.full_file_path)
 
     def save_json_to_file(self) -> bool:
-        if not self.full_file_path:
-            return False
-        try:
-            with open(self.full_file_path, "w") as file:
-                json.dump([conn.to_dict() for conn in self.connections], file, indent=4)
-            return True
-        except FileNotFoundError:
-            logger.info(f"Error: File {self.full_file_path} not found.")
-            return False
-        except PermissionError:
-            logger.info(f"Permission Error: could not write to: {self.full_file_path}")
-            return False
-        except ValueError:
-            logger.info("ValueError: Could not write data to file.")
-            return False
-        except Exception as e:
-            logger.info(f"Error: {e}")
-            return False
+        data = [connection.to_dict() for connection in self.connections]
+        success = self.file_handler.save(data)
+        return success
 
     def load_json_from_file(self) -> None:
-        if not self.full_file_path:
-            return
-        try:
-            with open(self.full_file_path, "r") as json_file:
-                conn_dicts = json.load(json_file)
-                validate_json_wire_fields(conn_dicts)
-
+        conn_dicts = self.file_handler.load()
+        if conn_dicts is not None:
             self.connections = [
                 Connection(**conn_dict)
                 for conn_dict in conn_dicts
                 if not Connection(**conn_dict).is_empty()
             ]  # **conn_dict is because we're unpacking the dictionary into the Wire object
-            logger.info(f"JSON file loaded as {self.full_file_path}")
-        except FileNotFoundError:
-            logger.info(f"Error, {self.full_file_path} not found. Creating a new file")
-            with open(self.full_file_path, "w"):
-                pass
-        except PermissionError:
-            logger.info(f"Error: Permission denied to read from'{self.full_file_path}'")
-        except ValueError:
-            logger.info(
-                f"Error: Invalid JSON data. Please inspect the input file: {self.full_file_path}"
-            )
-        except Exception as e:
-            logger.info(f"Error loading JSON file: {e}")
+        else:
+            raise MalformedDataException
 
     def delete_connection(self, connection_to_delete: Connection) -> bool:
         if connection_to_delete in self.connections:
@@ -128,17 +114,6 @@ class ConnectionManager:
                 f"The file '{full_file_path}' already exists. Cannot overwrite."
             )
         strategy.export_to_csv(full_file_path, self.connections)
-
-    # Observer Methods to update the connection list in the GUI
-    def add_observer(self, observer) -> None:
-        self.observers.append(observer)
-
-    def remove_observer(self, observer) -> None:
-        self.observers.remove(observer)
-
-    def notify_observers(self) -> None:
-        for observer in self.observers:
-            observer.update_connection_list()
 
     def add_connection(
         self,

@@ -22,6 +22,7 @@ class MainView(tk.Tk):
     def __init__(
         self,
         controller,
+        localizer,
         settings,
     ) -> None:
         super().__init__()
@@ -29,10 +30,10 @@ class MainView(tk.Tk):
         self.title(self.controller.localizer.get("application_title"))
         self.settings = settings
         self.geometry("1200x400")
-        self.is_destroying = False
         self.create_widgets()
         self.arrange_widgets_in_grid()
         self.tree_widget.update_connection_list()
+        self.is_destroying = False
 
     def create_widgets(self) -> None:
         # Define labels

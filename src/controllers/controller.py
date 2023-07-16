@@ -34,11 +34,7 @@ class Controller:
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
         self.connection_manager = ConnectionManager()
-        self.view = MainView(
-            self,
-            self.localizer,
-            self.settings,
-        )
+        self.view = MainView(self, self.localizer)
         self.undo_stack = []
         self.full_file_path = None
 
@@ -145,6 +141,18 @@ class Controller:
 
     def quit_program(self) -> None:
         self.view.destroy()
+
+    def handle_quit(self) -> None:
+        # Replacement for quit_program()
+        if self.full_file_path:
+            self.save_to_json_file()
+        else:
+            save = self.view.prompt_save()
+            if save:
+                file_path = self.view.open_save_dialog()
+                if file_path:
+                    self.full_file_path = file_path
+                    self.save_to_json_file()
 
     def run(self) -> None:
         self.view.mainloop()

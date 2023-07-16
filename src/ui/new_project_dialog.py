@@ -114,14 +114,14 @@ class NewProjectDialog(tk.Toplevel):
 
         # Add the widgets to the grid
         self.open_existing_file_label.grid(
-            row=5, column=0, sticky="w", padx=10, pady=10
+            row=4, column=0, sticky="w", padx=10, pady=10
         )
         self.open_existing_file_entry.grid(
-            row=5, column=1, sticky="ew", padx=10, pady=10
+            row=4, column=1, sticky="ew", padx=10, pady=10
         )
-        self.browse_for_existing_files_button.grid(row=5, column=2, padx=10, pady=10)
-        self.open_existing_file_button.grid(row=5, column=3, padx=10, pady=10)
-        self.horizontal_rule.grid(row=4, column=0, columnspan=4, sticky="ew", pady=10)
+        self.browse_for_existing_files_button.grid(row=4, column=2, padx=10, pady=10)
+        self.open_existing_file_button.grid(row=4, column=3, padx=10, pady=10)
+        self.horizontal_rule.grid(row=3, column=0, columnspan=4, sticky="ew", pady=10)
 
     def create_info_section(self) -> None:
         # For settings and "about this app" information
@@ -139,9 +139,9 @@ class NewProjectDialog(tk.Toplevel):
 
         # Add the widgets to the grid
         self.vertical_rule.grid(row=0, column=4, rowspan=9, sticky="ns", padx=10)
-        self.quit_button.grid(row=5, column=5, sticky="w", padx=10, pady=10)
-        self.settings_button.grid(row=4, column=5, sticky="w", padx=10, pady=10)
-        self.about_button.grid(row=3, column=5, sticky="w", padx=10, pady=10)
+        self.quit_button.grid(row=4, column=5, sticky="w", padx=10, pady=10)
+        self.settings_button.grid(row=3, column=5, sticky="w", padx=10, pady=10)
+        self.about_button.grid(row=2, column=5, sticky="w", padx=10, pady=10)
 
     def open_file_browse(self) -> None:
         filetypes = (
@@ -225,8 +225,12 @@ class NewProjectDialog(tk.Toplevel):
         label2 = tk.Label(about_win, text=link, fg="blue", cursor="hand2")
         label2.pack(side="top")
         label2.bind("<Button-1>", lambda e: self.open_url(link))
+        close_button = LocalizedButton(self, self.localizer, "close", command=about_win.destroy)
+        close_button.pack(side="top")
 
     def quit_program(self) -> None:
+        # Close the current window:
+        self.destroy()
         self.parent.quit_program()  # type: ignore
 
     def apply(self) -> None:

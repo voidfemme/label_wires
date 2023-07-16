@@ -144,10 +144,17 @@ class TreeWidgetFrame(tk.Frame):
         self.tree_widget.delete(item)
         del self.tree_item_to_connection[item]
 
-    # Reduce dependency on the self.controller.connection_manager
     def update_connection_list(self) -> None:
-        for i in self.parent.tree_widget.get_children():
-            self.parent.tree_widget.delete(i)
+        """
+        Check if the parent is destroyed before updating the wire list, because
+        if not, the program will try to update the connection list because of
+        the observers trying to call this method on quit. This is likely a
+        stopgap measure until I try to figure out how to get the observers to
+        not update when the application is quitting.
+        """
+        if not self.parent.is_destroying:
+            for i in self.parent.tree_widget.get_children():
+                self.parent.tree_widget.delete(i)
 
         connections = self.controller.connection_manager.get_connections()
 
