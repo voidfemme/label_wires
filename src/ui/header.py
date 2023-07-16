@@ -1,13 +1,18 @@
 import tkinter as tk
 from tkinter import filedialog
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from src.controllers.controller import Controller
+    from src.ui.main_view import MainView
 
 
 class Header(tk.Frame):
-    def __init__(self, parent, controller):
+    def __init__(self, parent: MainView, controller: Controller) -> None:
         super().__init__(parent)
         self.controller = controller
 
-    def create_and_place_elements(self):
+    def create_and_place_elements(self) -> None:
         self.file_name_label = tk.Label(self, text="File Name: ")
         self.file_name_label.grid(row=0, column=0, padx=5, pady=5)
         self.file_name_entry = tk.Entry(self)
@@ -21,7 +26,7 @@ class Header(tk.Frame):
         )
         self.set_file_path_button.grid(row=0, column=3, padx=5, pady=5)
 
-    def browse(self):
+    def browse(self) -> None:
         filename = filedialog.asksaveasfilename()
         # Clear the entry box
         self.file_name_entry.delete(0, tk.END)
@@ -29,7 +34,7 @@ class Header(tk.Frame):
         self.file_name_entry.insert(0, filename)
         self.controller.get_file_path()
 
-    def get_file_path(self):
+    def get_file_path(self) -> None:
         try:
             file_path = self.file_name_entry.get()
             # Check if the file path is just a base name

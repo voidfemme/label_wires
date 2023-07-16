@@ -1,14 +1,20 @@
 import tkinter as tk
+from typing import TYPE_CHECKING
 
 from src.ui.localized_widgets import (
     LocalizedLabel,
     LocalizedButton,
     LocalizedCheckButton,
 )
+from src.connection import Connection
+
+if TYPE_CHECKING:
+    from src.controllers.controller import Controller
+    from src.ui.main_view import MainView
 
 
 class ConnectionEntryFrame(tk.Frame):
-    def __init__(self, parent, controller, **kwargs):
+    def __init__(self, parent: MainView, controller: Controller, **kwargs):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller
@@ -37,7 +43,7 @@ class ConnectionEntryFrame(tk.Frame):
         self.create_and_place_buttons()
         self.define_bindings()
 
-    def create_and_place_labels(self):
+    def create_and_place_labels(self) -> None:
         self.component_label = LocalizedLabel(
             self, self.controller.localizer, "component"
         )
@@ -61,7 +67,7 @@ class ConnectionEntryFrame(tk.Frame):
         )
         self.destination_label.grid(row=2, column=0, padx=5, pady=5)
 
-    def create_and_place_entry_boxes(self):
+    def create_and_place_entry_boxes(self) -> None:
         self.source_component_entry = tk.Entry(self, textvariable=self.source_component)
         self.source_component_entry.grid(row=1, column=1, padx=5, pady=5)
 
@@ -88,7 +94,7 @@ class ConnectionEntryFrame(tk.Frame):
         )
         self.destination_terminal_entry.grid(row=2, column=3)
 
-    def create_and_place_checkbuttons(self):
+    def create_and_place_checkbuttons(self) -> None:
         self.increment_source_checkbutton = LocalizedCheckButton(
             self,
             self.controller.localizer,
@@ -113,7 +119,7 @@ class ConnectionEntryFrame(tk.Frame):
         )
         self.lock_destination_checkbutton.grid(row=3, column=1, padx=5, pady=5)
 
-    def create_and_place_buttons(self):
+    def create_and_place_buttons(self) -> None:
         self.undo_button = LocalizedButton(
             self, self.controller.localizer, "undo", command=self.on_undo_button_click
         )
@@ -148,7 +154,7 @@ class ConnectionEntryFrame(tk.Frame):
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
 
-    def populate_entries(self, connection):
+    def populate_entries(self, connection: Connection) -> None:
         self.source_component.set(connection.source_component)
         self.source_terminal_block.set(connection.source_terminal_block)
         self.source_terminal.set(connection.source_terminal)
@@ -177,7 +183,7 @@ class ConnectionEntryFrame(tk.Frame):
             "terminal": self.destination_terminal.get(),
         }
 
-        # Check if every field is empty
+        # Do not add the wire if the fields are empty.
         if self.is_empty_label(
             source["component"],
             source["terminal_block"],
@@ -198,12 +204,12 @@ class ConnectionEntryFrame(tk.Frame):
 
     def is_empty_label(
         self,
-        source_component,
-        source_terminal_block,
-        source_terminal,
-        destination_component,
-        destination_terminal_block,
-        destination_terminal,
+        source_component: str,
+        source_terminal_block: str,
+        source_terminal: str,
+        destination_component: str,
+        destination_terminal_block: str,
+        destination_terminal: str,
     ) -> bool:
         return (
             source_component == ""
@@ -217,7 +223,7 @@ class ConnectionEntryFrame(tk.Frame):
     def on_undo_button_click(self) -> None:
         self.controller.undo_connection_command()
 
-    def increment(self, entry_widget):
+    def increment(self, entry_widget: tk.Entry) -> None:
         # Alter to auto detect numbers along with letters, and update the number
         current_value = entry_widget.get()
 

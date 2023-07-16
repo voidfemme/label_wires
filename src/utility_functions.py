@@ -10,7 +10,7 @@ class ExportFormat(Enum):
     CABLE = auto()
 
 
-def is_valid_entry_field_string(input_string) -> bool:
+def is_valid_entry_field_string(input_string: str) -> bool:
     # Check that input is a string
     if not isinstance(input_string, str):
         return False

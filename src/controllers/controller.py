@@ -45,7 +45,7 @@ class Controller:
         self.wait_for_new_project_dialog()
         self.load_connections()
 
-    def wait_for_new_project_dialog(self):
+    def wait_for_new_project_dialog(self) -> None:
         self.new_project_dialog = NewProjectDialog(
             self.settings, self.localizer, self.view
         )
@@ -56,11 +56,10 @@ class Controller:
             self.full_file_path = ""
         self.set_file_path(self.full_file_path)
 
-    def get_file_path(self):
+    def get_file_path(self) -> None:
         self.file_name = filedialog.asksaveasfilename()
 
-    def set_file_path(self, file_path):
-        print(f"Called Controller.set_file_path({file_path})")
+    def set_file_path(self, file_path) -> None:
         self.connection_manager.set_save_file_name(file_path)
 
     def populate_connections(self) -> None:
@@ -105,13 +104,15 @@ class Controller:
         )
         self.command_manager.execute(command)
 
-    def add_connection_command(self, source: str, destination: str) -> None:
+    def add_connection_command(
+        self, source: dict[str, str], destination: dict[str, str]
+    ) -> None:
         command = AddConnectionCommand(
             self.event_system, self.connection_manager, source, destination
         )
         self.command_manager.execute(command)
 
-    def delete_connection_command(self):
+    def delete_connection_command(self) -> None:
         command = DeleteConnectionCommand(self, self.view)
         self.command_manager.execute(command)
         self.view.tree_widget.update_connection_list()
@@ -138,7 +139,7 @@ class Controller:
     def quit_program(self) -> None:
         self.view.destroy()
 
-    def run(self):
+    def run(self) -> None:
         self.view.mainloop()
 
     def save_to_json_file(self) -> bool:
@@ -159,8 +160,8 @@ class FileController:
     def save_to_json(self) -> bool:
         return self.connection_manager.save_json_to_file()
 
-    def load_from_json(self):
+    def load_from_json(self) -> None:
         self.connection_manager.load_json_from_file()
 
-    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy):
+    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy) -> None:
         self.connection_manager.export_to_csv(file_path, strategy)

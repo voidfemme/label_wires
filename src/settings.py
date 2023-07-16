@@ -38,8 +38,8 @@ class Settings:
             json.dump(self.loaded_settings, f, indent=4)
 
     def get(self, setting_key: str, default_value: str = "") -> str:
-        # figure out why I have a "default_value" parameter 😂
+        # figure out why I have a "default_value" parameter 😂  # comment stays for posterity
         return self.loaded_settings.get(setting_key, default_value)
 
-    def set(self, setting_key, setting_value) -> None:
+    def set(self, setting_key: str, setting_value: str) -> None:
         self.loaded_settings[setting_key] = setting_value

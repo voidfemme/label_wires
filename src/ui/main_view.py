@@ -60,9 +60,7 @@ class MainView(tk.Tk):
         )
 
         self.horizontal_rule_footer = ttk.Separator(self, orient="horizontal")
-        self.footer = Footer(
-            self, self.controller, self.controller.localizer, self.settings
-        )
+        self.footer = Footer(self, self.controller)
 
     def arrange_widgets_in_grid(self) -> None:
         print("Arranging widgets")

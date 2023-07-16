@@ -1,6 +1,10 @@
 import tkinter as tk
 from tkinter import ttk
+from typing import TYPE_CHECKING
 import logging
+
+if TYPE_CHECKING:
+    from src.localizer import Localizer
 
 logger = logging.getLogger(__name__)
 
@@ -16,11 +20,18 @@ The Observer pattern allows me to decouple the localization logic from the UI lo
 class LocalizedLabel(tk.Label):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs) -> None:
+    def __init__(
+        self,
+        parent,
+        localizer: Localizer,
+        l10n_key: str,
+        format_args=None,
+        **kwargs,
+    ) -> None:
+        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         self.localizer = localizer
         self.l10n_key = l10n_key
         self.format_args = format_args or {}
-        super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
         logger.info(f"Initialized {self.__class__.__name__} with key {self.l10n_key}")
 
@@ -54,11 +65,13 @@ class LocalizedLabel(tk.Label):
 class LocalizedButton(tk.Button):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs) -> None:
+    def __init__(
+        self, parent, localizer: Localizer, l10n_key: str, format_args=None, **kwargs
+    ) -> None:
+        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         self.localizer = localizer
         self.l10n_key = l10n_key
         self.format_args = format_args or {}
-        super().__init__(master, text=self.get_localized_text(), **kwargs)
         self._all_instances.append(self)
 
     def get_localized_text(self) -> str:
@@ -69,7 +82,6 @@ class LocalizedButton(tk.Button):
         self.update()
 
     def update(self) -> None:
-        # self.update_format_args(self.format_args)
         new_text = self.localizer.get(self.l10n_key).format(**self.format_args)
         self.config(text=new_text)
 
@@ -87,7 +99,9 @@ class LocalizedButton(tk.Button):
 class LocalizedCheckButton(tk.Checkbutton):
     _all_instances = []
 
-    def __init__(self, master, localizer, l10n_key, format_args=None, **kwargs) -> None:
+    def __init__(
+        self, master, localizer: Localizer, l10n_key: str, format_args=None, **kwargs
+    ) -> None:
         self.localizer = localizer
         self.l10n_key = l10n_key
         self.format_args = format_args or {}
@@ -119,10 +133,10 @@ class LocalizedCheckButton(tk.Checkbutton):
 class LocalizedCombobox(ttk.Combobox):
     _all_instances = []
 
-    def __init__(self, master, localizer, values_key, **kwargs) -> None:
+    def __init__(self, master, localizer: Localizer, values_key: str, **kwargs) -> None:
         self.localizer = localizer
         self.values_key = values_key
-        values = localizer.get(values_key)
+        values = localizer.get(self.values_key)
         super().__init__(master, values=values, **kwargs)
         self._all_instances.append(self)
 
