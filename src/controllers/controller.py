@@ -42,6 +42,13 @@ class Controller:
         self.undo_stack = []
         self.full_file_path = None
 
+    def initialize(self) -> None:
+        """
+        This function is called after the Controller instance has been created.
+        It handles all of the additional setup that should not occur in the
+        constructor (e.g. anything that involves calling methods on the Controller
+        itself, or anything that might need to be mocked or stubbed in tests.)
+        """
         self.wait_for_new_project_dialog()
         self.load_connections()
 
@@ -59,7 +66,7 @@ class Controller:
     def get_file_path(self) -> None:
         self.file_name = filedialog.asksaveasfilename()
 
-    def set_file_path(self, file_path) -> None:
+    def set_file_path(self, file_path: str) -> None:
         self.connection_manager.set_save_file_name(file_path)
 
     def populate_connections(self) -> None:

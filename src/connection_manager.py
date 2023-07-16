@@ -35,7 +35,7 @@ class ConnectionManager:
 
     def save_json_to_file(self) -> bool:
         if not self.full_file_path:
-            raise NoFilePathGivenException("No file path provided. Cannot Save")
+            return False
         try:
             with open(self.full_file_path, "w") as file:
                 json.dump([conn.to_dict() for conn in self.connections], file, indent=4)
@@ -55,7 +55,7 @@ class ConnectionManager:
 
     def load_json_from_file(self) -> None:
         if not self.full_file_path:
-            raise NoFilePathGivenException("No file path provided. Cannot Load")
+            return
         try:
             with open(self.full_file_path, "r") as json_file:
                 conn_dicts = json.load(json_file)

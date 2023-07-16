@@ -1,10 +1,10 @@
 from typing import Type
 import unittest
 from unittest.mock import MagicMock, mock_open, patch
-from src.connection import Connection, Wire, Cable
+from src.connection import Connection
 from pathlib import Path
 
-from src.connection_manager import ConnectionManager, WireManager, CableManager
+from src.connection_manager import ConnectionManager
 
 # Pyright errors can be misleading!
 

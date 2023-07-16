@@ -71,10 +71,9 @@ class Localizer(metaclass=SingletonMeta):
                 return self.fallback_strings[key]
             else:
                 raise LocalizationKeyError(f'No localization for key "{key}"')
-        print(f"Localizer.get(self, {key}[type: {type(key)}]) result type: {type(self.strings[key])}")
         return self.strings[key]
 
-    def set_locale(self, new_locale) -> None:
+    def set_locale(self, new_locale: str) -> None:
         self.locale = new_locale
         logger.info(f"Setting locale to: {self.locale}")
         self.load_locale()

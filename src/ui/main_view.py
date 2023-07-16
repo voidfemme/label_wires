@@ -35,7 +35,6 @@ class MainView(tk.Tk):
         self.tree_widget.update_connection_list()
 
     def create_widgets(self) -> None:
-        print("Creating Widgets")
         # Define labels
         self.header = Header(
             self,
@@ -63,7 +62,6 @@ class MainView(tk.Tk):
         self.footer = Footer(self, self.controller)
 
     def arrange_widgets_in_grid(self) -> None:
-        print("Arranging widgets")
         # Arrange widgets in grid (left to right, top to bottom)
         self.header.grid(row=0, column=0, sticky="ew")
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)

@@ -162,7 +162,6 @@ class TreeWidgetFrame(tk.Frame):
             self.tree_item_to_connection[item_id] = connection
 
     def update_selected_connections(self, event) -> None:
-        print(event)
         # Get currently selected items
         selected_items = self.tree_widget.selection()
 

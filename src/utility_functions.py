@@ -1,10 +1,6 @@
 from enum import Enum, auto
 import string
 
-TEMPORARY_FILE_LOCATION = "/home/rsp/programs/label_wires/test wires.wir"
-TEMPORARY_CSV_EXPORT_LOCATION = "/home/rsp/programs/label_wires/test_csv_export.csv"
-
-
 class ExportFormat(Enum):
     WIRE = auto()
     CABLE = auto()
