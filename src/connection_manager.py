@@ -1,8 +1,6 @@
-import json
 import logging
 from pathlib import Path
 
-from typing import List, Tuple
 from src.connection import Connection
 from src.settings import Settings
 from src.utility_functions import validate_json_wire_fields
@@ -31,7 +29,7 @@ class ConnectionManager:
 
     def __init__(self, full_file_path=None) -> None:
         self.settings = Settings()
-        self.connections: List[Connection] = []
+        self.connections: list[Connection] = []
         self.observers = []
         self.full_file_path = full_file_path
 
@@ -46,6 +44,7 @@ class ConnectionManager:
         for observer in self.observers:
             observer.update_connection_list()
 
+    # Other methods
     def set_save_file_name(self, file_name: str) -> None:
         self.full_file_path = file_name
         self.file_handler = FileHandler(self.full_file_path)
@@ -97,23 +96,18 @@ class ConnectionManager:
             logger.info("Attempted to edit a connection that doesn't exist.")
             return False
 
-    def get_connection_tuple(self, connection: Connection) -> Tuple[str, str]:
+    def get_connection_tuple(self, connection: Connection) -> tuple[str, str]:
         if connection not in self.connections:
             return ("", "")
         return connection.to_tuple()
 
-    def get_connections(self) -> List[Connection]:
+    def get_connections(self) -> list[Connection]:
         # Return a copy of the list of connections. Return a copy because returning the
         # object itself can alow external code to mutate the internal state of the class.
         return self.connections[:]
 
     def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy) -> None:
-        full_file_path = Path(file_path)
-        if full_file_path.exists():
-            raise FileExistsError(
-                f"The file '{full_file_path}' already exists. Cannot overwrite."
-            )
-        strategy.export_to_csv(full_file_path, self.connections)
+        self.file_handler.export(file_path, strategy, self.connections)
 
     def add_connection(
         self,

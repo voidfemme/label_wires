@@ -1,6 +1,9 @@
 import logging
 import json
+from pathlib import Path
 from src.connection import Connection
+from src.csv_exporting_strategy import ExportToCSVStrategy
+
 
 logger = logging.getLogger(__name__)
 
@@ -52,8 +55,13 @@ class FileHandler:
             logger.info(f"Error: {e}")
             return False
 
-    def export(self, format, data):
-        pass
+    def export(self, file_path: str, strategy: ExportToCSVStrategy, data: list[Connection]):
+        full_file_path = Path(file_path)
+        if full_file_path.exists():
+            raise FileExistsError(
+                f"The file '{full_file_path}' already exists. Cannot overwrite."
+            )
+        strategy.export_to_csv(full_file_path, data)
 
     def validate_json_wire_fields(self, input_data: list[dict[str, str]]):
         required_fields = [

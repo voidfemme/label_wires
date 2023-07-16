@@ -1,6 +1,7 @@
 from enum import Enum, auto
 import string
 
+
 class ExportFormat(Enum):
     WIRE = auto()
     CABLE = auto()
