@@ -102,7 +102,7 @@ class ConnectionManager:
         return connection.to_tuple()
 
     def get_connections(self) -> list[Connection]:
-        # Return a copy of the list of connections. Return a copy because returning the
+        # Return a copy of the list of connections. Return a *copy* because returning the
         # object itself can alow external code to mutate the internal state of the class.
         return self.connections[:]
 

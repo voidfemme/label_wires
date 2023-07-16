@@ -2,16 +2,21 @@
 import logging
 
 from tkinter import filedialog
-from pathlib import Path
 
 from src.ui.main_view import MainView
 from src.ui.new_project_dialog import NewProjectDialog
 
+from src.file_handler import FileHandler
 from src.settings import Settings
 from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
-from src.connection_manager import ConnectionManager, NoFilePathGivenException
+from src.connection import Connection
+from src.connection_manager import (
+    ConnectionManager,
+    NoFilePathGivenException,
+    MalformedDataException,
+)
 from src.utility_functions import ExportFormat
 from src.command import (
     AddConnectionCommand,
@@ -19,7 +24,6 @@ from src.command import (
     DeleteConnectionCommand,
 )
 from src.csv_exporting_strategy import (
-    ExportToCSVStrategy,
     ExportWireToCSVStrategy,
     ExportCableToCSVStrategy,
 )
@@ -58,6 +62,10 @@ class Controller:
         else:
             self.full_file_path = ""
         self.set_file_path(self.full_file_path)
+        if self.full_file_path is not None and self.full_file_path != "":
+            self.file_handler = FileHandler(self.full_file_path)
+        else:
+            return  # Figure out how I want to handle this case
 
     def get_file_path(self) -> None:
         self.file_name = filedialog.asksaveasfilename()
@@ -165,18 +173,14 @@ class Controller:
             return False
 
     def load_from_json_file(self) -> None:
-        self.connection_manager.load_json_from_file()
-
-
-class FileController:
-    def __init__(self, connection_manager: ConnectionManager) -> None:
-        self.connection_manager = connection_manager
-
-    def save_to_json(self) -> bool:
-        return self.connection_manager.save_json_to_file()
-
-    def load_from_json(self) -> None:
-        self.connection_manager.load_json_from_file()
-
-    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy) -> None:
-        self.connection_manager.export_to_csv(file_path, strategy)
+        if self.full_file_path is not None:
+            # Load in the connections from the file using the filehandler
+            connection_dicts = self.file_handler.load()
+            if connection_dicts is not None:
+                self.connection_manager.connections = [
+                    Connection(**connection_dict)
+                    for connection_dict in connection_dicts
+                    if not Connection(**connection_dict).is_empty()
+                ]  # **connection_dict means that I'm unpacking a dictionary into the Wire object
+            else:
+                raise MalformedDataException
