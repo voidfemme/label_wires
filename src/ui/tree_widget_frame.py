@@ -148,7 +148,7 @@ class TreeWidgetFrame(tk.Frame):
         """
         Check if the parent is destroyed before updating the wire list, because
         if not, the program will try to update the connection list because of
-        the observers trying to call this method on quit. This is likely a
+        the observers trying to call this method on quit. This is a
         stopgap measure until I try to figure out how to get the observers to
         not update when the application is quitting.
         """

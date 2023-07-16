@@ -105,9 +105,6 @@ class ConnectionManager:
         # object itself can alow external code to mutate the internal state of the class.
         return self.connections[:]
 
-    def export_to_csv(self, file_path: str, strategy: ExportToCSVStrategy) -> None:
-        self.file_handler.export(file_path, strategy, self.connections)
-
     def add_connection(
         self,
         source_component: str,

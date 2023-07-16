@@ -74,7 +74,7 @@ class Controller:
         self.connection_manager.set_save_file_name(file_path)
 
     def populate_connections(self) -> None:
-        self.connection_manager.load_json_from_file()
+        self.load_from_json_file()
         for connection in self.connection_manager.get_connections():
             source, destination = self.connection_manager.get_connection_tuple(
                 connection
@@ -145,7 +145,11 @@ class Controller:
             print("Exported Cables successfully")
         else:
             raise ValueError(f"Invalid format: {format}")
-        self.connection_manager.export_to_csv(file_path=file_path, strategy=strategy)
+        self.file_handler.export(
+            file_path=file_path,
+            strategy=strategy,
+            data=self.connection_manager.connections,
+        )
 
     def quit_program(self) -> None:
         self.view.destroy()
@@ -166,11 +170,11 @@ class Controller:
         self.view.mainloop()
 
     def save_to_json_file(self) -> bool:
-        try:
-            return self.connection_manager.save_json_to_file()
-        except NoFilePathGivenException as e:
-            self.view.display_status(str(e))
-            return False
+        data = [
+            connection.to_dict() for connection in self.connection_manager.connections
+        ]
+        success = self.file_handler.save(data)
+        return success
 
     def load_from_json_file(self) -> None:
         if self.full_file_path is not None:
