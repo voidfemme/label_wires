@@ -50,6 +50,10 @@ class ConnectionManager:
         self.file_handler = FileHandler(self.full_file_path)
 
     def save_json_to_file(self) -> bool:
+        """
+        This method should not be here, but I'm unsure of how exactly to remove it
+        without breaking the treewidget.
+        """
         data = [connection.to_dict() for connection in self.connections]
         success = self.file_handler.save(data)
         return success
