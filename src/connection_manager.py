@@ -54,8 +54,7 @@ class ConnectionManager:
         success = self.file_handler.save(data)
         return success
 
-    def load_json_from_file(self) -> None:
-        conn_dicts = self.file_handler.load()
+    def populate_connections(self, conn_dicts) -> None:
         if conn_dicts is not None:
             self.connections = [
                 Connection(**conn_dict)

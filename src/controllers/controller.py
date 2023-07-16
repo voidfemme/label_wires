@@ -176,11 +176,4 @@ class Controller:
         if self.full_file_path is not None:
             # Load in the connections from the file using the filehandler
             connection_dicts = self.file_handler.load()
-            if connection_dicts is not None:
-                self.connection_manager.connections = [
-                    Connection(**connection_dict)
-                    for connection_dict in connection_dicts
-                    if not Connection(**connection_dict).is_empty()
-                ]  # **connection_dict means that I'm unpacking a dictionary into the Wire object
-            else:
-                raise MalformedDataException
+            self.connection_manager.populate_connections(connection_dicts)
