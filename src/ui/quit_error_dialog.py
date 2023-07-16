@@ -1,9 +1,12 @@
 import tkinter as tk
 from tkinter import filedialog
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from src.controllers.controller import Controller
 
 
 class QuitErrorDialog:
-    def __init__(self, parent, controller):
+    def __init__(self, parent, controller: "Controller"):
         top = self.top = tk.Toplevel(parent)
         self.controller = controller
         tk.Label(top, text="An error occurred!").pack()

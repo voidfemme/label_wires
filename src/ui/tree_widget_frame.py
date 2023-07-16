@@ -1,9 +1,14 @@
 from typing import Tuple
 from tkinter import ttk
+from typing import TYPE_CHECKING
 import tkinter as tk
 import logging
 
 from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
+
+if TYPE_CHECKING:
+    from src.controllers.controller import Controller
+    from src.event_system import EventSystem
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +18,9 @@ class TreeWidgetFrame(tk.Frame):
     Class that handles the frame that contains the list of wires, and the edit and delete buttons
     """
 
-    def __init__(self, parent, controller, event_system, **kwargs):
+    def __init__(
+        self, parent, controller: "Controller", event_system: "EventSystem", **kwargs
+    ):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller

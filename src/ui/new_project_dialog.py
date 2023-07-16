@@ -15,7 +15,9 @@ It allows them to access settings, create a new project, or open an existing pro
 
 
 class NewProjectDialog(tk.Toplevel):
-    def __init__(self, settings, localizer, parent: Optional[Any] = None) -> None:
+    def __init__(
+        self, settings: Settings, localizer: Localizer, parent: Optional[Any] = None
+    ) -> None:
         super().__init__(master=parent)
         self.settings = settings
         self.parent = parent

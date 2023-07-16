@@ -23,16 +23,16 @@ class LocalizedLabel(tk.Label):
     def __init__(
         self,
         parent,
-        localizer: Localizer,
+        localizer: "Localizer",
         l10n_key: str,
         format_args=None,
         **kwargs,
     ) -> None:
-        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         self.localizer = localizer
         self.l10n_key = l10n_key
         self.format_args = format_args or {}
         self._all_instances.append(self)
+        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         logger.info(f"Initialized {self.__class__.__name__} with key {self.l10n_key}")
 
     def get_localized_text(self) -> str:
@@ -66,11 +66,11 @@ class LocalizedButton(tk.Button):
     _all_instances = []
 
     def __init__(
-        self, parent, localizer: Localizer, l10n_key: str, format_args=None, **kwargs
+        self, parent, localizer: "Localizer", l10n_key: str, format_args=None, **kwargs
     ) -> None:
-        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         self.localizer = localizer
         self.l10n_key = l10n_key
+        super().__init__(parent, text=self.get_localized_text(), **kwargs)
         self.format_args = format_args or {}
         self._all_instances.append(self)
 
@@ -100,7 +100,7 @@ class LocalizedCheckButton(tk.Checkbutton):
     _all_instances = []
 
     def __init__(
-        self, master, localizer: Localizer, l10n_key: str, format_args=None, **kwargs
+        self, master, localizer: "Localizer", l10n_key: str, format_args=None, **kwargs
     ) -> None:
         self.localizer = localizer
         self.l10n_key = l10n_key
@@ -133,7 +133,7 @@ class LocalizedCheckButton(tk.Checkbutton):
 class LocalizedCombobox(ttk.Combobox):
     _all_instances = []
 
-    def __init__(self, master, localizer: Localizer, values_key: str, **kwargs) -> None:
+    def __init__(self, master, localizer: "Localizer", values_key: str, **kwargs) -> None:
         self.localizer = localizer
         self.values_key = values_key
         values = localizer.get(self.values_key)
@@ -158,7 +158,7 @@ class LocalizedCombobox(ttk.Combobox):
 class LocalizedTreeview(ttk.Treeview):
     _all_instances = []
 
-    def __init__(self, master, localizer, columns_keys_mapping, **kwargs) -> None:
+    def __init__(self, master, localizer: "Localizer", columns_keys_mapping, **kwargs) -> None:
         self.localizer = localizer
         self.columns_keys_mapping = columns_keys_mapping
         super().__init__(master, columns=columns_keys_mapping.keys(), **kwargs)

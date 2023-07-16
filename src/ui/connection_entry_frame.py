@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 
 class ConnectionEntryFrame(tk.Frame):
-    def __init__(self, parent: MainView, controller: Controller, **kwargs):
+    def __init__(self, parent: "MainView", controller: "Controller", **kwargs):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller

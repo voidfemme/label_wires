@@ -8,7 +8,7 @@ if TYPE_CHECKING:
 
 
 class Header(tk.Frame):
-    def __init__(self, parent: MainView, controller: Controller) -> None:
+    def __init__(self, parent: "MainView", controller: "Controller") -> None:
         super().__init__(parent)
         self.controller = controller
 

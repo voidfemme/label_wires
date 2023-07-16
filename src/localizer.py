@@ -65,13 +65,13 @@ class Localizer(metaclass=SingletonMeta):
         with locale_path.open("r", encoding="utf-8") as f:
             self.strings = json.load(f)
 
-    def get(self, key):
+    def get(self, key: str) -> str:
         if key not in self.strings:
             if self.default_english and key in self.fallback_strings:
                 return self.fallback_strings[key]
             else:
                 raise LocalizationKeyError(f'No localization for key "{key}"')
-        print(f"Localizer.get(self, {key}) result type: {type(self.strings[key])}")
+        print(f"Localizer.get(self, {key}[type: {type(key)}]) result type: {type(self.strings[key])}")
         return self.strings[key]
 
     def set_locale(self, new_locale) -> None:

@@ -8,10 +8,15 @@ from src.ui.localized_widgets import (
     LocalizedTreeview,
     LocalizedCheckButton,
 )
+from typing import TYPE_CHECKING
+if TYPE_CHECKING:
+    from src.settings import Settings
 
 
 class SettingsWindow(tk.Toplevel):
-    def __init__(self, master, settings, language="en", *args, **kwargs) -> None:
+    def __init__(
+        self, master, settings: "Settings", language: str = "en", *args, **kwargs
+    ) -> None:
         super().__init__(master, *args, **kwargs)
         self.settings = settings
         self.localizer = Localizer(language)

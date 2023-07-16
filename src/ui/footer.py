@@ -6,7 +6,7 @@ if TYPE_CHECKING:
 
 
 class Footer(tk.Frame):
-    def __init__(self, parent, controller: Controller):
+    def __init__(self, parent, controller: "Controller"):
         super().__init__(parent)
         self.controller = controller
 
