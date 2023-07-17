@@ -180,4 +180,5 @@ class Controller:
         if self.full_file_path is not None:
             # Load in the connections from the file using the filehandler
             connection_dicts = self.file_handler.load()
-            self.connection_manager.populate_connections(connection_dicts)
+            if connection_dicts is not None:
+                self.connection_manager.populate_connections(connection_dicts)
