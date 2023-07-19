@@ -65,8 +65,6 @@ class ConnectionManager:
                 for conn_dict in conn_dicts
                 if not Connection(**conn_dict).is_empty()
             ]  # **conn_dict is because we're unpacking the dictionary into the Wire object
-        else:
-            raise MalformedDataException
 
     def delete_connection(self, connection_to_delete: Connection) -> bool:
         if connection_to_delete in self.connections:

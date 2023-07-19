@@ -41,6 +41,7 @@ class Controller:
         self.view = MainView(self, self.localizer)
         self.undo_stack = []
         self.full_file_path = None
+        self.file_handler = None
 
     def initialize(self) -> None:
         """
@@ -180,5 +181,4 @@ class Controller:
         if self.full_file_path is not None:
             # Load in the connections from the file using the filehandler
             connection_dicts = self.file_handler.load()
-            if connection_dicts is not None:
-                self.connection_manager.populate_connections(connection_dicts)
+            self.connection_manager.populate_connections(connection_dicts)
