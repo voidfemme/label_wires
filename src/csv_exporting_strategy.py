@@ -22,6 +22,7 @@ class ExportWireToCSVStrategy(ExportToCSVStrategy):
                     source = f"{connection.source_component}-{connection.source_terminal_block}-{connection.source_terminal}"
                     destination = f"{connection.destination_component}-{connection.destination_terminal_block}-{connection.destination_terminal}"
                     writer.writerow([source, destination])
+            print("Successfully exported wires")
         except FileNotFoundError:
             logger.info(f"Error: Directory '{file_path}' not found")
         except PermissionError:
@@ -39,6 +40,7 @@ class ExportCableToCSVStrategy(ExportToCSVStrategy):
                     source = f"{connection.source_component}-{connection.source_terminal_block} [{connection.source_terminal}]"
                     destination = f"{connection.destination_component}-{connection.destination_terminal_block} [{connection.destination_terminal}]"
                     writer.writerow([source, destination])
+            print("Successfully exported cables")
         except FileNotFoundError:
             logger.info(f"Error: Directory '{file_path}' not found")
         except PermissionError:

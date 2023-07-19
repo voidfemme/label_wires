@@ -54,10 +54,12 @@ class Controller:
         self.load_connections()
 
     def wait_for_new_project_dialog(self) -> None:
+        self.view.withdraw()
         self.new_project_dialog = NewProjectDialog(
             self.settings, self.localizer, self.view
         )
         self.view.wait_window(self.new_project_dialog)
+        self.view.deiconify()
         if self.new_project_dialog.result is not None:
             self.full_file_path = self.new_project_dialog.result.get("file_path", "")
         else:
@@ -66,7 +68,7 @@ class Controller:
         if self.full_file_path is not None and self.full_file_path != "":
             self.file_handler = FileHandler(self.full_file_path)
         else:
-            return  # Figure out how I want to handle this case
+            return  # Figure out how I want to handle this case.
 
     def get_file_path(self) -> None:
         self.file_name = filedialog.asksaveasfilename()
@@ -140,17 +142,18 @@ class Controller:
             return
         if format == ExportFormat.WIRE:
             strategy = ExportWireToCSVStrategy()
-            print("Exported Wires successfully")
         elif format == ExportFormat.CABLE:
             strategy = ExportCableToCSVStrategy()
-            print("Exported Cables successfully")
         else:
             raise ValueError(f"Invalid format: {format}")
-        self.file_handler.export(
-            file_path=file_path,
-            strategy=strategy,
-            data=self.connection_manager.connections,
-        )
+        if self.file_handler is not None:
+            self.file_handler.export(
+                file_path=file_path,
+                strategy=strategy,
+                data=self.connection_manager.connections,
+            )
+        else:
+            print("file handler not initialized")
 
     def quit_program(self) -> None:
         self.view.destroy()
