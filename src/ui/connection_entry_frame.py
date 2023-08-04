@@ -133,25 +133,56 @@ class ConnectionEntryFrame(tk.Frame):
         )
         self.add_connection_button.grid(row=3, column=3, padx=5, pady=5)
 
+    def toggle_destination(self) -> None:
+        if self.lock_destination_toggle.get() is True:
+            print("Setting toggle to False")
+            self.lock_destination_toggle.set(False)
+        elif self.lock_destination_toggle is False:
+            print("Setting toggle to True")
+            self.lock_destination_toggle.set(True)
+
     def define_bindings(self) -> None:
         # Define bindings
         self.source_component_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
+        self.source_component_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
+        )
+
         self.source_terminal_block_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
+        self.source_terminal_block_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
+        )
+
         self.source_terminal_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
+        self.source_terminal_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
+        )
+
         self.destination_component_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
+        self.destination_component_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
+        )
+
         self.destination_terminal_block_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
         )
+        self.destination_terminal_block_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
+        )
+
         self.destination_terminal_entry.bind(
             "<Return>", lambda event: self.on_add_connection_button_click()
+        )
+        self.destination_terminal_entry.bind(
+            "<Control-l>", lambda event: self.toggle_destination()
         )
 
     def populate_entries(self, connection: Connection) -> None:

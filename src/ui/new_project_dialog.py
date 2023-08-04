@@ -225,13 +225,15 @@ class NewProjectDialog(tk.Toplevel):
         label2 = tk.Label(about_win, text=link, fg="blue", cursor="hand2")
         label2.pack(side="top")
         label2.bind("<Button-1>", lambda e: self.open_url(link))
-        close_button = LocalizedButton(self, self.localizer, "close", command=about_win.destroy)
+        close_button = LocalizedButton(
+            self, self.localizer, "close", command=about_win.destroy
+        )
         close_button.pack(side="top")
 
     def quit_program(self) -> None:
         # Close the current window:
         self.destroy()
-        self.parent.quit_program()  # type: ignore
+        self.parent.quit_program(True)  # type: ignore
 
     def apply(self) -> None:
         directory = Path(self.directory.get())

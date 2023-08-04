@@ -11,11 +11,9 @@ from src.settings import Settings
 from src.localizer import Localizer
 from src.command_manager import CommandManager
 from src.event_system import EventSystem
-from src.connection import Connection
 from src.connection_manager import (
     ConnectionManager,
     NoFilePathGivenException,
-    MalformedDataException,
 )
 from src.utility_functions import ExportFormat
 from src.command import (
@@ -41,7 +39,7 @@ class Controller:
         self.view = MainView(self, self.localizer)
         self.undo_stack = []
         self.full_file_path = None
-        self.file_handler = None
+        self.file_handler = FileHandler()
 
     def initialize(self) -> None:
         """
@@ -59,14 +57,20 @@ class Controller:
             self.settings, self.localizer, self.view
         )
         self.view.wait_window(self.new_project_dialog)
-        self.view.deiconify()
+
+        # If we get a result from the new project dialog, set the file path, and open up the main
+        # app, otherwise, set the file path to an empty string, so we can determine whether to quit
+        # early
         if self.new_project_dialog.result is not None:
             self.full_file_path = self.new_project_dialog.result.get("file_path", "")
         else:
             self.full_file_path = ""
         self.set_file_path(self.full_file_path)
+
+        # Show the main window if all the proper fields are set.
         if self.full_file_path is not None and self.full_file_path != "":
             self.file_handler = FileHandler(self.full_file_path)
+            self.view.deiconify()
         else:
             return  # Figure out how I want to handle this case.
 
@@ -102,15 +106,15 @@ class Controller:
             return
 
         # Put the old values into the entry boxes
-        self.view.connection_entry_frame.populate_entries(old_connection)
+        self.view.entry_frame.populate_entries(old_connection)
 
         new_values = {
-            "source_component": self.view.connection_entry_frame.source_component.get(),
-            "source_terminal_block": self.view.connection_entry_frame.source_terminal_block.get(),
-            "source_terminal": self.view.connection_entry_frame.source_terminal.get(),
-            "destination_component": self.view.connection_entry_frame.destination_component.get(),
-            "destination_terminal_block": self.view.connection_entry_frame.destination_terminal_block.get(),
-            "destination_terminal": self.view.connection_entry_frame.destination_terminal.get(),
+            "source_component": self.view.entry_frame.source_component.get(),
+            "source_terminal_block": self.view.entry_frame.source_terminal_block.get(),
+            "source_terminal": self.view.entry_frame.source_terminal.get(),
+            "destination_component": self.view.entry_frame.destination_component.get(),
+            "destination_terminal_block": self.view.entry_frame.destination_terminal_block.get(),
+            "destination_terminal": self.view.entry_frame.destination_terminal.get(),
         }
 
         command = EditConnectionCommand(
@@ -158,8 +162,13 @@ class Controller:
     def quit_program(self) -> None:
         self.view.destroy()
 
-    def handle_quit(self) -> None:
-        # Replacement for quit_program()
+    def handle_quit(self, quit_from_dialog: bool) -> None:
+        if quit_from_dialog:
+            # Return early because we're not saving a file
+            self.quit_program()
+            return
+
+        # Save the file before quitting
         if self.full_file_path:
             self.save_to_json_file()
         else:

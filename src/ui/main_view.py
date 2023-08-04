@@ -47,7 +47,7 @@ class MainView(tk.Tk):
             self.controller,
             self.controller.event_system,
         )
-        self.connection_entry_frame = ConnectionEntryFrame(
+        self.entry_frame = ConnectionEntryFrame(
             self,
             self.controller,
         )
@@ -65,7 +65,7 @@ class MainView(tk.Tk):
         # Arrange widgets in grid (left to right, top to bottom)
         self.header.grid(row=0, column=0, sticky="ew")
         self.tree_widget.grid(row=1, column=0, rowspan=6, padx=5, pady=5)
-        self.connection_entry_frame.grid(row=1, column=1, padx=5, pady=5)
+        self.entry_frame.grid(row=1, column=1, padx=5, pady=5)
         self.utility_buttons_horizontal_rule.grid(
             row=3, column=1, columnspan=5, sticky="ew", pady=5
         )
@@ -122,7 +122,8 @@ class MainView(tk.Tk):
         )
         return file_path
 
-    def quit_program(self) -> None:
+    def quit_program(self, quit_from_dialog: bool = False) -> None:
         self.is_destroying = True
-        self.controller.handle_quit()
-        self.destroy()
+        self.controller.handle_quit(quit_from_dialog)
+        if quit_from_dialog is False:
+            self.destroy()

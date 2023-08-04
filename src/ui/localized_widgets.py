@@ -137,12 +137,12 @@ class LocalizedCombobox(ttk.Combobox):
         self.localizer = localizer
         self.values_key = values_key
         values = localizer.get(self.values_key)
-        super().__init__(master, values=values, **kwargs)
+        super().__init__(master, values=[values], **kwargs)
         self._all_instances.append(self)
 
     def update(self) -> None:
         new_values = self.localizer.get(self.values_key)
-        self.config(values=new_values)
+        self.config(values=[new_values])
 
     def destroy(self) -> None:
         self._all_instances.remove(self)
