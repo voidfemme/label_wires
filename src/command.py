@@ -52,9 +52,9 @@ class DeleteConnectionCommand(Command):
         self.deleted_items = []  # Store deleted items here
 
     def execute(self) -> None:
-        for item in self.view.tree_widget.selection():
+        for item_to_delete in self.view.tree_widget.selection():
             try:
-                connection = self.view.tree_widget.tree_item_to_connection[item]
+                connection = self.view.tree_widget.tree_item_to_connection[item_to_delete]
 
                 # Attempt to delete the connection from the connection manager
                 try:
@@ -75,13 +75,13 @@ class DeleteConnectionCommand(Command):
 
                 # Attempt to delete from tree_item_to_connection
                 try:
-                    del self.view.tree_widget.tree_item_to_connection[item]
+                    del self.view.tree_widget.tree_item_to_connection[item_to_delete]
                 except KeyError:
-                    logger.warning(f"Item {item} not found in tree_item_to_connection")
+                    logger.warning(f"Item {item_to_delete} not found in tree_item_to_connection")
 
                 self.deleted_items.append(
                     {
-                        "item": item,
+                        "item": item_to_delete,
                         "connection": connection,
                         "source_component": connection.source_component,
                         "source_terminal_block": connection.source_terminal_block,
@@ -92,7 +92,7 @@ class DeleteConnectionCommand(Command):
                     }
                 )
             except KeyError:
-                logger.warning(f"Connection not found for item: {item}")
+                logger.warning(f"Connection not found for item: {item_to_delete}")
                 continue
 
     def undo(self) -> None:
@@ -152,13 +152,12 @@ class EditConnectionCommand(Command):
     def execute(self) -> None:
         self.old_values = self.old_connection.to_dict()
 
-        self.connection_manager.delete_connection(self.old_connection)
-
         new_connection = Connection(**self.new_values)
-        self.connection_manager.add_connection(new_connection)
+        self.connection_manager.add_connection(**new_connection.to_dict())
+        self.connection_manager.delete_connection(self.old_connection)
 
     def undo(self) -> None:
         new_connection = Connection(**self.new_values)
-        self.connection_manager.delete_connection(new_connection)
 
-        self.connection_manager.add_connection(self.old_connection)
+        self.connection_manager.add_connection(**self.old_connection.to_dict())
+        self.connection_manager.delete_connection(new_connection)
