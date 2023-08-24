@@ -54,7 +54,9 @@ class DeleteConnectionCommand(Command):
     def execute(self) -> None:
         for item_to_delete in self.view.tree_widget.selection():
             try:
-                connection = self.view.tree_widget.tree_item_to_connection[item_to_delete]
+                connection = self.view.tree_widget.tree_item_to_connection[
+                    item_to_delete
+                ]
 
                 # Attempt to delete the connection from the connection manager
                 try:
@@ -77,7 +79,9 @@ class DeleteConnectionCommand(Command):
                 try:
                     del self.view.tree_widget.tree_item_to_connection[item_to_delete]
                 except KeyError:
-                    logger.warning(f"Item {item_to_delete} not found in tree_item_to_connection")
+                    logger.warning(
+                        f"Item {item_to_delete} not found in tree_item_to_connection"
+                    )
 
                 self.deleted_items.append(
                     {
