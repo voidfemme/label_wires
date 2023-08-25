@@ -95,6 +95,9 @@ class Controller:
             self.view.footer.display_status(str(e))
         self.view.tree_widget.update_connection_list()
 
+    def update_connection_list(self):
+        self.view.tree_widget.update_connection_list()
+
     def edit_connection(self) -> None:
         # Get the currently selected connection.
         selected_items = self.view.tree_widget.selection()
@@ -136,9 +139,13 @@ class Controller:
         self.view.tree_widget.update_connection_list()
 
     def undo_connection_command(self) -> None:
+        print("Attempting to undo the last command...")
         if self.command_manager.undo_stack:
+            print("Undo stack is not empty. Popping the last command...")
             command = self.command_manager.undo_stack.pop()
             command.undo()
+        else:
+            print("Undo stack is empty. Nothing to undo.")
 
     def export_to_csv(self, format: ExportFormat) -> None:
         file_path = filedialog.asksaveasfilename(title="Save CSV as...")
@@ -194,3 +201,6 @@ class Controller:
             # Load in the connections from the file using the filehandler
             connection_dicts = self.file_handler.load()
             self.connection_manager.populate_connections(connection_dicts)
+
+    def display_status(self, message):
+        self.view.footer.display_status(message)

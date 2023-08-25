@@ -252,6 +252,7 @@ class ConnectionEntryFrame(tk.Frame):
         )
 
     def on_undo_button_click(self) -> None:
+        print("Undo button clicked!")
         self.controller.undo_connection_command()
 
     def increment(self, entry_widget: tk.Entry) -> None:

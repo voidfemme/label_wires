@@ -20,6 +20,9 @@ class AddConnectionCommand(Command):
         self.item = None
         self.event_system = event_system
 
+    def __repr__(self):
+        return "AddConnectionCommand"
+
     def execute(self) -> None:
         # Add the connection in the connection manager
         self.connection = self.connection_manager.add_connection(
@@ -50,6 +53,9 @@ class DeleteConnectionCommand(Command):
         self.parent = parent
         self.view = view
         self.deleted_items = []  # Store deleted items here
+
+    def __repr__(self):
+        return "DeleteConnectionCommand"
 
     def execute(self) -> None:
         for item_to_delete in self.view.tree_widget.selection():
@@ -152,6 +158,9 @@ class EditConnectionCommand(Command):
         self.old_connection = old_connection
         self.new_values = new_values
         self.connections_to_edit = []
+
+    def __repr__(self) -> str:
+        return "EditConnectionCommand"
 
     def execute(self) -> None:
         self.old_values = self.old_connection.to_dict()
