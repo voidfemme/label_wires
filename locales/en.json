@@ -60,6 +60,7 @@
   "export_cables": "Export Cables",
   "export_wires": "Export Wires",
   "unsaved_changes": "You have unsaved changes",
-  "save_changes_prompt": "Would you like to save your changes?"
-  ,"close": "Close"
+  "save_changes_prompt": "Would you like to save your changes?",
+  "close": "Close",
+  "ID": "ID"
 }

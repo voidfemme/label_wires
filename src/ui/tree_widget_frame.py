@@ -123,6 +123,12 @@ class TreeWidgetFrame(tk.Frame):
         # Add to tree widget and get unique identifier
         self.item = self.tree_widget.insert("", "end", values=(source, destination))
 
+        # Check if the item was successfully added
+        if self.item in self.tree_widget.get_children():
+            print(f"Item with ID {self.item} successfully added to the tree widget")
+        else:
+            print(f"Failed to add item with ID {self.item} to tree widget.")
+
         # Add to the mapping dictionary
         self.tree_item_to_connection[self.item] = connection
 
@@ -133,6 +139,7 @@ class TreeWidgetFrame(tk.Frame):
             )
         )
 
+        print(f"Added item with ID {self.item} for connection {connection}")
         # Update the tree widget
         self.controller.load_connections()
         self.update_connection_list()
@@ -141,8 +148,12 @@ class TreeWidgetFrame(tk.Frame):
         item = [k for k, v in self.tree_item_to_connection.items() if v == connection][
             0
         ]
-        self.tree_widget.delete(item)
-        del self.tree_item_to_connection[item]
+        print(f"Attempting to remove item with ID {item} for connection {connection}")
+        if item in self.tree_widget.get_children():
+            self.tree_widget.delete(item)
+            del self.tree_item_to_connection[item]
+        else:
+            print(f"Item with ID {item} not found in tree widget.")
 
     def update_connection_list(self) -> None:
         """
