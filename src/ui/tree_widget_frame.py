@@ -9,6 +9,7 @@ from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
 if TYPE_CHECKING:
     from src.controllers.controller import Controller
     from src.event_system import EventSystem
+    from src.connection import Connection
 
 logger = logging.getLogger(__name__)
 
@@ -139,7 +140,7 @@ class TreeWidgetFrame(tk.Frame):
             )
         )
 
-        print(f"Added item with ID {self.item} for connection {connection}")
+        print(f"Added item with ID {self.item} for connection {type(connection)}")
         # Update the tree widget
         self.controller.load_connections()
         self.update_connection_list()

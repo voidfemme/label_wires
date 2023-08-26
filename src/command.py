@@ -1,5 +1,6 @@
 import logging
 from src.connection import Connection
+from src.connection_manager import DuplicateConnectionError
 
 logger = logging.getLogger(__name__)
 
@@ -24,18 +25,21 @@ class AddConnectionCommand(Command):
         return "AddConnectionCommand"
 
     def execute(self) -> None:
-        # Add the connection in the connection manager
-        self.connection = self.connection_manager.add_connection(
-            self.source["component"],
-            self.source["terminal_block"],
-            self.source["terminal"],
-            self.destination["component"],
-            self.destination["terminal_block"],
-            self.destination["terminal"],
-        )
+        try:
+            # Add the connection in the connection manager
+            self.connection = self.connection_manager.add_connection(
+                self.source["component"],
+                self.source["terminal_block"],
+                self.source["terminal"],
+                self.destination["component"],
+                self.destination["terminal_block"],
+                self.destination["terminal"],
+            )
 
-        # Publish an event that a connection has been added
-        self.event_system.publish("connection_added", self.connection)
+            # Publish an event that a connection has been added
+            self.event_system.publish("connection_added", self.connection)
+        except DuplicateConnectionError:
+            logger.error("Failed to add connection: Duplicate detected.")
 
     def undo(self) -> None:
         self.connection_manager.delete_connection(self.connection)

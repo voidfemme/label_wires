@@ -2,7 +2,7 @@ class EventSystem:
     def __init__(self) -> None:
         self._events = {}
 
-    def subscribe(self, event_name: str, callback):
+    def subscribe(self, event_name: str, callback) -> None:
         if event_name not in self._events:
             self._events[event_name] = []
         self._events[event_name].append(callback)

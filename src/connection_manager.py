@@ -19,6 +19,10 @@ class MalformedDataException(Exception):
     pass
 
 
+class DuplicateConnectionError(Exception):
+    pass
+
+
 class ConnectionManager:
     """
     This is the connection manager, which is responsible for managing the master list of wires.
@@ -115,7 +119,7 @@ class ConnectionManager:
         destination_component: str,
         destination_terminal_block: str,
         destination_terminal: str,
-    ) -> bool:
+    ) -> Connection:
         connection = Connection(
             source_component,
             source_terminal_block,
@@ -131,7 +135,7 @@ class ConnectionManager:
             self.connections.append(connection)
             self.save_json_to_file()
             logger.info("Connection successfully added.")
-            return True
+            return connection
         else:
             logger.info("Attempted to add duplicate or reverse duplicate connection.")
-            return False
+            raise DuplicateConnectionError("Duplicate connection attempted")
