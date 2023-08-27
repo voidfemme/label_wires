@@ -202,7 +202,7 @@ class NewProjectDialog(tk.Toplevel):
             self.destroy()
 
     def open_settings(self) -> None:
-        self.settings_window = SettingsWindow(self, self.settings)
+        self.settings_window = SettingsWindow(self, settings=self.settings)
 
     def open_url(self, url) -> None:
         webbrowser.open_new(url)

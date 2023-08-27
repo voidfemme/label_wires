@@ -42,7 +42,7 @@ class Controller:
         self.command_manager = CommandManager()
         self.event_system = EventSystem()  # Publish-Subscribe system for actions
         self.connection_manager = ConnectionManager()
-        self.view = MainView(self, self.localizer)
+        self.view = MainView(controller=self, settings=self.settings)
         self.undo_stack = []
         self.full_file_path = None
         self.file_handler = FileHandler()
