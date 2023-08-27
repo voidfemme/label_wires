@@ -44,9 +44,9 @@ class ConnectionManager:
     def remove_observer(self, observer) -> None:
         self.observers.remove(observer)
 
-    def notify_observers(self) -> None:
+    def notify_observers(self, **kwargs) -> None:
         for observer in self.observers:
-            observer.update_connection_list()
+            observer.update_connection_list(**kwargs)
 
     # Other methods
     def set_save_file_name(self, file_name: str) -> None:
@@ -135,6 +135,7 @@ class ConnectionManager:
             self.connections.append(connection)
             self.save_json_to_file()
             logger.info("Connection successfully added.")
+            self.notify_observers()
             return connection
         else:
             logger.info("Attempted to add duplicate or reverse duplicate connection.")

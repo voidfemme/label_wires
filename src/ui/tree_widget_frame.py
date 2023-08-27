@@ -34,7 +34,7 @@ class TreeWidgetFrame(tk.Frame):
         self.controller.connection_manager.add_observer(self)
 
         self.connections_dict = {}  # holds list of connections in the treewidget
-        self.tree_item_to_connection = {}  # What is this for?
+        self.tree_item_to_connection = {}  # list of items & IDs in the treewidget
         self.selected_connections = []  # user-selected connections
         self.tree_widget = self.create_tree_widget()
 
@@ -131,7 +131,8 @@ class TreeWidgetFrame(tk.Frame):
             print(f"Failed to add item with ID {self.item} to tree widget.")
 
         # Add to the mapping dictionary
-        self.tree_item_to_connection[self.item] = connection
+        connection_id = connection.connection_id
+        self.tree_item_to_connection[self.item] = (connection_id, connection)
 
         # Print a message to the UI
         self.parent.display_status(
@@ -144,41 +145,73 @@ class TreeWidgetFrame(tk.Frame):
         # Update the tree widget
         self.controller.load_connections()
         self.update_connection_list()
+        print("List of wires with their associated IDs:")
+        for item_id, conn in self.tree_item_to_connection.items():
+            print(f"ID: {item_id}, Connection:{conn}")
 
-    def on_connection_removed(self, connection):
-        item = [k for k, v in self.tree_item_to_connection.items() if v == connection][
-            0
-        ]
-        print(f"Attempting to remove item with ID {item} for connection {connection}")
-        if item in self.tree_widget.get_children():
-            self.tree_widget.delete(item)
-            del self.tree_item_to_connection[item]
-        else:
-            print(f"Item with ID {item} not found in tree widget.")
+    def on_connection_removed(self, connection: "Connection"):
+        tree_item = next(
+            (
+                key
+                for key, value in self.tree_item_to_connection.items()
+                if value == connection
+            ),
+            None,
+        )
+
+        if tree_item and tree_item in self.tree_widget.get_children():
+            self.tree_widget.delete(tree_item)
+            del self.tree_item_to_connection[tree_item]
+        self.update_connection_list()
 
     def update_connection_list(self) -> None:
         """
-        Check if the parent is destroyed before updating the wire list, because
-        if not, the program will try to update the connection list because of
-        the observers trying to call this method on quit. This is a
-        stopgap measure until I try to figure out how to get the observers to
-        not update when the application is quitting.
+        Update the connection list in the tree widget.
         """
+        # Ensure the parent is not in the process of being destroyed
         if not self.parent.is_destroying:
+            # Backup the current tree_item_to_connection dictionary
+            old_tree_item_to_connection = self.tree_item_to_connection.copy()
+
+            # Clear the current tree widget
             for i in self.parent.tree_widget.get_children():
                 self.parent.tree_widget.delete(i)
 
-        connections = self.controller.connection_manager.get_connections()
+            # Retrieve the updated list of connections
+            connections = self.controller.connection_manager.get_connections()
 
-        for connection in connections:
-            (
-                source,
-                destination,
-            ) = self.controller.connection_manager.get_connection_tuple(connection)
-            item_id = self.tree_widget.insert("", "end", values=(source, destination))
+            # Reset the tree_item_to_connection dictionary since we're repopulating
+            self.tree_item_to_connection = {}
 
-            self.connections_dict[str(connection)] = connection
-            self.tree_item_to_connection[item_id] = connection
+            # Populate the tree widget and update the dictionaries
+
+            for connection in connections:
+                (
+                    source,
+                    destination,
+                ) = self.controller.connection_manager.get_connection_tuple(connection)
+                item_id = self.tree_widget.insert(
+                    "", "end", values=(source, destination)
+                )
+
+                # Check if this connection had a previous tree item ID in the old dictionary
+                old_tree_item = next(
+                    (
+                        key
+                        for key, conn_obj in old_tree_item_to_connection.items()
+                        if conn_obj == connection
+                    ),
+                    None,
+                )
+
+                # Use the old tree item ID if available, otherwise use the new ID
+                if old_tree_item:
+                    self.tree_item_to_connection[old_tree_item] = connection
+                else:
+                    self.tree_item_to_connection[item_id] = connection
+
+                # Update the connections_dict
+                self.connections_dict[str(connection)] = connection
 
     def update_selected_connections(self, event) -> None:
         # Get currently selected items

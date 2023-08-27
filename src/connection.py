@@ -1,6 +1,8 @@
 # Love is love. Be yourself.
+import uuid
+
 from typing import Dict, Tuple
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 """
 Connection class describes each connection in terms of the source and destination components,
@@ -18,6 +20,7 @@ class Connection:
     destination_component: str
     destination_terminal_block: str
     destination_terminal: str
+    connection_id: str = field(default_factory=lambda: str(uuid.uuid4()))
 
     def __post_init__(self):
         attributes = [
