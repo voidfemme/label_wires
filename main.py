@@ -5,7 +5,9 @@ from src.controllers.controller import Controller
 
 
 # logging.basicConfig(filename="app.log", level=logging.DEBUG)
-logging.basicConfig(level=logging.CRITICAL, format="%(asctime)s %(levelname)s %(message)s")
+logging.basicConfig(
+    level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s"
+)
 
 
 def start_app() -> None:

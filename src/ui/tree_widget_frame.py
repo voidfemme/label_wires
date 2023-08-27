@@ -3,6 +3,7 @@ from tkinter import ttk
 from typing import TYPE_CHECKING
 import tkinter as tk
 import logging
+from src.ui import connection_entry_frame
 
 from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
 
@@ -125,12 +126,6 @@ class TreeWidgetFrame(tk.Frame):
         # Add to tree widget and get unique identifier
         self.item = self.tree_widget.insert("", "end", values=(source, destination))
 
-        # Check if the item was successfully added
-        if self.item in self.tree_widget.get_children():
-            print(f"Item with ID {self.item} successfully added to the tree widget")
-        else:
-            print(f"Failed to add item with ID {self.item} to tree widget.")
-
         # Add to the mapping dictionary
         connection_id = connection.connection_id
         self.tree_item_to_connection[self.item] = (connection_id, connection)
@@ -142,27 +137,41 @@ class TreeWidgetFrame(tk.Frame):
             )
         )
 
-        print(f"Added item with ID {self.item} for connection {type(connection)}")
+        logger.info(
+            f"Post-addition state of tree_item_to_connection: {self.tree_item_to_connection}"
+        )
+
         # Update the tree widget
         self.controller.load_connections()
         self.update_connection_list()
-        print("List of wires with their associated IDs:")
-        for item_id, conn in self.tree_item_to_connection.items():
-            print(f"ID: {item_id}, Connection:{conn}")
 
     def on_connection_removed(self, connection: "Connection"):
-        tree_item = next(
-            (
-                key
-                for key, value in self.tree_item_to_connection.items()
-                if value == connection
-            ),
-            None,
-        )
+        # Retrieve the UUID of the connection to be removed
+        connection_uuid = connection.connection_id
 
+        # Find the tree item with the matching UUID
+        tree_item = None
+        for item, (conn_id, _) in self.tree_item_to_connection.items():
+            if conn_id == connection_uuid:
+                tree_item = item
+                break
+
+        # If the tree item is found, remove it from the tree widget
         if tree_item and tree_item in self.tree_widget.get_children():
             self.tree_widget.delete(tree_item)
             del self.tree_item_to_connection[tree_item]
+            logger.info(
+                f"Connection with UUID {connection_uuid} successfully removed from tree widget"
+            )
+        else:
+            logger.warning(
+                f"Connection with UUID {connection_uuid} not found in tree widget"
+            )
+
+        logger.info(
+            f"Post-deletion state of tree_item_to_connection: {self.tree_item_to_connection}"
+        )
+
         self.update_connection_list()
 
     def update_connection_list(self) -> None:
@@ -207,9 +216,15 @@ class TreeWidgetFrame(tk.Frame):
 
                 # Use the old tree item ID if available, otherwise use the new ID
                 if old_tree_item:
-                    self.tree_item_to_connection[old_tree_item] = connection
+                    self.tree_item_to_connection[old_tree_item] = (
+                        connection.connection_id,
+                        connection,
+                    )
                 else:
-                    self.tree_item_to_connection[item_id] = connection
+                    self.tree_item_to_connection[item_id] = (
+                        connection.connection_id,
+                        connection,
+                    )
 
                 # Update the connections_dict
                 self.connections_dict[str(connection)] = connection

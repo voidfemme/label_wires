@@ -5,6 +5,10 @@ from src.connection_manager import DuplicateConnectionError
 logger = logging.getLogger(__name__)
 
 
+class ConnectionNotDeletedError(Exception):
+    pass
+
+
 class Command:
     def execute(self):
         pass
@@ -71,7 +75,7 @@ class DeleteConnectionCommand(Command):
     def execute(self) -> None:
         for item_to_delete in self.view.tree_widget.selection():
             try:
-                connection = self.view.tree_widget.tree_item_to_connection[
+                _, connection = self.view.tree_widget.tree_item_to_connection[
                     item_to_delete
                 ]
 
@@ -112,6 +116,12 @@ class DeleteConnectionCommand(Command):
                         "destination_terminal": connection.destination_terminal,
                     }
                 )
+                # Check that the item was actually deleted
+                if connection in self.parent.connection_manager.connections:
+                    logger.error(
+                        f"Connection {connection} was not successfully removed."
+                    )
+                    raise ConnectionNotDeletedError
             except KeyError:
                 logger.warning(f"Connection not found for item: {item_to_delete}")
                 continue

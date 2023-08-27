@@ -1,6 +1,7 @@
 import logging
 from pathlib import Path
 from typing import Any
+from src import connection
 
 from src.connection import Connection
 from src.settings import Settings
