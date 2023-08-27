@@ -30,6 +30,12 @@ logger = logging.getLogger(__name__)
 
 
 class Controller:
+    """
+    The Controller class acts as an intermediary, managing the flow of data between the UI and the
+    underlying logic. It interfaces with the UI components, CommandManager, and ConnectionManager to
+    facilitate user actions such as adding, editing, and deleting connections.
+    """
+
     def __init__(self) -> None:
         self.settings = Settings()
         self.localizer = Localizer(self.settings.get("language"))
@@ -52,6 +58,9 @@ class Controller:
         self.load_connections()
 
     def wait_for_new_project_dialog(self) -> None:
+        """
+        Awaits input or action from the New Project dialog window
+        """
         self.view.withdraw()
         self.new_project_dialog = NewProjectDialog(
             self.settings, self.localizer, self.view
@@ -75,12 +84,27 @@ class Controller:
             return  # Figure out how I want to handle this case.
 
     def get_file_path(self) -> None:
+        """
+        Retrieves the path of the currently loaded file.
+
+        Returns:
+            str: The path of the loaded file.
+        """
         self.file_name = filedialog.asksaveasfilename()
 
     def set_file_path(self, file_path: str) -> None:
+        """
+        Sets or updates the path of the loaded file.
+
+        Args:
+            path (str): The new file path to set.
+        """
         self.connection_manager.set_save_file_name(file_path)
 
     def populate_connections(self) -> None:
+        """
+        Fills the UI's TreeWidgetFrame with connection data from the ConnectionManager.
+        """
         self.load_from_json_file()
         for connection in self.connection_manager.get_connections():
             source, destination = self.connection_manager.get_connection_tuple(
@@ -89,6 +113,9 @@ class Controller:
             self.view.tree_widget.insert("", "end", values=(source, destination))
 
     def load_connections(self) -> None:
+        """
+        Loads connections from a predefined source into the ConnectionManager
+        """
         try:
             self.load_from_json_file()
         except NoFilePathGivenException as e:
@@ -98,7 +125,10 @@ class Controller:
     def update_connection_list(self):
         self.view.tree_widget.update_connection_list()
 
-    def edit_connection(self) -> None:
+    def edit_connection_command(self) -> None:
+        """
+        Modifies an existing connection based on user input or other triggers.
+        """
         # Get the currently selected connection.
         selected_items = self.view.tree_widget.selection()
         if not selected_items:
@@ -128,26 +158,45 @@ class Controller:
     def add_connection_command(
         self, source: dict[str, str], destination: dict[str, str]
     ) -> None:
+        """
+        Fetches and validates user input, then adds the connection.
+        """
         command = AddConnectionCommand(
             self.event_system, self.connection_manager, source, destination
         )
         self.command_manager.execute(command)
 
     def delete_connection_command(self) -> None:
+        """
+        Identifies and safely removes the selected connection(s).
+        """
         command = DeleteConnectionCommand(self, self.view)
         self.command_manager.execute(command)
         self.view.tree_widget.update_connection_list()
 
     def undo_connection_command(self) -> None:
-        print("Attempting to undo the last command...")
+        """
+        Uses CommandManager to revert the latest change.
+        """
         if self.command_manager.undo_stack:
-            print("Undo stack is not empty. Popping the last command...")
             command = self.command_manager.undo_stack.pop()
             command.undo()
-        else:
-            print("Undo stack is empty. Nothing to undo.")
+
+    def redo_connection_command(self) -> None:
+        """
+        Re-applies an action that was undone.
+        """
+        if self.command_manager.redo_stack:
+            command = self.command_manager.redo_stack.pop()
+            command.redo()
 
     def export_to_csv(self, format: ExportFormat) -> None:
+        """
+        Converts connections to CSV for easy sharing and analysis.
+
+        Args:
+            format (ExportFormat): The format of the resulting csv file
+        """
         file_path = filedialog.asksaveasfilename(title="Save CSV as...")
         if file_path == "":
             return
@@ -167,9 +216,18 @@ class Controller:
             print("file handler not initialized")
 
     def quit_program(self) -> None:
+        """
+        Destroys the UI
+        """
         self.view.destroy()
 
     def handle_quit(self, quit_from_dialog: bool) -> None:
+        """
+        Manages the quitting process, optionally saving data before exit.
+
+        Args:
+            quit_from_dialog (bool): Indicates if the quit action was triggered from a dialog.
+        """
         if quit_from_dialog:
             # Return early because we're not saving a file
             self.quit_program()
@@ -187,9 +245,18 @@ class Controller:
                     self.save_to_json_file()
 
     def run(self) -> None:
+        """
+        Initiates the main program loop.
+        """
         self.view.mainloop()
 
     def save_to_json_file(self) -> bool:
+        """
+        Saves connection data as a JSON file.
+
+        Returns:
+            bool: Success status of the save operation.
+        """
         data = [
             connection.to_dict() for connection in self.connection_manager.connections
         ]
@@ -197,10 +264,19 @@ class Controller:
         return success
 
     def load_from_json_file(self) -> None:
+        """
+        Loads connections from a JSON file if a file path exists.
+        """
         if self.full_file_path is not None:
             # Load in the connections from the file using the filehandler
             connection_dicts = self.file_handler.load()
             self.connection_manager.populate_connections(connection_dicts)
 
     def display_status(self, message):
+        """
+        Displays a status message in the UI's footer.
+
+        Args:
+            message: The status message to display
+        """
         self.view.footer.display_status(message)

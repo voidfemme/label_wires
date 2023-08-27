@@ -26,6 +26,7 @@ class TreeWidgetFrame(tk.Frame):
         self.parent = parent
         self.controller = controller
         self._event_system = event_system
+        self.keyword_args = kwargs
 
         # Subscribe to event system events
         self._event_system.subscribe("connection_added", self.on_connection_added)
@@ -113,7 +114,7 @@ class TreeWidgetFrame(tk.Frame):
         self.controller.delete_connection_command()
 
     def on_edit_button_clicked(self):
-        self.controller.edit_connection()
+        self.controller.edit_connection_command()
 
     def on_connection_added(self, connection):
         # Extract the source and destination tuple to add to the treewidget

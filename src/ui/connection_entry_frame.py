@@ -117,13 +117,18 @@ class ConnectionEntryFrame(tk.Frame):
             "lock_destination",
             variable=self.lock_destination_toggle,
         )
-        self.lock_destination_checkbutton.grid(row=3, column=1, padx=5, pady=5)
+        self.lock_destination_checkbutton.grid(row=3, column=4, padx=5, pady=5)
 
     def create_and_place_buttons(self) -> None:
         self.undo_button = LocalizedButton(
             self, self.controller.localizer, "undo", command=self.on_undo_button_click
         )
-        self.undo_button.grid(row=3, column=2, padx=5, pady=5)
+        self.undo_button.grid(row=3, column=1, padx=5, pady=5)
+
+        self.redo_button = LocalizedButton(
+            self, self.controller.localizer, "redo", command=self.on_redo_button_click
+        )
+        self.redo_button.grid(row=3, column=2, padx=5, pady=5)
 
         self.add_connection_button = LocalizedButton(
             self,
@@ -254,6 +259,10 @@ class ConnectionEntryFrame(tk.Frame):
     def on_undo_button_click(self) -> None:
         print("Undo button clicked!")
         self.controller.undo_connection_command()
+
+    def on_redo_button_click(self) -> None:
+        print("Redo button clicked!")
+        self.controller.redo_connection_command()
 
     def increment(self, entry_widget: tk.Entry) -> None:
         # Alter to auto detect numbers along with letters, and update the number

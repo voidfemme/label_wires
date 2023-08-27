@@ -1,5 +1,6 @@
 import logging
 from pathlib import Path
+from typing import Any
 
 from src.connection import Connection
 from src.settings import Settings
@@ -25,44 +26,78 @@ class DuplicateConnectionError(Exception):
 
 class ConnectionManager:
     """
-    This is the connection manager, which is responsible for managing the master list of wires.
-    This class uses the observer pattern. To update the UI about its connection list. In the
-    future, the UI should not handle this interaction directly, but instead the controller will
-    handle the interaction for me.
+    Manages the collection of Connection entities, ensuring data integrity, consistency,
+    and providing CRUD operations on connections.
     """
 
     def __init__(self, full_file_path=None) -> None:
+        """
+        Initializes the ConnectionManager with an empty list of connections and other
+        essential attributes.
+
+        Args:
+            full_file_path (str): The full file path to the saved connections JSON file.
+        """
         self.settings = Settings()
         self.connections: list[Connection] = []
         self.observers = []
         self.full_file_path = full_file_path
 
     # Observer Methods to update the connection list in the GUI
-    def add_observer(self, observer) -> None:
+    def add_observer(self, observer: Any) -> None:
+        """
+        Registers an observer to be notified of changes in connections.
+
+        Args:
+            observer: The observer entity to be added. (the 'self' of the class to be registered)
+        """
         self.observers.append(observer)
 
-    def remove_observer(self, observer) -> None:
+    def remove_observer(self, observer: Any) -> None:
+        """
+        De-registers an observer, preventing it from receiving updates on connection changes.
+
+        Args:
+            observer: The observer entity to be removed
+        """
         self.observers.remove(observer)
 
     def notify_observers(self, **kwargs) -> None:
+        """
+        Alerts all registered observers of changes to connections, ensuring synchronized updates.
+        """
         for observer in self.observers:
             observer.update_connection_list(**kwargs)
 
     # Other methods
     def set_save_file_name(self, file_name: str) -> None:
+        """
+        Specifies the name of the file where connection data will be saved.
+
+        Args:
+            file_name (str): The desired name for the save file
+        """
         self.full_file_path = file_name
         self.file_handler = FileHandler(self.full_file_path)
 
     def save_json_to_file(self) -> bool:
         """
-        This method should not be here, but I'm unsure of how exactly to remove it
-        without breaking the treewidget.
+        Converts connections to JSON and saves to file.
+
+        Returns:
+            bool: True if successful, False otherwise
         """
         data = [connection.to_dict() for connection in self.connections]
         success = self.file_handler.save(data)
         return success
 
     def populate_connections(self, conn_dicts) -> None:
+        """
+        Fills manager with connections from provided dictionaries.
+
+        Args:
+            conn_dicts (list): List of dictionaries representing connections.
+        """
         if conn_dicts is not None:
             self.connections = [
                 Connection(**conn_dict)

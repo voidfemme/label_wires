@@ -21,7 +21,7 @@ class TestController(unittest.TestCase):
         # If no items are selected, the method returns early
         self.controller.view.tree_widget.selection.return_value = []
 
-        self.controller.edit_connection()
+        self.controller.edit_connection_command()
 
         self.controller.view.tree_widget.selection.assert_called_once()
         MockEditConnectionCommand.assert_not_called()
@@ -52,7 +52,7 @@ class TestController(unittest.TestCase):
             "new_destination_terminal"
         )
 
-        self.controller.edit_connection()
+        self.controller.edit_connection_command()
 
         self.controller.view.tree_widget.selection.assert_called_once()
         self.controller.view.connection_entry_frame.populate_entries.assert_called_once_with(

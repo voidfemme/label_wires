@@ -62,5 +62,6 @@
   "unsaved_changes": "You have unsaved changes",
   "save_changes_prompt": "Would you like to save your changes?",
   "close": "Close",
-  "ID": "ID"
+  "ID": "ID",
+  "redo": "Redo"
 }

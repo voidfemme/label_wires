@@ -18,9 +18,13 @@ class ExportWireToCSVStrategy(ExportToCSVStrategy):
         try:
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file, delimiter="|")
-                for connection in connection_list:
-                    source = f"{connection.source_component}-{connection.source_terminal_block}-{connection.source_terminal}"
-                    destination = f"{connection.destination_component}-{connection.destination_terminal_block}-{connection.destination_terminal}"
+                for conn in connection_list:
+                    source = f"{conn.source_component}-{conn.source_terminal_block}-{conn.source_terminal}".strip(
+                        "-"
+                    )
+                    destination = f"{conn.destination_component}-{conn.destination_terminal_block}-{conn.destination_terminal}".strip(
+                        "-"
+                    )
                     writer.writerow([source, destination])
             print("Successfully exported wires")
         except FileNotFoundError:
@@ -36,9 +40,19 @@ class ExportCableToCSVStrategy(ExportToCSVStrategy):
         try:
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file, delimiter="|")
-                for connection in connection_list:
-                    source = f"{connection.source_component}-{connection.source_terminal_block} [{connection.source_terminal}]"
-                    destination = f"{connection.destination_component}-{connection.destination_terminal_block} [{connection.destination_terminal}]"
+                for conn in connection_list:
+                    source = (
+                        f"{conn.source_component}-{conn.source_terminal_block}".strip(
+                            "-"
+                        )
+                        + f" [{conn.source_terminal}]"
+                    )
+                    destination = (
+                        f"{conn.destination_component}-{conn.destination_terminal_block}".strip(
+                            "-"
+                        )
+                        + f" [{conn.destination_terminal}]"
+                    )
                     writer.writerow([source, destination])
             print("Successfully exported cables")
         except FileNotFoundError:

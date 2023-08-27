@@ -12,6 +12,9 @@ class Command:
     def undo(self):
         pass
 
+    def redo(self):
+        pass
+
 
 class AddConnectionCommand(Command):
     def __init__(self, event_system, connection_manager, source, destination) -> None:
@@ -20,6 +23,7 @@ class AddConnectionCommand(Command):
         self.destination = destination
         self.item = None
         self.event_system = event_system
+        self.connection = None
 
     def __repr__(self):
         return "AddConnectionCommand"
@@ -46,6 +50,9 @@ class AddConnectionCommand(Command):
 
         # Publish an event that a connection has been removed
         self.event_system.publish("connection_removed", self.connection)
+
+    def redo(self):
+        self.execute()
 
 
 class DeleteConnectionCommand(Command):
@@ -169,12 +176,22 @@ class EditConnectionCommand(Command):
     def execute(self) -> None:
         self.old_values = self.old_connection.to_dict()
 
+        # First, delete the old connection
+        self.connection_manager.delete_connection(self.old_connection)
+
         new_connection = Connection(**self.new_values)
         self.connection_manager.add_connection(**new_connection.to_dict())
-        self.connection_manager.delete_connection(self.old_connection)
 
     def undo(self) -> None:
         new_connection = Connection(**self.new_values)
 
         self.connection_manager.add_connection(**self.old_connection.to_dict())
         self.connection_manager.delete_connection(new_connection)
+
+    def redo(self) -> None:
+        # First delete the old connection
+        self.connection_manager.delete_connection(self.old_connection)
+
+        # Then add the new connection
+        new_connection = Connection(**self.new_values)
+        self.connection_manager.add_connection(**new_connection.to_dict())
