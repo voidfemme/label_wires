@@ -16,6 +16,8 @@ class ExportToCSVStrategy(ABC):
 class ExportWireToCSVStrategy(ExportToCSVStrategy):
     def export_to_csv(self, file_path: Path, connection_list: list[Connection]) -> None:
         try:
+            if not file_path.suffix == ".csv":
+                file_path = file_path.with_suffix("")
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file, delimiter="|")
                 for conn in connection_list:
@@ -38,6 +40,8 @@ class ExportWireToCSVStrategy(ExportToCSVStrategy):
 class ExportCableToCSVStrategy(ExportToCSVStrategy):
     def export_to_csv(self, file_path: Path, connection_list: list[Connection]) -> None:
         try:
+            if not file_path.suffix == ".csv":
+                file_path = file_path.with_suffix(".csv")
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file, delimiter="|")
                 for conn in connection_list:
