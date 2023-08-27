@@ -56,8 +56,8 @@ class Connection:
         return is_normal_equal or is_reverse_equal
 
     def __str__(self) -> str:
-        source = f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}"
-        destination = f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}"
+        source = f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}".strip("-")
+        destination = f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}".strip("-")
         return f"{source},{destination}"
 
     def to_dict(self) -> Dict[str, str]:
@@ -85,6 +85,6 @@ class Connection:
 
     def to_tuple(self) -> Tuple[str, str]:
         return (
-            f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}",
-            f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}",
+            f"{self.source_component}-{self.source_terminal_block}-{self.source_terminal}".strip("-"),
+            f"{self.destination_component}-{self.destination_terminal_block}-{self.destination_terminal}".strip("-"),
         )
