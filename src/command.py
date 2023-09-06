@@ -171,10 +171,12 @@ class EditConnectionCommand(Command):
     # Rewrite the other two commands so that I can make this a composition of those two.
     def __init__(
         self,
+        parent,
         connection_manager,
         old_connection: Connection,
         new_values: dict[str, str],
     ) -> None:
+        self.parent = parent
         self.connection_manager = connection_manager
         self.old_connection = old_connection
         self.new_values = new_values
@@ -184,6 +186,7 @@ class EditConnectionCommand(Command):
         return "EditConnectionCommand"
 
     def execute(self) -> None:
+        logger.info("EditConnectionCommand execute method called")
         self.old_values = self.old_connection.to_dict()
 
         # First, delete the old connection
@@ -191,12 +194,14 @@ class EditConnectionCommand(Command):
 
         new_connection = Connection(**self.new_values)
         self.connection_manager.add_connection(**new_connection.to_dict())
+        self.parent.update_connection_list()
 
     def undo(self) -> None:
         new_connection = Connection(**self.new_values)
 
         self.connection_manager.add_connection(**self.old_connection.to_dict())
         self.connection_manager.delete_connection(new_connection)
+        self.parent.update_connection_list()
 
     def redo(self) -> None:
         # First delete the old connection
@@ -205,3 +210,4 @@ class EditConnectionCommand(Command):
         # Then add the new connection
         new_connection = Connection(**self.new_values)
         self.connection_manager.add_connection(**new_connection.to_dict())
+        self.parent.update_connection_list()

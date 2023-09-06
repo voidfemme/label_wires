@@ -2,6 +2,7 @@
 import logging
 
 from tkinter import filedialog
+from src import connection_manager
 
 from src.ui.main_view import MainView
 from src.ui.new_project_dialog import NewProjectDialog
@@ -134,9 +135,12 @@ class Controller:
         if not selected_items:
             return
         item = selected_items[0]  # Only one connection can be edited at once
-        old_connection = self.view.tree_widget.tree_item_to_connection.get(item)
-        if not old_connection:
+        item_connection_tuple = self.view.tree_widget.tree_item_to_connection.get(item)
+
+        if item_connection_tuple is None:
             return
+
+        _, old_connection = item_connection_tuple
 
         # Put the old values into the entry boxes
         self.view.entry_frame.populate_entries(old_connection)
@@ -151,7 +155,7 @@ class Controller:
         }
 
         command = EditConnectionCommand(
-            self.connection_manager, old_connection, new_values
+            parent=self, connection_manager=self.connection_manager, old_connection=old_connection, new_values=new_values
         )
         self.command_manager.execute(command)
 
