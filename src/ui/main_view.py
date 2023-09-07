@@ -42,14 +42,15 @@ class MainView(tk.Tk):
         )
 
         # Define text area for connection numbers
-        self.tree_widget = TreeWidgetFrame(
-            self,
-            self.controller,
-            self.controller.event_system,
-        )
         self.entry_frame = ConnectionEntryFrame(
             self,
             self.controller,
+        )
+        self.tree_widget = TreeWidgetFrame(
+            self,
+            self.entry_frame,
+            self.controller,
+            self.controller.event_system,
         )
 
         self.utility_buttons_horizontal_rule = ttk.Separator(self, orient="horizontal")

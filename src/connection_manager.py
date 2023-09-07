@@ -110,10 +110,8 @@ class ConnectionManager:
         if connection_to_delete in self.connections:
             self.connections.remove(connection_to_delete)
             self.save_json_to_file()
-            logger.info("connection successfully deleted.")
             return True
         else:
-            logger.info("Attempted to delete a connection that doesn't exist.")
             return False
 
     def edit_connection(
@@ -123,9 +121,6 @@ class ConnectionManager:
             # If new connection already exists or is the reverse of an existing connection,
             # don't do the edit
             if new_connection in self.connections:
-                logger.info(
-                    "Attempted to edit connection into a duplicate or reverse duplicate connection."
-                )
                 return False
             # Find the index of the old connection and replace it with the new one
             index = self.connections.index(old_connection)
@@ -134,7 +129,6 @@ class ConnectionManager:
             self.save_json_to_file()
             return True
         else:
-            logger.info("Attempted to edit a connection that doesn't exist.")
             return False
 
     def get_connection_tuple(self, connection: Connection) -> tuple[str, str]:

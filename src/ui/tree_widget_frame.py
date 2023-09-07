@@ -3,9 +3,10 @@ from tkinter import ttk
 from typing import TYPE_CHECKING
 import tkinter as tk
 import logging
-from src.ui import connection_entry_frame
+from src import connection_manager
 
 from src.ui.localized_widgets import LocalizedButton, LocalizedTreeview
+from src.command import DeleteConnectionCommand
 
 if TYPE_CHECKING:
     from src.controllers.controller import Controller
@@ -21,10 +22,16 @@ class TreeWidgetFrame(tk.Frame):
     """
 
     def __init__(
-        self, parent, controller: "Controller", event_system: "EventSystem", **kwargs
+        self,
+        parent,
+        entry_frame,
+        controller: "Controller",
+        event_system: "EventSystem",
+        **kwargs,
     ):
         super().__init__(parent)
         self.parent = parent
+        self.entry_frame = entry_frame
         self.controller = controller
         self._event_system = event_system
         self.keyword_args = kwargs
@@ -115,7 +122,26 @@ class TreeWidgetFrame(tk.Frame):
         self.controller.delete_connection_command()
 
     def on_edit_button_clicked(self):
-        self.controller.edit_connection_command()
+        selected_items = self.tree_widget.selection()
+        if not selected_items:
+            return
+        item = selected_items[0]  # we can only edit one connection at a time
+        item_tuple = self.tree_item_to_connection.get(item)
+        if not item_tuple:
+            return
+        _, old_connection = item_tuple
+
+        if old_connection:
+            # Populate the entry fields for editing
+            self.entry_frame.populate_entries(old_connection)
+
+            # Delete the old connection
+            delete_command = DeleteConnectionCommand(
+                parent=self,
+                connection_manager=self.controller.connection_manager,
+                view=self.parent,
+            )
+            delete_command.execute()
 
     def on_connection_added(self, connection):
         # Extract the source and destination tuple to add to the treewidget
@@ -146,6 +172,8 @@ class TreeWidgetFrame(tk.Frame):
         self.update_connection_list()
 
     def on_connection_removed(self, connection: "Connection"):
+        logger.info("on_connection_removed: Starting on_connection_removed")
+        logger.info(f"on_connection_removed: Connection: {connection}")
         # Retrieve the UUID of the connection to be removed
         connection_uuid = connection.connection_id
 
@@ -161,11 +189,11 @@ class TreeWidgetFrame(tk.Frame):
             self.tree_widget.delete(tree_item)
             del self.tree_item_to_connection[tree_item]
             logger.info(
-                f"Connection with UUID {connection_uuid} successfully removed from tree widget"
+                f"on_connection_removed: Connection with UUID {connection_uuid} successfully removed from tree widget"
             )
         else:
             logger.warning(
-                f"Connection with UUID {connection_uuid} not found in tree widget"
+                f"on_connection_removed: Connection with UUID {connection_uuid} not found in tree widget"
             )
 
         logger.info(

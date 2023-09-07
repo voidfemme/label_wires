@@ -3,6 +3,7 @@ import logging
 
 from tkinter import filedialog
 from src import connection_manager
+from src.connection import Connection
 
 from src.ui.main_view import MainView
 from src.ui.new_project_dialog import NewProjectDialog
@@ -126,25 +127,21 @@ class Controller:
     def update_connection_list(self):
         self.view.tree_widget.update_connection_list()
 
-    def edit_connection_command(self) -> None:
+    def save_edited_connection_command(self) -> None:
         """
-        Modifies an existing connection based on user input or other triggers.
+        saves a connection being edited based on user input or other triggers.
         """
-        # Get the currently selected connection.
-        selected_items = self.view.tree_widget.selection()
-        if not selected_items:
-            return
-        item = selected_items[0]  # Only one connection can be edited at once
-        item_connection_tuple = self.view.tree_widget.tree_item_to_connection.get(item)
-
-        if item_connection_tuple is None:
-            return
-
-        _, old_connection = item_connection_tuple
-
-        # Put the old values into the entry boxes
-        self.view.entry_frame.populate_entries(old_connection)
-
+        # Fetch the new values after user edits
+        p1_values = {
+            "source_component": self.view.entry_frame.source_component.get(),
+            "source_terminal_block": self.view.entry_frame.source_terminal_block.get(),
+            "source_terminal": self.view.entry_frame.source_terminal.get(),
+        }
+        p2_values = {
+            "destination_component": self.view.entry_frame.destination_component.get(),
+            "destination_terminal_block": self.view.entry_frame.destination_terminal_block.get(),
+            "destination_terminal": self.view.entry_frame.destination_terminal.get(),
+        }
         new_values = {
             "source_component": self.view.entry_frame.source_component.get(),
             "source_terminal_block": self.view.entry_frame.source_terminal_block.get(),
@@ -154,10 +151,8 @@ class Controller:
             "destination_terminal": self.view.entry_frame.destination_terminal.get(),
         }
 
-        command = EditConnectionCommand(
-            parent=self, connection_manager=self.connection_manager, old_connection=old_connection, new_values=new_values
-        )
-        self.command_manager.execute(command)
+        # Add the edited connection
+        self.add_connection_command(p1_values, p2_values)
 
     def add_connection_command(
         self, source: dict[str, str], destination: dict[str, str]

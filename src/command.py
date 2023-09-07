@@ -1,4 +1,5 @@
 import logging
+from src import connection_manager
 from src.connection import Connection
 from src.connection_manager import DuplicateConnectionError
 
@@ -21,7 +22,13 @@ class Command:
 
 
 class AddConnectionCommand(Command):
-    def __init__(self, event_system, connection_manager, source, destination) -> None:
+    def __init__(
+        self,
+        event_system,
+        connection_manager,
+        source: dict[str, str],
+        destination: dict[str, str],
+    ) -> None:
         self.connection_manager = connection_manager
         self.source = source
         self.destination = destination
@@ -64,8 +71,9 @@ class DeleteConnectionCommand(Command):
     Deletes a connection from the connection manager
     """
 
-    def __init__(self, parent, view) -> None:
+    def __init__(self, parent, connection_manager, view) -> None:
         self.parent = parent
+        self.connection_manager = connection_manager
         self.view = view
         self.deleted_items = []  # Store deleted items here
 
@@ -81,7 +89,7 @@ class DeleteConnectionCommand(Command):
 
                 # Attempt to delete the connection from the connection manager
                 try:
-                    self.parent.connection_manager.delete_connection(connection)
+                    self.connection_manager.delete_connection(connection)
                 except Exception as e:
                     logger.warning(
                         f"Could not delete {connection} from connection manager: {e}"
@@ -117,7 +125,7 @@ class DeleteConnectionCommand(Command):
                     }
                 )
                 # Check that the item was actually deleted
-                if connection in self.parent.connection_manager.connections:
+                if connection in self.connection_manager.connections:
                     logger.error(
                         f"Connection {connection} was not successfully removed."
                     )
@@ -138,7 +146,7 @@ class DeleteConnectionCommand(Command):
             destination_terminal = deleted_item["destination_terminal"]
 
             # Add the connection back to the connection manager
-            self.parent.connection_manager.add_connection(
+            self.connection_manager.add_connection(
                 source_component,
                 source_terminal_block,
                 source_terminal,
@@ -191,6 +199,7 @@ class EditConnectionCommand(Command):
 
         # First, delete the old connection
         self.connection_manager.delete_connection(self.old_connection)
+        self.parent.update_connection_list()
 
         new_connection = Connection(**self.new_values)
         self.connection_manager.add_connection(**new_connection.to_dict())
@@ -201,7 +210,6 @@ class EditConnectionCommand(Command):
 
         self.connection_manager.add_connection(**self.old_connection.to_dict())
         self.connection_manager.delete_connection(new_connection)
-        self.parent.update_connection_list()
 
     def redo(self) -> None:
         # First delete the old connection
