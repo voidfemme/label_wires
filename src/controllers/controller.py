@@ -2,8 +2,6 @@
 import logging
 
 from tkinter import filedialog
-from src import connection_manager
-from src.connection import Connection
 
 from src.ui.main_view import MainView
 from src.ui.new_project_dialog import NewProjectDialog
@@ -20,7 +18,6 @@ from src.connection_manager import (
 from src.utility_functions import ExportFormat
 from src.command import (
     AddConnectionCommand,
-    EditConnectionCommand,
     DeleteConnectionCommand,
 )
 from src.csv_exporting_strategy import (
@@ -169,7 +166,9 @@ class Controller:
         """
         Identifies and safely removes the selected connection(s).
         """
-        command = DeleteConnectionCommand(self, self.view)
+        command = DeleteConnectionCommand(
+            parent=self, connection_manager=self.connection_manager, view=self.view
+        )
         self.command_manager.execute(command)
         self.view.tree_widget.update_connection_list()
 
