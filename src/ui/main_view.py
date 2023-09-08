@@ -1,6 +1,9 @@
 import tkinter as tk
 import logging
 from tkinter import ttk, messagebox, filedialog
+from tkinter import scrolledtext
+from typing import TYPE_CHECKING
+from src.ui.localized_widgets import LocalizedButton
 
 from src.ui.settings_window import SettingsWindow
 from src.ui.header import Header
@@ -8,6 +11,9 @@ from src.ui.tree_widget_frame import TreeWidgetFrame
 from src.ui.connection_entry_frame import ConnectionEntryFrame
 from src.ui.utility_buttons import UtilityButtonsFrame
 from src.ui.footer import Footer
+
+if TYPE_CHECKING:
+    from src.localizer import Localizer
 
 
 logger = logging.getLogger(__name__)
@@ -98,6 +104,48 @@ class MainView(tk.Tk):
 
     def open_settings_window(self) -> None:
         self.settings_window = SettingsWindow(self, self.settings)
+
+    def show_csv_preview(self, csv_data: str, localizer: "Localizer") -> bool:
+        # Variable to store the user's decision (Export or Cancel)
+        user_decision = tk.BooleanVar(value=False)
+
+        # Create a new top-level window for the CSV preview
+        preview_window = tk.Toplevel(self)
+        preview_window.title("CSV Preview")
+        preview_window.geometry("600x400")
+
+        # Display the CSV data using a scrolled text widget
+        text_widget = scrolledtext.ScrolledText(
+            preview_window, wrap=tk.WORD, width=70, height=20
+        )
+        text_widget.pack(pady=20, padx=20)
+        text_widget.insert(tk.END, csv_data)
+        text_widget.configure(state=tk.DISABLED)  # Make the widget read-only
+
+        # Function to handle the Export button click
+        def on_export():
+            user_decision.set(True)
+            logger.info("MainView.show_csv_preview.on_export called")
+            preview_window.destroy()
+
+        # Function to handle the Cancel button click
+        def on_cancel():
+            user_decision.set(False)
+            logger.info("MainView.show_csv_preview.on_cancel called")
+            preview_window.destroy()
+
+        export_button = LocalizedButton(preview_window, localizer, "export", command=on_export)
+        export_button.pack(side=tk.LEFT, padx=10, pady=10)
+
+        cancel_button = LocalizedButton(preview_window, localizer, "cancel", command=on_cancel)
+        cancel_button.pack(side=tk.RIGHT, padx=10, pady=10)
+
+        # Make the window modal (block interaction with other windows until this one is closed)
+        preview_window.transient(self)
+        preview_window.grab_set()
+        self.wait_window(preview_window)
+
+        return user_decision.get()
 
     def export_to_csv(self) -> None:
         self.controller.export_to_csv()

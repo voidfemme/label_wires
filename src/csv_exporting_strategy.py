@@ -12,12 +12,16 @@ class ExportToCSVStrategy(ABC):
     def export_to_csv(self, file_path: Path, connection_list: list[Connection]) -> None:
         pass
 
+    @abstractmethod
+    def generate_csv_string(self, connection_list: list[Connection]) -> str:
+        pass
+
 
 class ExportWireToCSVStrategy(ExportToCSVStrategy):
     def export_to_csv(self, file_path: Path, connection_list: list[Connection]) -> None:
         try:
             if not file_path.suffix == ".csv":
-                file_path = file_path.with_suffix("")
+                file_path = file_path.with_suffix(".csv")
             with open(file_path, "w", newline="") as file:
                 writer = csv.writer(file, delimiter="|")
                 for conn in connection_list:
@@ -35,6 +39,18 @@ class ExportWireToCSVStrategy(ExportToCSVStrategy):
             logger.info(f"Error: Permission denied to read from'{file_path}'")
         except Exception as e:
             logger.info(f"Error: {e}")
+
+    def generate_csv_string(self, connection_list: list[Connection]) -> str:
+        csv_output = []
+        for conn in connection_list:
+            source = f"{conn.source_component}-{conn.source_terminal_block}-{conn.source_terminal}".strip(
+                "-"
+            )
+            destination = f"{conn.destination_component}-{conn.destination_terminal_block}-{conn.destination_terminal}".strip(
+                "-"
+            )
+            csv_output.append("|".join([source, destination]))
+        return "\n".join(csv_output)
 
 
 class ExportCableToCSVStrategy(ExportToCSVStrategy):
@@ -65,3 +81,19 @@ class ExportCableToCSVStrategy(ExportToCSVStrategy):
             logger.info(f"Error: Permission denied to read from'{file_path}'")
         except Exception as e:
             logger.info(f"Error: {e}")
+
+    def generate_csv_string(self, connection_list: list[Connection]) -> str:
+        csv_output = []
+        for conn in connection_list:
+            source = (
+                f"{conn.source_component}-{conn.source_terminal_block}".strip("-")
+                + f" [{conn.source_terminal}]"
+            )
+            destination = (
+                f"{conn.destination_component}-{conn.destination_terminal_block}".strip(
+                    "-"
+                )
+                + f" [{conn.destination_terminal}]"
+            )
+            csv_output.append("|".join([source, destination]))
+        return "\n".join(csv_output)

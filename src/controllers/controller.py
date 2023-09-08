@@ -195,23 +195,34 @@ class Controller:
         Args:
             format (ExportFormat): The format of the resulting csv file
         """
-        file_path = filedialog.asksaveasfilename(title="Save CSV as...")
-        if file_path == "":
-            return
+        # Determine the export strategy based on the format
         if format == ExportFormat.WIRE:
             strategy = ExportWireToCSVStrategy()
         elif format == ExportFormat.CABLE:
             strategy = ExportCableToCSVStrategy()
         else:
             raise ValueError(f"Invalid format: {format}")
-        if self.file_handler is not None:
-            self.file_handler.export(
-                file_path=file_path,
-                strategy=strategy,
-                data=self.connection_manager.connections,
-            )
-        else:
-            print("file handler not initialized")
+
+        # Generate the CSV-formatted string using the chosen strategy
+        csv_data = strategy.generate_csv_string(self.connection_manager.connections)
+
+        # Display the CSV preview using the MainView
+        # The show_csv_preview method will handle the saving functionality
+        user_wants_to_export = self.view.show_csv_preview(csv_data, self.localizer)
+
+        if user_wants_to_export:
+            file_path = filedialog.asksaveasfilename(title="Save CSV as...")
+            if file_path == "":
+                return
+            if self.file_handler is not None:
+                self.file_handler.export(
+                    file_path=file_path,
+                    strategy=strategy,
+                    data=self.connection_manager.connections,
+                )
+                self.view.display_status(f"Export to {file_path} Successful")
+            else:
+                print("file handler not initialized")
 
     def quit_program(self) -> None:
         """

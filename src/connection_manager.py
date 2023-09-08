@@ -1,12 +1,10 @@
+import csv
 import logging
-from pathlib import Path
 from typing import Any
-from src import connection
+from io import StringIO
 
 from src.connection import Connection
 from src.settings import Settings
-from src.utility_functions import validate_json_wire_fields
-from src.csv_exporting_strategy import ExportToCSVStrategy
 from src.file_handler import FileHandler
 
 
@@ -170,3 +168,24 @@ class ConnectionManager:
         else:
             logger.info("Attempted to add duplicate or reverse duplicate connection.")
             raise DuplicateConnectionError("Duplicate connection attempted")
+
+    def generate_csv_string(self) -> str:
+        # Create a CSV string using StringIO
+        csv_output = StringIO()
+        csv_writer = csv.writer(csv_output)
+
+        if self.connections:
+            # Write headers
+            headers = self.connections[0].to_dict().keys()
+            csv_writer.writerow(headers)
+
+            # Write connection data
+            for connection in self.connections:
+                csv_writer.writerow(connection.to_dict().values())
+
+        # Reset the StringIO pointer to the beginning and get the CSV string
+        csv_output.seek(0)
+        csv_string = csv_output.getvalue()
+        csv_output.close()
+
+        return csv_string
