@@ -299,23 +299,22 @@ class ConnectionEntryFrame(tk.Frame):
 
     def parse_bigram_data(self, bigram_data: dict) -> dict:
         """
-        Convert the bigram data from string format to a usable format. (e.g. tuples).
+        Convert the bigram data from string format to a usable format.
         """
         parsed_data = {}
         for bigram, count in bigram_data.items():
             source, destination = bigram.split("->")
-            parsed_data[(source, destination)] = count
+            parsed_data[source] = destination
         return parsed_data
-
+    
     def increment_string_value(self, s: str) -> str:
-        # Check for range pattern (e.g., "2-9")
-        range_match = re.match(r"(\d+)-(\d+)", s)
-        if range_match:
-            start, end = map(int, range_match.groups())
-            increment = end - start
-            return f"{start + increment + 1}-{end + increment + 1}"
-
-        # If no range, increment numerically or alphanumerically
+        # Check for bigram pattern (e.g., "1-8")
+        bigram_match = re.match(r"(\d+)-(\d+)", s)
+        if bigram_match:
+            start, end = map(int, bigram_match.groups())
+            return f"{start + 1}-{end + 1}"
+    
+        # If no bigram, increment numerically or alphanumerically
         numbers = re.findall(r"\d+", s)
         if numbers:
             last_number = numbers[-1]
@@ -326,3 +325,4 @@ class ConnectionEntryFrame(tk.Frame):
             return incremented_string
         else:
             return s  # Return the original string if no numbers are found
+    
