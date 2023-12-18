@@ -1,5 +1,6 @@
 import json
 import logging
+import sys
 from pathlib import Path
 from typing import Any, Dict, Tuple
 
@@ -40,29 +41,25 @@ class Localizer(metaclass=SingletonMeta):
         self.load_locale()
 
     def load_locale(self):
+        base_path = Path(getattr(sys, '_MEIPASS', Path(__file__).resolve().parent.parent))
+
         logger.info(f"Loading locale: {self.locale}")
         if self.default_english:
             # Load the fallback locale first
-            fallback_locale_path = (
-                Path(__file__).resolve().parent.parent.joinpath("locales", "en.json")
-            )
+            fallback_locale_path = base_path.joinpath("locales", "en.json")
             logger.info(f"Loading fallback locale: {fallback_locale_path}")
             if not fallback_locale_path.exists():
                 raise LocaleNotFoundError(
                     "No locale file found for fallback locale 'en'"
                 )
-            with fallback_locale_path.open("r", encoding="utf8") as f:
+            with open(fallback_locale_path, "r", encoding="utf8") as f:
                 self.fallback_strings = json.load(f)
 
         # Then load the desired locale
-        locale_path = (
-            Path(__file__)
-            .resolve()
-            .parent.parent.joinpath("locales", f"{self.locale}.json")
-        )
+        locale_path = base_path.joinpath("locales", f"{self.locale}.json")
         if not locale_path.exists():
             raise LocaleNotFoundError(f"No locale file found for {self.locale}")
-        with locale_path.open("r", encoding="utf-8") as f:
+        with open(locale_path, "r", encoding="utf-8") as f:
             self.strings = json.load(f)
 
     def get(self, key: str) -> str:

@@ -1,5 +1,9 @@
+from importlib import resources
+import json
 import tkinter as tk
+import re
 from typing import TYPE_CHECKING
+from pathlib import Path
 
 from src.ui.localized_widgets import (
     LocalizedLabel,
@@ -18,6 +22,22 @@ class ConnectionEntryFrame(tk.Frame):
         super().__init__(parent)
         self.parent = parent
         self.controller = controller
+        current_script_path = Path(__file__)
+        base_path = current_script_path.parents[2]
+
+        bigram_frequency_path = base_path / "data" / "program_bigrams.json"
+
+        # Before opening files
+        print(f"Attempting to open bigram_frequency.json at: {bigram_frequency_path}")
+
+        # Check if paths exist
+        if not bigram_frequency_path.exists():
+            print(f"bigram_frequency.json not found at {bigram_frequency_path}")
+
+        with open(bigram_frequency_path, "r") as f:
+            bigram_data = json.load(f)
+        
+        self.bigram_patterns = self.parse_bigram_data(bigram_data)
 
         # Define textvariables
         # Sources
@@ -265,14 +285,44 @@ class ConnectionEntryFrame(tk.Frame):
         self.controller.redo_connection_command()
 
     def increment(self, entry_widget: tk.Entry) -> None:
-        # Alter to auto detect numbers along with letters, and update the number
         current_value = entry_widget.get()
 
-        if current_value.isdigit():
-            incremented_value = str(int(current_value) + 1)
-            entry_widget.delete(0, tk.END)
-            entry_widget.insert(0, incremented_value)
+        # Check if the current value matches a known pattern
+        if current_value in self.bigram_patterns:
+            incremented_value = self.bigram_patterns[current_value]
         else:
-            self.parent.display_status(
-                f"Error: The value in the entry box ({current_value}) is not a number"
-            )
+            # If it doesn't match a pattern, perform a regular increment
+            incremented_value = self.increment_string_value(current_value)
+
+        entry_widget.delete(0, tk.END)
+        entry_widget.insert(0, incremented_value)
+
+    def parse_bigram_data(self, bigram_data: dict) -> dict:
+        """
+        Convert the bigram data from string format to a usable format. (e.g. tuples).
+        """
+        parsed_data = {}
+        for bigram, count in bigram_data.items():
+            source, destination = bigram.split("->")
+            parsed_data[(source, destination)] = count
+        return parsed_data
+
+    def increment_string_value(self, s: str) -> str:
+        # Check for range pattern (e.g., "2-9")
+        range_match = re.match(r"(\d+)-(\d+)", s)
+        if range_match:
+            start, end = map(int, range_match.groups())
+            increment = end - start
+            return f"{start + increment + 1}-{end + increment + 1}"
+
+        # If no range, increment numerically or alphanumerically
+        numbers = re.findall(r"\d+", s)
+        if numbers:
+            last_number = numbers[-1]
+            incremented_number = str(int(last_number) + 1)
+            incremented_string = s[::-1].replace(
+                last_number[::-1], incremented_number[::-1], 1
+            )[::-1]
+            return incremented_string
+        else:
+            return s  # Return the original string if no numbers are found
