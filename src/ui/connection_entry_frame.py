@@ -26,16 +26,22 @@ class ConnectionEntryFrame(tk.Frame):
         base_path = current_script_path.parents[2]
 
         bigram_frequency_path = base_path / "data" / "program_bigrams.json"
+        custom_bigram_frequency_path = base_path / "data" / "custom_bigrams.json"
 
         # Before opening files
         print(f"Attempting to open bigram_frequency.json at: {bigram_frequency_path}")
+        print(f"Attempting to open custom_bigram_frequency.json at: {custom_bigram_frequency_path}")
 
         # Check if paths exist
         if not bigram_frequency_path.exists():
             print(f"bigram_frequency.json not found at {bigram_frequency_path}")
+        if not custom_bigram_frequency_path.exists():
+            print(f"custom_bigram_frequency.json not found at {custom_bigram_frequency_path}")
 
         with open(bigram_frequency_path, "r") as f:
             bigram_data = json.load(f)
+        with open(custom_bigram_frequency_path, "r") as f:
+            self.custom_bigram_data = json.load(f)
         
         self.bigram_patterns = self.parse_bigram_data(bigram_data)
 
@@ -287,12 +293,29 @@ class ConnectionEntryFrame(tk.Frame):
     def increment(self, entry_widget: tk.Entry) -> None:
         current_value = entry_widget.get()
 
-        # Check if the current value matches a known pattern
-        if current_value in self.bigram_patterns:
+        # Check in custom bigrams first
+        if current_value in self.custom_bigram_patterns:
+            incremented_value = self.custom_bigram_patterns[current_value]
+        # Fallback to program bigrams
+        elif current_value in self.bigram_patterns:
             incremented_value = self.bigram_patterns[current_value]
         else:
-            # If it doesn't match a pattern, perform a regular increment
-            incremented_value = self.increment_string_value(current_value)
+            # Check for range pattern
+            range_match = re.match(r"(\d+)-(\d+)", current_value)
+            if range_match:
+                start, end = map(int, range_match.groups())
+                difference = end - start
+                incremented_value = f"{end + 1}-{end + 1 + difference}"
+            else:
+                # Increment integer in the string, if present
+                match = re.search(r'\d+', current_value)
+                if match:
+                    number = match.group()
+                    incremented_number = str(int(number) + 1)
+                    incremented_value = current_value.replace(number, incremented_number, 1)
+                else:
+                    # If no integer or range is found, do nothing
+                    incremented_value = current_value
 
         entry_widget.delete(0, tk.END)
         entry_widget.insert(0, incremented_value)
@@ -306,23 +329,3 @@ class ConnectionEntryFrame(tk.Frame):
             source, destination = bigram.split("->")
             parsed_data[source] = destination
         return parsed_data
-    
-    def increment_string_value(self, s: str) -> str:
-        # Check for bigram pattern (e.g., "1-8")
-        bigram_match = re.match(r"(\d+)-(\d+)", s)
-        if bigram_match:
-            start, end = map(int, bigram_match.groups())
-            return f"{start + 1}-{end + 1}"
-    
-        # If no bigram, increment numerically or alphanumerically
-        numbers = re.findall(r"\d+", s)
-        if numbers:
-            last_number = numbers[-1]
-            incremented_number = str(int(last_number) + 1)
-            incremented_string = s[::-1].replace(
-                last_number[::-1], incremented_number[::-1], 1
-            )[::-1]
-            return incremented_string
-        else:
-            return s  # Return the original string if no numbers are found
-    
